@@ -52,7 +52,7 @@ export default function AboutPage() {
         <motion.div
           className="absolute inset-0"
           animate={{ y: "0%" }}
-          transition={{ duration: 1.1, ease: [0.4, 0.0, 0.2, 1] }}
+          transition={{ duration: 1.2, ease: [0.4, 0.0, 0.3, 1] }}
           style={{ zIndex: 1 }}
         >
           <AboutHeroSection backgroundImage={heroImage} />
@@ -61,7 +61,7 @@ export default function AboutPage() {
           className="absolute inset-0"
           initial={{ y: "100%" }}
           animate={{ y: activeIndex >= 1 ? "0%" : "100%" }}
-          transition={{ duration: 1.1, ease: [0.4, 0.0, 0.2, 1] }}
+          transition={{ duration: 1.2, ease: [0.4, 0.0, 0.3, 1] }}
           style={{ zIndex: 2 }}
         >
           <AboutStatsSection />
@@ -70,7 +70,7 @@ export default function AboutPage() {
           className="absolute inset-0"
           initial={{ y: "100%" }}
           animate={{ y: activeIndex >= 2 ? "0%" : "100%" }}
-          transition={{ duration: 1.1, ease: [0.4, 0.0, 0.2, 1] }}
+          transition={{ duration: 1.2, ease: [0.4, 0.0, 0.3, 1] }}
           style={{ zIndex: 4 }}
         >
           <ContactSection backgroundImage={contactImage} />
