@@ -1,12 +1,29 @@
 "use client";
+
 import { motion } from "motion/react";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
-const ABOUT_IMG = "/aboutImg.png";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
-export function AboutStatsSection() {
+const ABOUT_IMG = "/aboutImg.png";
+
+type Part = "background" | "content";
+
+interface AboutStatsSectionProps {
+  contentY?: string;
+  backgroundY?: string;
+  transition?: { duration: number; ease: string };
+  part?: Part;
+}
+
+export function AboutStatsSection({
+  contentY = "0%",
+  backgroundY = "0%",
+  transition = { duration: 1.2, ease: "linear" },
+  part,
+}: AboutStatsSectionProps) {
   const [activeTab, setActiveTab] = useState(0);
+  const trans = transition as object;
 
   const tabs = [
     {
@@ -44,174 +61,352 @@ export function AboutStatsSection() {
     },
   ];
 
-  return (
-    <section className="relative bg-black py-20 md:py-32">
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left Column - Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            {/* Section Title */}
-            <h2
-              className="text-white mb-8"
-              style={{
-                fontSize: "clamp(2rem, 3.5vw, 3rem)",
-                fontWeight: 300,
-                letterSpacing: "-0.02em",
-                lineHeight: 1.2,
-              }}
-            >
-              The IMvision Difference
-            </h2>
+  if (part === "background") {
+    return (
+      <motion.div
+        className="absolute inset-0 bg-black"
+        animate={{ y: backgroundY }}
+        transition={trans}
+        style={{ willChange: "transform" }}
+      />
+    );
+  }
 
-            {/* Underline */}
-            <div className="w-16 h-[1px] bg-white/50 mb-12" />
-
-            {/* Main Stat */}
+  if (part === "content") {
+    return (
+      <div
+        className="relative w-full overflow-y-auto py-20 md:py-32"
+        style={{ height: "100vh", minHeight: "100vh" }}
+      >
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mb-8"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
             >
-              <div className="flex items-baseline gap-4 mb-4">
-                <h3
-                  className="text-white"
-                  style={{
-                    fontSize: "clamp(4rem, 8vw, 8rem)",
-                    fontWeight: 300,
-                    letterSpacing: "-0.02em",
-                    lineHeight: 0.9,
-                  }}
-                >
-                  {tabs[activeTab].stat}
-                </h3>
-                <span
-                  className="text-white/80"
-                  style={{
-                    fontSize: "clamp(1.125rem, 1.5vw, 1.5rem)",
-                    fontWeight: 300,
-                  }}
-                >
-                  {tabs[activeTab].label}
-                </span>
-              </div>
-
-              <p
-                className="text-white/70 max-w-xl mb-12"
+              <h2
+                className="text-white mb-8"
                 style={{
-                  fontSize: "clamp(0.95rem, 1.1vw, 1.125rem)",
+                  fontSize: "clamp(2rem, 3.5vw, 3rem)",
                   fontWeight: 300,
-                  lineHeight: 1.7,
+                  letterSpacing: "-0.02em",
+                  lineHeight: 1.2,
                 }}
               >
-                {tabs[activeTab].description}
-              </p>
-            </motion.div>
-
-            {/* Stats Grid */}
-            <motion.div
-              key={`stats-${activeTab}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="grid grid-cols-3 gap-8 mb-12"
-            >
-              {tabs[activeTab].stats.map((stat, index) => (
-                <div key={index}>
-                  <div className="flex items-baseline gap-1 mb-2">
-                    <span
-                      className="text-white"
-                      style={{
-                        fontSize: "clamp(1.75rem, 2.5vw, 2.5rem)",
-                        fontWeight: 300,
-                        letterSpacing: "-0.01em",
-                      }}
-                    >
-                      {stat.value}
-                    </span>
-                    {stat.unit && (
-                      <span
-                        className="text-white/60"
-                        style={{
-                          fontSize: "clamp(0.875rem, 1vw, 1rem)",
-                          fontWeight: 300,
-                        }}
-                      >
-                        {stat.unit}
-                      </span>
-                    )}
-                  </div>
-                  <p
-                    className="text-white/50"
+                The IMvision Difference
+              </h2>
+              <div className="w-16 h-px bg-white/50 mb-12" />
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="mb-8"
+              >
+                <div className="flex items-baseline gap-4 mb-4">
+                  <h3
+                    className="text-white"
                     style={{
-                      fontSize: "clamp(0.75rem, 0.85vw, 0.875rem)",
+                      fontSize: "clamp(4rem, 8vw, 8rem)",
                       fontWeight: 300,
-                      lineHeight: 1.4,
+                      letterSpacing: "-0.02em",
+                      lineHeight: 0.9,
                     }}
                   >
-                    {stat.label}
-                  </p>
+                    {tabs[activeTab].stat}
+                  </h3>
+                  <span
+                    className="text-white/80"
+                    style={{
+                      fontSize: "clamp(1.125rem, 1.5vw, 1.5rem)",
+                      fontWeight: 300,
+                    }}
+                  >
+                    {tabs[activeTab].label}
+                  </span>
                 </div>
-              ))}
-            </motion.div>
-
-            {/* Tab Indicators */}
-            <div className="flex items-center gap-3 mb-12">
-              {tabs.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveTab(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    activeTab === index ? "bg-white w-8" : "bg-white/30"
-                  }`}
-                  aria-label={`Switch to tab ${index + 1}`}
-                />
-              ))}
-            </div>
-
-            {/* CTA Button */}
-            <motion.a
-              href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300 group"
-              whileHover={{ x: 5 }}
-            >
-              <span
-                style={{
-                  fontSize: "clamp(0.875rem, 1vw, 1rem)",
-                  fontWeight: 300,
-                  letterSpacing: "0.02em",
-                }}
+                <p
+                  className="text-white/70 max-w-xl mb-12"
+                  style={{
+                    fontSize: "clamp(0.95rem, 1.1vw, 1.125rem)",
+                    fontWeight: 300,
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {tabs[activeTab].description}
+                </p>
+              </motion.div>
+              <motion.div
+                key={`stats-${activeTab}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="grid grid-cols-3 gap-8 mb-12"
               >
-                Talk to an LED Specialist
-              </span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </motion.a>
-          </motion.div>
-
-          {/* Right Column - Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="relative aspect-[4/3] overflow-hidden rounded-2xl"
-          >
-            <ImageWithFallback
-              src={ABOUT_IMG}
-              alt="LED Billboard on Busy City Street"
-              className="w-full h-full object-cover"
-            />
-            {/* Subtle overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-          </motion.div>
+                {tabs[activeTab].stats.map((stat, index) => (
+                  <div key={index}>
+                    <div className="flex items-baseline gap-1 mb-2">
+                      <span
+                        className="text-white"
+                        style={{
+                          fontSize: "clamp(1.75rem, 2.5vw, 2.5rem)",
+                          fontWeight: 300,
+                          letterSpacing: "-0.01em",
+                        }}
+                      >
+                        {stat.value}
+                      </span>
+                      {stat.unit && (
+                        <span
+                          className="text-white/60"
+                          style={{
+                            fontSize: "clamp(0.875rem, 1vw, 1rem)",
+                            fontWeight: 300,
+                          }}
+                        >
+                          {stat.unit}
+                        </span>
+                      )}
+                    </div>
+                    <p
+                      className="text-white/50"
+                      style={{
+                        fontSize: "clamp(0.75rem, 0.85vw, 0.875rem)",
+                        fontWeight: 300,
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+              </motion.div>
+              <div className="flex items-center gap-3 mb-12">
+                {tabs.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveTab(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      activeTab === index ? "bg-white w-8" : "bg-white/30"
+                    }`}
+                    aria-label={`Switch to tab ${index + 1}`}
+                  />
+                ))}
+              </div>
+              <motion.a
+                href="/contact"
+                className="inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300 group"
+                whileHover={{ x: 5 }}
+              >
+                <span
+                  style={{
+                    fontSize: "clamp(0.875rem, 1vw, 1rem)",
+                    fontWeight: 300,
+                    letterSpacing: "0.02em",
+                  }}
+                >
+                  Talk to an LED Specialist
+                </span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </motion.a>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="relative aspect-[4/3] overflow-hidden rounded-2xl"
+            >
+              <ImageWithFallback
+                src={ABOUT_IMG}
+                alt="LED Billboard on Busy City Street"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            </motion.div>
+          </div>
         </div>
       </div>
+    );
+  }
+
+  return (
+    <section
+      className="relative w-full overflow-hidden"
+      style={{ height: "100vh", minHeight: "100vh" }}
+    >
+      <motion.div
+        className="absolute inset-0 bg-black"
+        animate={{ y: backgroundY }}
+        transition={trans}
+        style={{ willChange: "transform" }}
+      />
+      <motion.div
+        className="absolute inset-0 z-10 overflow-y-auto py-20 md:py-32"
+        animate={{ y: contentY }}
+        transition={trans}
+        style={{ willChange: "transform" }}
+      >
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2
+                className="text-white mb-8"
+                style={{
+                  fontSize: "clamp(2rem, 3.5vw, 3rem)",
+                  fontWeight: 300,
+                  letterSpacing: "-0.02em",
+                  lineHeight: 1.2,
+                }}
+              >
+                The IMvision Difference
+              </h2>
+
+              <div className="w-16 h-px bg-white/50 mb-12" />
+
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="mb-8"
+              >
+                <div className="flex items-baseline gap-4 mb-4">
+                  <h3
+                    className="text-white"
+                    style={{
+                      fontSize: "clamp(4rem, 8vw, 8rem)",
+                      fontWeight: 300,
+                      letterSpacing: "-0.02em",
+                      lineHeight: 0.9,
+                    }}
+                  >
+                    {tabs[activeTab].stat}
+                  </h3>
+                  <span
+                    className="text-white/80"
+                    style={{
+                      fontSize: "clamp(1.125rem, 1.5vw, 1.5rem)",
+                      fontWeight: 300,
+                    }}
+                  >
+                    {tabs[activeTab].label}
+                  </span>
+                </div>
+
+                <p
+                  className="text-white/70 max-w-xl mb-12"
+                  style={{
+                    fontSize: "clamp(0.95rem, 1.1vw, 1.125rem)",
+                    fontWeight: 300,
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {tabs[activeTab].description}
+                </p>
+              </motion.div>
+
+              <motion.div
+                key={`stats-${activeTab}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="grid grid-cols-3 gap-8 mb-12"
+              >
+                {tabs[activeTab].stats.map((stat, index) => (
+                  <div key={index}>
+                    <div className="flex items-baseline gap-1 mb-2">
+                      <span
+                        className="text-white"
+                        style={{
+                          fontSize: "clamp(1.75rem, 2.5vw, 2.5rem)",
+                          fontWeight: 300,
+                          letterSpacing: "-0.01em",
+                        }}
+                      >
+                        {stat.value}
+                      </span>
+                      {stat.unit && (
+                        <span
+                          className="text-white/60"
+                          style={{
+                            fontSize: "clamp(0.875rem, 1vw, 1rem)",
+                            fontWeight: 300,
+                          }}
+                        >
+                          {stat.unit}
+                        </span>
+                      )}
+                    </div>
+                    <p
+                      className="text-white/50"
+                      style={{
+                        fontSize: "clamp(0.75rem, 0.85vw, 0.875rem)",
+                        fontWeight: 300,
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+              </motion.div>
+
+              <div className="flex items-center gap-3 mb-12">
+                {tabs.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveTab(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      activeTab === index ? "bg-white w-8" : "bg-white/30"
+                    }`}
+                    aria-label={`Switch to tab ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              <motion.a
+                href="/contact"
+                className="inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300 group"
+                whileHover={{ x: 5 }}
+              >
+                <span
+                  style={{
+                    fontSize: "clamp(0.875rem, 1vw, 1rem)",
+                    fontWeight: 300,
+                    letterSpacing: "0.02em",
+                  }}
+                >
+                  Talk to an LED Specialist
+                </span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </motion.a>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="relative aspect-[4/3] overflow-hidden rounded-2xl"
+            >
+              <ImageWithFallback
+                src={ABOUT_IMG}
+                alt="LED Billboard on Busy City Street"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            </motion.div>
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 }
