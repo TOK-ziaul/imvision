@@ -11,8 +11,8 @@ const TOTAL_SLIDES = 3; // Hero, Stats, Contact
 const BG_TRANSITION = { duration: 1.2, ease: [0.4, 0, 0.2, 1] };
 // Content scrolls when background is half scrolled
 const CONTENT_TRANSITION = {
-  duration: 0.6,
-  delay: 0.3,
+  duration: 0.7,
+  delay: 0.36,
   ease: [0.4, 0, 0.2, 1],
 };
 // Content carousel uses small height so change happens over short vertical distance (not full viewport)
@@ -82,7 +82,7 @@ export default function AboutPage() {
         <motion.div
           className="w-full"
           style={{ height: `${TOTAL_SLIDES * 100}vh` }}
-          animate={{ y: `-${activeIndex * 100}vh` }}
+          animate={{ y: `-${Math.round(activeIndex * 100)}vh` }}
           transition={BG_TRANSITION as object}
         >
           <div className="h-screen w-full relative">
@@ -119,7 +119,9 @@ export default function AboutPage() {
           <motion.div
             className="w-full"
             style={{ height: `${TOTAL_SLIDES * CONTENT_SLIDE_HEIGHT_VH}vh` }}
-            animate={{ y: `-${activeIndex * CONTENT_SLIDE_HEIGHT_VH}vh` }}
+            animate={{
+              y: `-${Math.round(activeIndex * CONTENT_SLIDE_HEIGHT_VH)}vh`,
+            }}
             transition={CONTENT_TRANSITION as object}
           >
             <div
