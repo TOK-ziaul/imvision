@@ -1,0 +1,5 @@
+# Ensure correct MIME types for module scripts (fixes octet-stream issue)
+/*.js
+  Content-Type: application/javascript; charset=utf-8
+/*.mjs
+  Content-Type: application/javascript; charset=utf-8
