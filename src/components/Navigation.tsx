@@ -16,7 +16,7 @@ const navItems = [
   { label: "nav.support", path: "/support" },
 ];
 
-export function Navigation() {
+export function Navigation({ isRelative }: { isRelative?: boolean }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { language, toggleLanguage } = useLanguage();
@@ -43,7 +43,7 @@ export function Navigation() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`${isRelative ? "relative" : "fixed"} top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
             ? "bg-black/95 backdrop-blur-md py-2"
             : "bg-black/80 backdrop-blur-sm py-3"

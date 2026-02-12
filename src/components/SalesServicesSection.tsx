@@ -124,22 +124,22 @@ function ServiceSection({
   const isEven = index % 2 === 0;
 
   return (
-    <div ref={containerRef} className="relative py-8 lg:py-12">
-      <div className="container mx-auto px-6 lg:px-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
+    <div ref={containerRef} className="relative w-full">
+      <div className="container mx-auto px-6 lg:px-24 h-full overflow-hidden">
+        <div className="flex flex-col md:flex-row gap-6 lg:gap-12 items-center">
           {/* Image Side */}
           <motion.div
             initial={{ opacity: 0, x: isEven ? -60 : 60 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
-            className={`lg:col-span-6 relative ${isEven ? "lg:order-1" : "lg:order-2"}`}
+            className={`lg:w-1/2 relative ${isEven ? "lg:order-1" : "lg:order-2"}`}
           >
-            <div className="relative aspect-[3/2] overflow-hidden">
+            <div className="relative  overflow-hidden max-h-[140px] md:max-h-[320px]">
               <motion.img
                 src={service.image}
                 alt={service.title}
-                className="w-full h-full object-cover"
+                className="w-full h-auto object-cover "
                 whileInView={{ scale: 1 }}
                 initial={{ scale: 1.15 }}
                 transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
@@ -175,7 +175,7 @@ function ServiceSection({
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
-            className={`lg:col-span-6 ${isEven ? "lg:order-2" : "lg:order-1"}`}
+            className={`lg:w-1/2 h-full ${isEven ? "lg:order-2" : "lg:order-1"}`}
           >
             {/* Title */}
             <motion.h3
@@ -276,54 +276,73 @@ function ServiceSection({
   );
 }
 
-export function SalesServicesSection() {
+export const SalesServicesSection1 = () => {
   return (
-    <div className="relative bg-black">
-      {/* Green border */}
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#2BCC07]" />
-
-      {/* Section Header */}
-      <div className="container mx-auto px-6 lg:px-24 pt-20 lg:pt-28 pb-12 lg:pb-20">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="max-w-4xl"
-        >
-          <div className="flex items-center gap-6 mb-6">
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="w-20 h-[2px] origin-left bg-[#2BCC07]"
-            />
-            <p
-              className="tracking-[0.3em] uppercase text-[#2BCC07]"
-              style={{ fontSize: "0.875rem", fontWeight: 400 }}
-            >
-              Our Services
-            </p>
-          </div>
-          <h2
-            className="text-white"
-            style={{
-              fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
-              fontWeight: 300,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.1,
-            }}
-          >
-            Comprehensive LED Solutions
-          </h2>
-        </motion.div>
-      </div>
-
-      {/* Services */}
-      {services.map((service, index) => (
+    <div className=" h-full flex flex-col items-center justify-center md:gap-10 gap-6">
+      {services.slice(0, 2).map((service, index) => (
         <ServiceSection key={service.id} service={service} index={index} />
       ))}
     </div>
   );
-}
+};
+
+export const SalesServicesSection2 = () => {
+  return (
+    <div className=" max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
+      {services.slice(2, 4).map((service, index) => (
+        <ServiceSection key={service.id} service={service} index={index} />
+      ))}
+    </div>
+  );
+};
+export const SalesServicesSection3 = () => {
+  return (
+    <div className=" max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
+      {services.slice(4, 6).map((service, index) => (
+        <ServiceSection key={service.id} service={service} index={index} />
+      ))}
+    </div>
+  );
+};
+
+export const SalesServicesHeader = () => {
+  return (
+    <div className="container mx-auto px-6 lg:px-24 pt-20 lg:pt-28 pb-12 lg:pb-20">
+      {/* Section Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="max-w-4xl"
+      >
+        <div className="flex items-center gap-6 mb-6">
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="w-20 h-[2px] origin-left bg-[#2BCC07]"
+          />
+          <p
+            className="tracking-[0.3em] uppercase text-[#2BCC07]"
+            style={{ fontSize: "0.875rem", fontWeight: 400 }}
+          >
+            Our Services
+          </p>
+        </div>
+        <h2
+          className="text-white"
+          style={{
+            fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
+            fontWeight: 300,
+            letterSpacing: "-0.02em",
+            lineHeight: 1.1,
+          }}
+        >
+          Comprehensive LED Solutions
+        </h2>
+      </motion.div>
+    </div>
+  );
+};

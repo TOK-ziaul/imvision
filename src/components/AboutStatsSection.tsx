@@ -78,8 +78,8 @@ export function AboutStatsSection({
         className="relative w-full overflow-y-auto py-20 md:py-32"
         style={{ height: "100vh", minHeight: "100vh" }}
       >
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="container mx-auto px-6 lg:px-12 h-full ">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center h-full ">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}

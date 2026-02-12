@@ -6,6 +6,7 @@ import { AboutHeroSection } from "@/components/AboutHeroSection";
 import { AboutStatsSection } from "@/components/AboutStatsSection";
 import Image from "next/image";
 import { ContactSection } from "@/components/ContactSection";
+import { Navigation } from "@/components/Navigation";
 
 const TOTAL_SLIDES = 3; // Hero, Stats, Contact
 const BG_TRANSITION = { duration: 1.2, ease: [0.4, 0, 0.2, 1] };
@@ -77,6 +78,8 @@ export default function AboutPage() {
       ref={containerRef}
       className="relative h-screen w-full overflow-hidden bg-black"
     >
+      <Navigation />
+
       {/* Slider 1: Background strip – Hero, Stats, Contact */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
