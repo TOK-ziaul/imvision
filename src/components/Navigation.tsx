@@ -2,8 +2,10 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Globe } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations } from "@/translations/translations";
+import Image from "next/image";
 const logoImg = "/logo.png";
 
 const navItems = [
@@ -20,6 +22,8 @@ export function Navigation({ isRelative }: { isRelative?: boolean }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { language, toggleLanguage } = useLanguage();
+
+  const currentPath = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,10 +56,14 @@ export function Navigation({ isRelative }: { isRelative?: boolean }) {
         <div className="container mx-auto px-6 lg:px-12 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img
+            <Image
+              width={100}
+              height={100}
+              sizes="100vw"
               src={logoImg}
               alt="IMvision Logo"
               className="h-8 lg:h-9 w-auto object-contain"
+              priority
             />
           </Link>
 
@@ -65,7 +73,7 @@ export function Navigation({ isRelative }: { isRelative?: boolean }) {
               <Link
                 key={index}
                 href={item.path}
-                className="text-white/80 hover:text-[#2BCC07] transition-colors duration-300 relative group"
+                className={` hover:text-[#2BCC07] transition-colors duration-300 relative group ${currentPath === item.path ? "text-[#2BCC07]" : "text-white/80"}`}
                 style={{
                   fontSize: "0.9rem",
                   fontWeight: 400,
@@ -114,7 +122,7 @@ export function Navigation({ isRelative }: { isRelative?: boolean }) {
             <Link
               key={index}
               href={item.path}
-              className="text-white hover:text-[#2BCC07] transition-colors duration-300"
+              className={`hover:text-[#2BCC07] transition-colors duration-300 ${currentPath === item.path ? "text-[#2BCC07]" : "text-white/80"}`}
               style={{
                 fontSize: "1.5rem",
                 fontWeight: 300,
