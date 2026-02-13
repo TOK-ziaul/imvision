@@ -163,7 +163,7 @@ export function SalesUseCasesSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={sectionRef} className="relative ">
+    <div ref={sectionRef} className="relative h-full overflow-hidden">
       {/* Green border */}
 
       <div className="container mx-auto px-6 lg:px-24 ">

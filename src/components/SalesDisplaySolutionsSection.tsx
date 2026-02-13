@@ -1,5 +1,5 @@
 "use client";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion } from "motion/react";
 import { useRef } from "react";
 import { MoveRight } from "lucide-react";
 
@@ -7,18 +7,18 @@ export function SalesDisplaySolutionsSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   // const scrollSectionRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
+  // const { scrollYProgress } = useScroll({
+  //   target: sectionRef,
+  //   offset: ["start end", "end start"],
+  // });
 
   // const { scrollYProgress: scrollProgress } = useScroll({
   //   target: scrollSectionRef,
   //   offset: ["start end", "end start"],
   // });
 
-  const titleY = useTransform(scrollYProgress, [0, 0.5], [200, -200]);
-  const descY = useTransform(scrollYProgress, [0, 0.5], [-100, 100]);
+  // const titleY = useTransform(scrollYProgress, [0, 0.5], [200, -200]);
+  // const descY = useTransform(scrollYProgress, [0, 0.5], [-100, 100]);
 
   // Scroll-driven horizontal movement
   // const x = useTransform(scrollProgress, [0, 1], [0, -2000]);
