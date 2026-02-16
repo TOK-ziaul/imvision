@@ -1,9 +1,10 @@
 "use client";
-import { motion, AnimatePresence } from "motion/react";
-import { useState } from "react";
-import { ArrowRight } from "lucide-react";
 
-interface Service {
+import { motion } from "motion/react";
+import { useRef } from "react";
+import { ArrowUpRight } from "lucide-react";
+
+export interface Service {
   id: number;
   number: string;
   title: string;
@@ -12,7 +13,7 @@ interface Service {
   image: string;
 }
 
-const services: Service[] = [
+export const services: Service[] = [
   {
     id: 1,
     number: "01",
@@ -56,7 +57,7 @@ const services: Service[] = [
       "24/7 reliability assurance",
     ],
     image:
-      "https://images.unsplash.com/photo-1728917330520-9456e3f49529?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZW1vdGUlMjBtb25pdG9yaW5nJTIwY29udHJvbCUyMHJvb20lMjB0ZWNobm9sb2d5fGVufDF8fHx8MTc3MDYzMTAwMXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "https://images.unsplash.com/photo-1728917330520-9456e3f49529?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZW1vdGUlMjBtb25pdG9yaW5nJTIwY29udHJvbCUyMHJvb20lMjB0ZWNobm9sb2d5fGVufDF8fHwxNzcwNjMxMDAxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
   },
   {
     id: 4,
@@ -71,7 +72,7 @@ const services: Service[] = [
       "Compatible with existing installations",
     ],
     image:
-      "https://images.unsplash.com/photo-1768483538267-fce52de424d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2Z0d2FyZSUyMG1hbmFnZW1lbnQlMjBkYXNoYm9hcmQlMjB0ZWNobm9sb2d5fGVufDF8fHx8MTc3MDYzMTAwMXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "https://images.unsplash.com/photo-1768483538267-fce52de424d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2Z0d2FyZSUyMG1hbmFnZW1lbnQlMjBkYXNoYm9hcmQlMjB0ZWNobm9sb2d5fGVufDF8fHwxNzcwNjMxMDAxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
   },
   {
     id: 5,
@@ -90,157 +91,220 @@ const services: Service[] = [
   },
 ];
 
-function ServiceAccordionItem({ service }: { service: Service }) {
-  const [isOpen, setIsOpen] = useState(false);
+function ServiceSectionItem({
+  service,
+  index,
+}: {
+  service: Service;
+  index: number;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isEven = index % 2 === 0;
 
   return (
-    <div className="border-b border-white/10">
-      {/* Header - Always Visible */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="cursor-pointer w-full py-8 px-6 lg:px-12 flex items-center justify-between group hover:bg-white/5 transition-colors duration-300"
+    <div ref={containerRef} className="relative w-full">
+      <div className="container mx-auto px-6 lg:px-24 h-full overflow-hidden">
+        <div className="flex flex-col md:flex-row gap-6 lg:gap-12 items-center">
+          {/* Image Side */}
+          <motion.div
+            initial={{ opacity: 0, x: isEven ? -60 : 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true }}
+            className={`lg:w-1/2 relative ${isEven ? "lg:order-1" : "lg:order-2"}`}
+          >
+            <div className="relative overflow-hidden max-h-[140px] md:max-h-[320px]">
+              <motion.img
+                src={service.image}
+                alt={service.title}
+                className="w-full h-auto object-cover"
+                whileInView={{ scale: 1 }}
+                initial={{ scale: 1.15 }}
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                viewport={{ once: true }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/40" />
+              <div className="absolute top-6 right-6">
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  viewport={{ once: true }}
+                  className="text-[#2BCC07]"
+                  style={{
+                    fontSize: "clamp(3rem, 6vw, 5rem)",
+                    fontWeight: 200,
+                    lineHeight: 1,
+                    textShadow: "0 2px 20px rgba(43, 204, 7, 0.3)",
+                    opacity: 0.4,
+                  }}
+                >
+                  {service.number}
+                </motion.p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Content Side */}
+          <motion.div
+            initial={{ opacity: 0, x: isEven ? 60 : -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true }}
+            className={`lg:w-1/2 h-full ${isEven ? "lg:order-2" : "lg:order-1"}`}
+          >
+            <motion.h3
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-white mb-4"
+              style={{
+                fontSize: "clamp(1.75rem, 2.5vw, 2.5rem)",
+                fontWeight: 400,
+                letterSpacing: "-0.01em",
+                lineHeight: 1.2,
+              }}
+            >
+              {service.title}
+            </motion.h3>
+
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="text-white/70 mb-6 lg:hidden"
+              style={{
+                fontSize: "clamp(0.9375rem, 1vw, 1rem)",
+                fontWeight: 300,
+                lineHeight: 1.6,
+              }}
+            >
+              {service.description.slice(0, 350)}...
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="text-white/70 mb-6 hidden lg:block"
+              style={{
+                fontSize: "clamp(0.9375rem, 1vw, 1rem)",
+                fontWeight: 300,
+                lineHeight: 1.6,
+              }}
+            >
+              {service.description.slice(0, 700)}
+            </motion.p>
+
+            <motion.a
+              href="/contact"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              viewport={{ once: true }}
+              whileHover={{ x: 3 }}
+              className="inline-flex items-center gap-2 group"
+            >
+              <span
+                className="text-white/80 group-hover:text-[#2BCC07] transition-colors duration-300"
+                style={{
+                  fontSize: "0.8125rem",
+                  fontWeight: 400,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Request Service
+              </span>
+              <div className="w-6 h-6 border border-[#2BCC07] flex items-center justify-center group-hover:bg-[#2BCC07] transition-all duration-300">
+                <ArrowUpRight className="w-3 h-3 text-[#2BCC07] group-hover:text-black transition-colors duration-300" />
+              </div>
+            </motion.a>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function ServicesSectionHeader() {
+  return (
+    <div className="container mx-auto px-6 lg:px-24 pt-20 lg:pt-28 pb-12 lg:pb-20">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="max-w-4xl"
       >
-        <h3
-          className="text-white text-left"
+        <div className="flex items-center gap-6 mb-6">
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="w-20 h-[2px] origin-left bg-[#2BCC07]"
+          />
+          <p
+            className="tracking-[0.3em] uppercase text-[#2BCC07]"
+            style={{ fontSize: "0.875rem", fontWeight: 400 }}
+          >
+            Our Services
+          </p>
+        </div>
+        <h2
+          className="text-white"
           style={{
-            fontSize: "clamp(2rem, 4vw, 4rem)",
+            fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
             fontWeight: 300,
             letterSpacing: "-0.02em",
             lineHeight: 1.1,
           }}
         >
-          {service.title}
-        </h3>
-
-        <motion.div
-          animate={{ rotate: isOpen ? 90 : 0 }}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="ml-6 flex-shrink-0"
-        >
-          <ArrowRight className="w-12 h-12 text-[#2BCC07]" strokeWidth={1} />
-        </motion.div>
-      </button>
-
-      {/* Expandable Content */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
-          >
-            <div className="px-6 lg:px-12 pb-12">
-              <div className="grid lg:grid-cols-2 gap-12 items-start">
-                {/* Left: Description & CTA */}
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                  <p
-                    className="text-white/70 mb-8"
-                    style={{
-                      fontSize: "clamp(1rem, 1.1vw, 1.125rem)",
-                      fontWeight: 300,
-                      lineHeight: 1.7,
-                    }}
-                  >
-                    {service.description}
-                  </p>
-
-                  <motion.a
-                    href="/contact"
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.3 }}
-                    className="inline-flex items-center gap-3 text-[#2BCC07] group cursor-pointer"
-                  >
-                    <span
-                      style={{
-                        fontSize: "0.875rem",
-                        fontWeight: 400,
-                        letterSpacing: "0.1em",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      Request Service
-                    </span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                  </motion.a>
-                </motion.div>
-
-                {/* Right: Image */}
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="relative aspect-[4/3] overflow-hidden"
-                >
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-6 left-6 bg-[#2BCC07] text-black px-4 py-1.5 font-light tracking-[0.2em] text-sm">
-                    {service.number}
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          From design to deployment, we deliver complete LED solutions with
+          expert support at every stage.
+        </h2>
+      </motion.div>
     </div>
   );
 }
 
-export function ServicesSection() {
+export function ServicesSection1() {
   return (
-    <div className="relative bg-black">
-      {/* Section Header */}
-      <div className="container mx-auto px-6 lg:px-24 pt-32 pb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="max-w-4xl"
-        >
-          <h2
-            className="text-white mb-6"
-            style={{
-              fontSize: "clamp(3rem, 6vw, 6rem)",
-              fontWeight: 300,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.05,
-            }}
-          >
-            Our Services
-          </h2>
-          <p
-            className="text-white/60"
-            style={{
-              fontSize: "clamp(1.125rem, 1.3vw, 1.5rem)",
-              fontWeight: 300,
-              lineHeight: 1.6,
-            }}
-          >
-            From design to deployment, we deliver complete LED solutions with
-            expert support at every stage.
-          </p>
-        </motion.div>
-      </div>
+    <div className="h-full flex flex-col items-center justify-center md:gap-10 gap-6">
+      {services.slice(0, 2).map((service, index) => (
+        <ServiceSectionItem key={service.id} service={service} index={index} />
+      ))}
+    </div>
+  );
+}
 
-      {/* Accordion Services */}
-      <div className="container mx-auto">
-        {services.map((service) => (
-          <ServiceAccordionItem key={service.id} service={service} />
-        ))}
-      </div>
+export function ServicesSection2() {
+  return (
+    <div className="max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
+      {services.slice(2, 4).map((service, index) => (
+        <ServiceSectionItem
+          key={service.id}
+          service={service}
+          index={index + 2}
+        />
+      ))}
+    </div>
+  );
+}
 
-      {/* Bottom Spacing */}
-      <div className="h-32" />
+export function ServicesSection3() {
+  return (
+    <div className="max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
+      {services.slice(4, 5).map((service, index) => (
+        <ServiceSectionItem
+          key={service.id}
+          service={service}
+          index={index + 4}
+        />
+      ))}
     </div>
   );
 }
