@@ -85,7 +85,7 @@ export function ContactFormSection() {
   return (
     <div className="relative bg-black py-24 lg:py-32">
       {/* Green border */}
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#2BCC07]" />
+      {/* <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#2BCC07]" /> */}
 
       <div className="container mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">

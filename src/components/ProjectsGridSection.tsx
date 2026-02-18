@@ -130,13 +130,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </div>
         </div>
 
-        <motion.div
+        {/* <motion.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           transition={{ duration: 0.8, delay: index * 0.1 + 0.3 }}
           viewport={{ once: true }}
           className="absolute bottom-0 left-0 h-[2px] w-full bg-[#2BCC07] origin-left"
-        />
+        /> */}
       </Link>
     </motion.div>
   );
@@ -144,13 +144,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export function ProjectsSectionHeader() {
   return (
-    <div className="container mx-auto px-6 lg:px-12">
+    <div className="container mx-auto px-6 lg:px-12 ">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="mb-16"
+        className="mt-20 lg:mt-0"
       >
         <div className="flex items-center gap-8 mb-6">
           <motion.div
@@ -199,7 +199,7 @@ export function ProjectsSectionHeader() {
 export function ProjectsSection1() {
   return (
     <div className="container mx-auto px-6 lg:px-12 h-full flex items-center justify-center ">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
         {projects.slice(0, 2).map((project, index) => (
           <ProjectCard key={project.id} project={project} index={index} />
         ))}
@@ -211,7 +211,7 @@ export function ProjectsSection1() {
 export function ProjectsSection2() {
   return (
     <div className="container mx-auto px-6 lg:px-12 h-full flex items-center justify-center ">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-20 lg:mb-0">
         {projects.slice(2, 4).map((project, index) => (
           <ProjectCard key={project.id} project={project} index={index + 2} />
         ))}

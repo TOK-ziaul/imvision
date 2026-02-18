@@ -40,7 +40,7 @@ export function AboutHeroSection({
 
   if (part === "content") {
     return (
-      <div className="relative w-full h-full min-h-[100vh] flex flex-col items-center justify-center px-6 md:px-12 lg:px-20">
+      <div className="relative w-full h-full min-h-svh flex flex-col items-center justify-center px-6 md:px-12 lg:px-20">
         {/* <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#2BCC07] z-20" /> */}
         <div className="max-w-6xl mx-auto text-center">
           <div className="mb-8 overflow-hidden">

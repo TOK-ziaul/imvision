@@ -62,7 +62,7 @@ export function RentalHeroSection({
 
   if (part === "content") {
     return (
-      <div className="relative w-full h-full flex items-center justify-center">
+      <div className="relative w-full  h-full min-h-svh flex items-center justify-center">
         {heroContent}
         {scrollIndicator}
       </div>

@@ -39,7 +39,7 @@ export function SalesDisplaySolutionsSection() {
   // };
 
   return (
-    <div ref={sectionRef} className="relative overflow-hidden">
+    <div ref={sectionRef} className="relative overflow-hidden mb-20 lg:mb-0">
       {/* Split Title Section with Parallax */}
       <div className="relative flex items-center justify-center ">
         <div className="container mx-auto px-6 lg:px-24">

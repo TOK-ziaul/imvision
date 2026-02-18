@@ -4,7 +4,7 @@ import { ContactFormSection } from "@/components/ContactFormSection";
 import { ContactLocationsSection } from "@/components/ContactLocationsSection";
 import { SupportTeamSection } from "@/components/SupportTeamSection";
 import { Footer } from "@/components/Footer";
-import { AnimatedBackground } from "@/components/AnimatedBackground";
+// import { AnimatedBackground } from "@/components/AnimatedBackground";
 
 export default function ContactPage() {
   const heroImage =
@@ -12,7 +12,7 @@ export default function ContactPage() {
 
   return (
     <div className="w-full" style={{ position: "relative" }}>
-      <AnimatedBackground />
+      {/* <AnimatedBackground /> */}
       <Navigation />
       <ContactHeroSection backgroundImage={heroImage} />
       <ContactFormSection />

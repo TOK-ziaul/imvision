@@ -141,9 +141,9 @@ function RentalSectionItem({
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
-            className={`lg:w-1/2 relative ${isEven ? "lg:order-1" : "lg:order-2"}`}
+            className={`md:w-1/2 relative ${isEven ? "md:order-1" : "md:order-2"} `}
           >
-            <div className="relative overflow-hidden max-h-[140px] md:max-h-[320px]">
+            <div className="relative overflow-hidden max-h-auto md:max-h-[320px]">
               <motion.img
                 src={rental.image}
                 alt={rental.title}
@@ -181,7 +181,7 @@ function RentalSectionItem({
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
-            className={`lg:w-1/2 h-full ${isEven ? "lg:order-2" : "lg:order-1"}`}
+            className={`md:w-1/2 h-full ${isEven ? "md:order-2" : "md:order-1"}`}
           >
             <motion.h3
               initial={{ opacity: 0, y: 15 }}
@@ -332,7 +332,7 @@ export function RentalSection1() {
 
 export function RentalSection2() {
   return (
-    <div className="max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
+    <div className="lg:max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
       {rentals.slice(2, 4).map((rental, index) => (
         <RentalSectionItem key={rental.id} rental={rental} index={index + 2} />
       ))}
@@ -342,7 +342,7 @@ export function RentalSection2() {
 
 export function RentalSection3() {
   return (
-    <div className="max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
+    <div className="lg:max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
       {rentals.slice(4, 6).map((rental, index) => (
         <RentalSectionItem key={rental.id} rental={rental} index={index + 4} />
       ))}
@@ -352,7 +352,7 @@ export function RentalSection3() {
 
 export function RentalSection4() {
   return (
-    <div className="max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
+    <div className="lg:max-h-[90vh] h-full flex flex-col items-center justify-center gap-10 mb-20 lg:mb-0">
       {rentals.slice(6, 7).map((rental, index) => (
         <RentalSectionItem key={rental.id} rental={rental} index={index + 6} />
       ))}

@@ -111,9 +111,9 @@ function ServiceSectionItem({
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
-            className={`lg:w-1/2 relative ${isEven ? "lg:order-1" : "lg:order-2"}`}
+            className={`md:w-1/2 relative ${isEven ? "md:order-1" : "md:order-2"}`}
           >
-            <div className="relative overflow-hidden max-h-[140px] md:max-h-[320px]">
+            <div className="relative overflow-hidden max-h-[140px] md:max-h-[200px] lg:max-h-[320px]">
               <motion.img
                 src={service.image}
                 alt={service.title}
@@ -151,7 +151,7 @@ function ServiceSectionItem({
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
-            className={`lg:w-1/2 h-full ${isEven ? "lg:order-2" : "lg:order-1"}`}
+            className={`md:w-1/2 h-full ${isEven ? "md:order-2" : "md:order-1"}`}
           >
             <motion.h3
               initial={{ opacity: 0, y: 15 }}
@@ -174,7 +174,7 @@ function ServiceSectionItem({
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
-              className="text-white/70 mb-6 lg:hidden"
+              className="text-white/70 mb-6 xl:hidden"
               style={{
                 fontSize: "clamp(0.9375rem, 1vw, 1rem)",
                 fontWeight: 300,
@@ -188,7 +188,7 @@ function ServiceSectionItem({
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
-              className="text-white/70 mb-6 hidden lg:block"
+              className="text-white/70 mb-6 hidden xl:block"
               style={{
                 fontSize: "clamp(0.9375rem, 1vw, 1rem)",
                 fontWeight: 300,
@@ -283,7 +283,7 @@ export function ServicesSection1() {
 
 export function ServicesSection2() {
   return (
-    <div className="max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
+    <div className=" lg:max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
       {services.slice(2, 4).map((service, index) => (
         <ServiceSectionItem
           key={service.id}
@@ -297,7 +297,7 @@ export function ServicesSection2() {
 
 export function ServicesSection3() {
   return (
-    <div className="max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
+    <div className="lg:max-h-[90vh] h-full flex flex-col items-center justify-center gap-10 mb-20 lg:mb-0">
       {services.slice(4, 5).map((service, index) => (
         <ServiceSectionItem
           key={service.id}

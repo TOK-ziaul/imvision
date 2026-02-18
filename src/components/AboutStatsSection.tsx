@@ -75,8 +75,7 @@ export function AboutStatsSection({
   if (part === "content") {
     return (
       <div
-        className="relative w-full overflow-y-auto py-20 md:py-32"
-        style={{ height: "100vh", minHeight: "100vh" }}
+        className="relative w-full  py-20 lg:py-32"
       >
         <div className="container mx-auto px-6 lg:px-12 h-full ">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center h-full ">

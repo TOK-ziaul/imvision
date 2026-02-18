@@ -19,7 +19,7 @@ const CONTACT_IMAGE =
 
 const RentalIntroContent = () => (
   <div className="relative w-full">
-    <div className="container mx-auto px-6 lg:px-24 py-24 lg:py-32">
+    <div className="container mx-auto px-6 lg:px-24 pt-24 lg:py-32">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

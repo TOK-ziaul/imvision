@@ -11,67 +11,67 @@ interface ServiceHeroSectionProps {
 
 const heroContent = (
   <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 md:px-12 lg:px-20">
-        <div className="max-w-5xl mx-auto text-center">
-          {/* Subtitle with line */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex items-center justify-center gap-4 mb-6"
-          >
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 1, delay: 0.4 }}
-              className="w-16 h-[2px] origin-left"
-              style={{ backgroundColor: '#2BCC07' }}
-            />
-            <p
-              className="tracking-[0.3em] uppercase"
-              style={{ fontSize: '0.875rem', color: '#2BCC07' }}
-          >
-            Excellence in Every Detail
-          </p>
-    <motion.div
-      initial={{ scaleX: 0 }}
-      animate={{ scaleX: 1 }}
-      transition={{ duration: 1, delay: 0.4 }}
-      className="w-16 h-[2px] origin-right"
-      style={{ backgroundColor: "#2BCC07" }}
-    />
-  </motion.div>
+    <div className="max-w-5xl mx-auto text-center">
+      {/* Subtitle with line */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="flex items-center justify-center gap-4 mb-6"
+      >
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="w-16 h-[2px] origin-left"
+          style={{ backgroundColor: "#2BCC07" }}
+        />
+        <p
+          className="tracking-[0.3em] uppercase"
+          style={{ fontSize: "0.875rem", color: "#2BCC07" }}
+        >
+          Excellence in Every Detail
+        </p>
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="w-16 h-[2px] origin-right"
+          style={{ backgroundColor: "#2BCC07" }}
+        />
+      </motion.div>
 
-  <motion.h1
-    initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, delay: 0.4 }}
-    className="text-white mb-8"
-    style={{
-      fontSize: "clamp(3rem, 8vw, 7rem)",
-      fontWeight: 300,
-      letterSpacing: "-0.02em",
-      lineHeight: 1.1,
-    }}
-  >
-    Service & Support
-  </motion.h1>
+      <motion.h1
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="text-white mb-8"
+        style={{
+          fontSize: "clamp(3rem, 8vw, 7rem)",
+          fontWeight: 300,
+          letterSpacing: "-0.02em",
+          lineHeight: 1.1,
+        }}
+      >
+        Service & Support
+      </motion.h1>
 
-  <motion.p
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, delay: 0.6 }}
-    className="text-white/80 mb-12 max-w-3xl mx-auto"
-    style={{
-      fontSize: "clamp(1rem, 2vw, 1.25rem)",
-      fontWeight: 300,
-      lineHeight: 1.6,
-    }}
-  >
-    From initial concept to long-term maintenance, our comprehensive service
-    portfolio ensures your LED display performs at its peak throughout its
-    entire lifecycle.
-  </motion.p>
-        </div>
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+        className="text-white/80 mb-12 max-w-3xl mx-auto"
+        style={{
+          fontSize: "clamp(1rem, 2vw, 1.25rem)",
+          fontWeight: 300,
+          lineHeight: 1.6,
+        }}
+      >
+        From initial concept to long-term maintenance, our comprehensive service
+        portfolio ensures your LED display performs at its peak throughout its
+        entire lifecycle.
+      </motion.p>
+    </div>
   </div>
 );
 
@@ -111,10 +111,11 @@ export function ServiceHeroSection({
 
   if (part === "content") {
     return (
-      <div ref={containerRef} className="relative w-full h-full">
-        <div className="max-w-5xl mx-auto text-center h-full flex flex-col items-center justify-center">
-          {heroContent}
-        </div>
+      <div
+        ref={containerRef}
+        className="relative w-full h-full min-h-svh flex items-center justify-center"
+      >
+        {heroContent}
         {scrollIndicator}
       </div>
     );
@@ -137,10 +138,11 @@ export function ServiceHeroSection({
         />
         <div className="absolute inset-0 bg-black/70" />
       </motion.div>
-      <motion.div style={{ opacity }} className="relative z-10 h-full flex flex-col items-center justify-center">
-        <div className="max-w-5xl mx-auto text-center">
-          {heroContent}
-        </div>
+      <motion.div
+        style={{ opacity }}
+        className="relative z-10 h-full flex flex-col items-center justify-center"
+      >
+        <div className="max-w-5xl mx-auto text-center">{heroContent}</div>
       </motion.div>
       {scrollIndicator}
     </div>

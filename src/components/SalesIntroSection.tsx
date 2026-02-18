@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 
 export function SalesIntroSection() {
   return (
-    <div className="container mx-auto px-6 lg:px-24">
+    <div className="container mx-auto px-6 lg:px-24 mt-20 lg:mt-0">
       {/* Main Statement */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}

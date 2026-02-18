@@ -1,8 +1,8 @@
 "use client";
 
 /**
- * Full-page slider with wheel + touch navigation.
- * Based on the rental page pattern: one viewport per slide, background strip + content carousel.
+ * Full-page slider with wheel + touch navigation on desktop.
+ * On small screens: normal scrollable stack of sections (no animation).
  */
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -10,6 +10,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { Navigation } from "@/components/Navigation";
 
+const MOBILE_BREAKPOINT = 800;
 const BG_TRANSITION = { duration: 1.2, ease: [0.4, 0, 0.2, 1] };
 const CONTENT_TRANSITION = {
   duration: 0.7,
@@ -45,23 +46,82 @@ export interface FullPageSliderProps {
   topSlot?: ReactNode;
 }
 
+function useIsMobile(breakpoint: number = MOBILE_BREAKPOINT) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
+    const set = () => setIsMobile(mq.matches);
+    set();
+    mq.addEventListener("change", set);
+    return () => mq.removeEventListener("change", set);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
+function SlideBackgroundLayer({
+  background,
+  heroImage,
+  contactImage,
+  className,
+}: {
+  background: SlideBackground;
+  heroImage: string;
+  contactImage: string;
+  className?: string;
+}) {
+  return (
+    <div className={`absolute inset-0 ${className ?? ""}`}>
+      {background === "hero" && (
+        <>
+          <Image
+            width={100}
+            height={100}
+            sizes="100vw"
+            src={heroImage}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+        </>
+      )}
+      {background === "black" && <div className="w-full h-full bg-black" />}
+      {background === "contact" && (
+        <>
+          <Image
+            width={100}
+            height={100}
+            sizes="100vw"
+            src={contactImage}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/80" />
+        </>
+      )}
+    </div>
+  );
+}
+
 export function FullPageSlider({
   slides,
   heroImage,
   contactImage,
   contentSlideHeightVh = DEFAULT_CONTENT_SLIDE_HEIGHT_VH,
-  topSlot,
 }: FullPageSliderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const lastScrollTime = useRef(0);
   const touchStartY = useRef(0);
+  const isMobile = useIsMobile();
 
   const totalSlides = slides.length;
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Wheel: scroll down = next, scroll up = prev
+  // Wheel: scroll down = next, scroll up = prev (desktop only)
   useEffect(() => {
+    if (isMobile) return;
     const el = containerRef.current;
     if (!el) return;
     const handleWheel = (e: WheelEvent) => {
@@ -80,17 +140,15 @@ export function FullPageSlider({
     };
     el.addEventListener("wheel", handleWheel, { passive: false });
     return () => el.removeEventListener("wheel", handleWheel);
-  }, [isAnimating, totalSlides]);
+  }, [isMobile, isAnimating, totalSlides]);
 
-  // Touch: swipe up = next, swipe down = prev
+  // Touch: swipe (desktop slider only; mobile uses normal scroll)
   useEffect(() => {
+    if (isMobile) return;
     const el = containerRef.current;
     if (!el) return;
     const handleTouchStart = (e: TouchEvent) => {
       touchStartY.current = e.touches[0].clientY;
-    };
-    const handleTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
     };
     const handleTouchEnd = (e: TouchEvent) => {
       const touchEndY = e.changedTouches[0].clientY;
@@ -108,16 +166,13 @@ export function FullPageSlider({
       });
     };
     el.addEventListener("touchstart", handleTouchStart, { passive: true });
-    el.addEventListener("touchmove", handleTouchMove, { passive: false });
     el.addEventListener("touchend", handleTouchEnd, { passive: true });
     return () => {
       el.removeEventListener("touchstart", handleTouchStart);
-      el.removeEventListener("touchmove", handleTouchMove);
       el.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [isAnimating, totalSlides]);
+  }, [isMobile, isAnimating, totalSlides]);
 
-  // Reset isAnimating after transition
   useEffect(() => {
     if (!isAnimating) return;
     const maxTransition =
@@ -129,53 +184,56 @@ export function FullPageSlider({
     return () => clearTimeout(t);
   }, [isAnimating]);
 
+  // Small screens: normal scrollable stack of sections (no slider animation)
+  if (isMobile) {
+    return (
+      <div className="relative w-full bg-black ">
+        <Navigation />
+        {slides.map((slide, i) => (
+          <section
+            key={i}
+            className="relative h-full w-full flex flex-col items-center justify-center"
+          >
+            <SlideBackgroundLayer
+              background={slide.background}
+              heroImage={heroImage}
+              contactImage={contactImage}
+            />
+            <div className="relative z-10 w-full flex flex-col items-center justify-center  py-3.5 px-2 md:px-6 ">
+              {slide.content}
+            </div>
+          </section>
+        ))}
+      </div>
+    );
+  }
+
+  // Desktop: full-page slider with wheel + touch
   return (
     <section
       ref={containerRef}
-      className="relative h-screen w-full overflow-hidden bg-black"
+      className="relative h-screen w-full overflow-hidden bg-black touch-none"
     >
-      {topSlot}
       <Navigation isRelative />
 
-      {/* Background strip – one panel per slide */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
           className="w-full"
-          style={{ height: `${totalSlides * 100}vh` }}
+          style={{
+            height: `${totalSlides * 100}vh`,
+            willChange: "transform",
+            backfaceVisibility: "hidden",
+          }}
           animate={{ y: `-${Math.round(activeIndex * 100)}vh` }}
           transition={BG_TRANSITION as object}
         >
           {slides.map((slide, i) => (
             <div key={i} className="h-screen w-full relative">
-              {slide.background === "hero" && (
-                <>
-                  <Image
-                    width={100}
-                    height={100}
-                    sizes="100vw"
-                    src={heroImage}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
-                </>
-              )}
-              {slide.background === "black" && (
-                <div className="w-full h-full bg-black" />
-              )}
-              {slide.background === "contact" && (
-                <>
-                  <Image
-                    width={100}
-                    height={100}
-                    sizes="100vw"
-                    src={contactImage}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/80" />
-                </>
-              )}
+              <SlideBackgroundLayer
+                background={slide.background}
+                heroImage={heroImage}
+                contactImage={contactImage}
+              />
             </div>
           ))}
         </motion.div>

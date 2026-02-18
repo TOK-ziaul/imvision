@@ -126,7 +126,7 @@ function ServiceSection({
   return (
     <div ref={containerRef} className="relative w-full">
       <div className="container mx-auto px-6 lg:px-24 h-full overflow-hidden">
-        <div className="flex flex-col md:flex-row gap-6 lg:gap-12 items-center">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center">
           {/* Image Side */}
           <motion.div
             initial={{ opacity: 0, x: isEven ? -60 : 60 }}
@@ -278,7 +278,7 @@ function ServiceSection({
 
 export const SalesServicesSection1 = () => {
   return (
-    <div className=" h-full flex flex-col items-center justify-center md:gap-10 gap-6">
+    <div className=" h-full flex flex-col items-center justify-center gap-10">
       {services.slice(0, 2).map((service, index) => (
         <ServiceSection key={service.id} service={service} index={index} />
       ))}
@@ -288,7 +288,7 @@ export const SalesServicesSection1 = () => {
 
 export const SalesServicesSection2 = () => {
   return (
-    <div className=" max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
+    <div className=" lg:max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
       {services.slice(2, 4).map((service, index) => (
         <ServiceSection key={service.id} service={service} index={index} />
       ))}
@@ -297,7 +297,7 @@ export const SalesServicesSection2 = () => {
 };
 export const SalesServicesSection3 = () => {
   return (
-    <div className=" max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
+    <div className=" lg:max-h-[90vh] h-full flex flex-col items-center justify-center gap-10 mb-20 lg:mb-0">
       {services.slice(4, 6).map((service, index) => (
         <ServiceSection key={service.id} service={service} index={index} />
       ))}

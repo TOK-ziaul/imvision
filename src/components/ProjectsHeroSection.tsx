@@ -75,7 +75,7 @@ const scrollIndicator = (
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     transition={{ duration: 1, delay: 1.2 }}
-    className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-10"
+    className="absolute bottom-12 md:bottom-20 left-1/2 transform -translate-x-1/2 z-10"
   >
     <motion.div
       animate={{ y: [0, 10, 0] }}
@@ -106,7 +106,10 @@ export function ProjectsHeroSection({
 
   if (part === "content") {
     return (
-      <div ref={containerRef} className="relative w-full h-full flex flex-col items-center justify-center px-6 md:px-12 lg:px-20">
+      <div
+        ref={containerRef}
+        className="relative w-full h-full min-h-svh flex flex-col items-center justify-center px-6 md:px-12 lg:px-20"
+      >
         {heroContent}
         {scrollIndicator}
       </div>

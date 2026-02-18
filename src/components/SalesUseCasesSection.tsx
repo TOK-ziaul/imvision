@@ -87,18 +87,15 @@ function UseCaseCard({ useCase, index }: { useCase: UseCase; index: number }) {
       <motion.a
         href="/contact"
         style={{ scale }}
-        className="block relative overflow-hidden"
+        className="block relative overflow-hidden "
       >
         {/* Image Container */}
-        <div className="relative aspect-[16/8] md:aspect-[16/9] overflow-hidden ">
-          <motion.div
-            // style={{ y }}
-            className="w-full h-full"
-          >
+        <div className="relative aspect-[16/8] lg:aspect-[16/9] overflow-hidden">
+          <motion.div className="w-full h-full">
             <motion.img
               src={useCase.image}
               alt={useCase.title}
-              className="w-full  object-cover"
+              className="w-full  object-cover h-full opacity-75"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             />
@@ -113,7 +110,7 @@ function UseCaseCard({ useCase, index }: { useCase: UseCase; index: number }) {
           </motion.div>
 
           {/* Content Overlay */}
-          <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12 ">
+          <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -121,11 +118,11 @@ function UseCaseCard({ useCase, index }: { useCase: UseCase; index: number }) {
               viewport={{ once: true }}
             >
               {/* Title - always visible with fixed height */}
-              <div className="min-h-[7rem] flex flex-col justify-end mb-4">
+              <div className=" flex flex-col justify-end mb-4  ">
                 <h3
                   className="text-white group-hover:text-[#2BCC07] transition-colors duration-500"
                   style={{
-                    fontSize: "clamp(1.75rem, 2.5vw, 2.25rem)",
+                    fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)",
                     fontWeight: 400,
                     letterSpacing: "-0.01em",
                     lineHeight: 1.2,
@@ -136,7 +133,7 @@ function UseCaseCard({ useCase, index }: { useCase: UseCase; index: number }) {
               </div>
 
               {/* Description - hidden by default, appears on hover */}
-              <div className="overflow-hidden hidden md:block">
+              <div className="overflow-hidden hidden xl:block">
                 <p
                   className="text-white/80 mb-6 max-w-2xl opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500"
                   style={{
@@ -163,12 +160,15 @@ export function SalesUseCasesSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={sectionRef} className="relative h-full overflow-hidden">
+    <div
+      ref={sectionRef}
+      className="relative h-full overflow-hidden mb-20 lg:mb-0"
+    >
       {/* Green border */}
 
-      <div className="container mx-auto px-6 lg:px-24 ">
+      <div className="container mx-auto px-6 xl:px-24 h-full flex items-center justify-center ">
         {/* Use Cases Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 h-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 w-full">
           {useCases.map((useCase, index) => (
             <UseCaseCard key={useCase.id} useCase={useCase} index={index} />
           ))}
@@ -194,7 +194,7 @@ export const SalesUseCasesHeader = () => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
       viewport={{ once: true }}
-      className="mb-20 lg:mb-28 max-w-5xl mx-auto text-center"
+      className=" max-w-5xl mx-auto text-center"
     >
       {/* Section Header */}
       <motion.div
