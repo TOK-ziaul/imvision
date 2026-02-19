@@ -73,8 +73,8 @@ export default function HomePage() {
       <Navigation />
       <HeroSection heroImage={heroImage} />
       <HorizontalWorkGallery cases={cases} />
-      <WhatWeDoSection services={whatWeDo} />
-      <WhyIMvisionSection backgroundImage={whyImage} />
+      {/* <WhatWeDoSection services={whatWeDo} /> */}
+      {/* <WhyIMvisionSection backgroundImage={whyImage} /> */}
       <ContactSection backgroundImage={contactImage} />
       <Footer />
     </div>

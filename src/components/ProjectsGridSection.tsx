@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export interface Project {
   id: string;
@@ -53,6 +54,7 @@ export const projects: Project[] = [
 ];
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const { t } = useTranslation();
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -122,7 +124,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </div>
           <div className="flex items-center gap-2 text-white/60 group-hover:text-[#2BCC07] transition-colors duration-300">
             <span style={{ fontSize: "0.875rem", fontWeight: 400 }}>
-              View Project
+              {t.projects.viewProject}
             </span>
             <motion.div initial={{ x: 0 }} whileHover={{ x: 5 }}>
               <ArrowUpRight className="w-4 h-4" />
@@ -143,6 +145,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 export function ProjectsSectionHeader() {
+  const { t } = useTranslation();
   return (
     <div className="container mx-auto px-6 lg:px-12 ">
       <motion.div
@@ -164,7 +167,7 @@ export function ProjectsSectionHeader() {
             className="tracking-[0.3em] uppercase"
             style={{ fontSize: "0.875rem", color: "#2BCC07" }}
           >
-            Featured Work
+            {t.projects.header.label}
           </p>
         </div>
         <h2
@@ -176,8 +179,8 @@ export function ProjectsSectionHeader() {
             lineHeight: 1.2,
           }}
         >
-          Transforming Spaces with{" "}
-          <span style={{ color: "#2BCC07" }}>LED Innovation</span>
+          {t.projects.header.titlePart1}{" "}
+          <span style={{ color: "#2BCC07" }}>{t.projects.header.titlePart2}</span>
         </h2>
         <p
           className="text-white/70 max-w-3xl"
@@ -187,9 +190,7 @@ export function ProjectsSectionHeader() {
             lineHeight: 1.7,
           }}
         >
-          Discover how we&apos;ve partnered with leading brands across
-          industries to create immersive, high-impact visual experiences that
-          captivate audiences and drive results.
+          {t.projects.header.description}
         </p>
       </motion.div>
     </div>

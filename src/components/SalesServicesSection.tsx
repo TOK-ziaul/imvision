@@ -2,6 +2,7 @@
 import { motion } from "motion/react";
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface Service {
   id: number;
@@ -113,6 +114,7 @@ function ServiceSection({
   index: number;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
   // const { scrollYProgress } = useScroll({
   //   target: containerRef,
   //   offset: ["start end", "end start"],
@@ -263,7 +265,7 @@ function ServiceSection({
                   textTransform: "uppercase",
                 }}
               >
-                Get a Quote
+                {t.sales.requestQuote}
               </span>
               <div className="w-6 h-6 border border-[#2BCC07] flex items-center justify-center group-hover:bg-[#2BCC07] transition-all duration-300">
                 <ArrowUpRight className="w-3 h-3 text-[#2BCC07] group-hover:text-black transition-colors duration-300" />
@@ -306,6 +308,7 @@ export const SalesServicesSection3 = () => {
 };
 
 export const SalesServicesHeader = () => {
+  const { t } = useTranslation();
   return (
     <div className="container mx-auto px-6 lg:px-24 pt-20 lg:pt-28 pb-12 lg:pb-20">
       {/* Section Header */}
@@ -328,7 +331,7 @@ export const SalesServicesHeader = () => {
             className="tracking-[0.3em] uppercase text-[#2BCC07]"
             style={{ fontSize: "0.875rem", fontWeight: 400 }}
           >
-            Our Services
+            {t.sales.servicesHeader.label}
           </p>
         </div>
         <h2
@@ -340,7 +343,7 @@ export const SalesServicesHeader = () => {
             lineHeight: 1.1,
           }}
         >
-          Comprehensive LED Solutions
+          {t.sales.servicesHeader.title}
         </h2>
       </motion.div>
     </div>

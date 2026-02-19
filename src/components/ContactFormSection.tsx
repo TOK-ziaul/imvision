@@ -2,8 +2,10 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import { Mail, Phone } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export function ContactFormSection() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     company: "",
     name: "",
@@ -41,19 +43,19 @@ export function ContactFormSection() {
   const contactInfo = [
     {
       icon: Mail,
-      label: "Email",
+      label: t.contact.labels.email,
       value: "info@imvision.se",
       link: "mailto:info@imvision.se",
     },
     {
       icon: Mail,
-      label: "Support",
+      label: t.contact.labels.support,
       value: "service@imvision.se",
       link: "mailto:service@imvision.se",
     },
     {
       icon: Phone,
-      label: "Phone",
+      label: t.contact.labels.phone,
       value: "+46 10 330 46 36",
       link: "tel:+46103304636",
     },
@@ -105,9 +107,9 @@ export function ContactFormSection() {
                 lineHeight: 1.2,
               }}
             >
-              Let's Talk About
+              {t.contact.formTitleLine1}
               <br />
-              <span style={{ color: "#2BCC07" }}>Your Next Project</span>
+              <span style={{ color: "#2BCC07" }}>{t.contact.formTitleLine2}</span>
             </h2>
 
             <p
@@ -118,9 +120,7 @@ export function ContactFormSection() {
                 lineHeight: 1.7,
               }}
             >
-              Whether you're looking to enhance your retail space, create an
-              architectural masterpiece, or need a custom LED solution, our team
-              is ready to help.
+              {t.contact.formDescription}
             </p>
 
             {/* Contact Info Cards */}
@@ -195,7 +195,7 @@ export function ContactFormSection() {
                     letterSpacing: "0.05em",
                   }}
                 >
-                  Company name *
+                  {t.contact.companyPlaceholder} *
                 </label>
                 <input
                   type="text"
@@ -223,7 +223,7 @@ export function ContactFormSection() {
                     letterSpacing: "0.05em",
                   }}
                 >
-                  Your name *
+                  {t.contact.namePlaceholder} *
                 </label>
                 <input
                   type="text"
@@ -251,7 +251,7 @@ export function ContactFormSection() {
                     letterSpacing: "0.05em",
                   }}
                 >
-                  Email address *
+                  {t.contact.emailPlaceholder} *
                 </label>
                 <input
                   type="email"
@@ -279,7 +279,7 @@ export function ContactFormSection() {
                     letterSpacing: "0.05em",
                   }}
                 >
-                  Phone number *
+                  {t.contact.phonePlaceholder} *
                 </label>
                 <div className="flex gap-2">
                   <select
@@ -836,7 +836,7 @@ export function ContactFormSection() {
                     letterSpacing: "0.05em",
                   }}
                 >
-                  Message *
+                  {t.contact.messageLabel} *
                 </label>
                 <textarea
                   id="message"
@@ -942,7 +942,7 @@ export function ContactFormSection() {
                       textShadow: "0 0 10px rgba(43, 204, 7, 0.3)",
                     }}
                   >
-                    Send Message
+                    {t.contact.sendButton}
                   </span>
 
                   {/* Pulsing glow on hover */}

@@ -4,6 +4,7 @@ import { useInView } from "motion/react";
 import { useRef } from "react";
 import { ArrowRight, Mail, Phone, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type Part = "full" | "content";
 
@@ -15,6 +16,7 @@ export function SalesContactSection({ part }: SalesContactSectionProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   const router = useRouter();
+  const { t } = useTranslation();
   const backgroundImage =
     "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&q=80";
 
@@ -33,9 +35,9 @@ export function SalesContactSection({ part }: SalesContactSectionProps) {
           lineHeight: 1.2,
         }}
       >
-        Let&apos;s Create Something
+        {t.contactSection.titleLine1}
         <br />
-        <span style={{ fontWeight: 500 }}>That Makes an Impact</span>
+        <span style={{ fontWeight: 500 }}>{t.contactSection.titleLine2}</span>
       </motion.h2>
 
       {/* Subtitle */}
@@ -50,8 +52,7 @@ export function SalesContactSection({ part }: SalesContactSectionProps) {
           lineHeight: 1.7,
         }}
       >
-        Ready to bring your vision to life? Let&apos;s start a conversation
-        about your next project.
+        {t.contactSection.description}
       </motion.p>
 
       {/* CTA Button */}
@@ -124,7 +125,7 @@ export function SalesContactSection({ part }: SalesContactSectionProps) {
             router.push("/contact");
           }}
         >
-          Talk to an LED Specialist
+          {t.contactSection.cta}
         </span>
 
         {/* Pulsing glow on hover */}
@@ -152,7 +153,7 @@ export function SalesContactSection({ part }: SalesContactSectionProps) {
             className="text-white/90"
             style={{ fontSize: "1rem", fontWeight: 300 }}
           >
-            sales@imvision.se
+            {t.contactSection.email}
           </div>
         </div>
         <div className="flex flex-col items-center gap-3">
@@ -161,7 +162,7 @@ export function SalesContactSection({ part }: SalesContactSectionProps) {
             className="text-white/90"
             style={{ fontSize: "1rem", fontWeight: 300 }}
           >
-            +46 8 505 204 80
+            {t.contactSection.phone}
           </div>
         </div>
         <div className="flex flex-col items-center gap-3">
@@ -170,7 +171,7 @@ export function SalesContactSection({ part }: SalesContactSectionProps) {
             className="text-white/90"
             style={{ fontSize: "1rem", fontWeight: 300 }}
           >
-            Spånga, Sweden
+            {t.contactSection.address}
           </div>
         </div>
       </motion.div>

@@ -10,13 +10,19 @@ export const translations = {
       contact: "Contact",
       support: "Support",
     },
-    // Hero Section
+    // Hero Section (homepage)
     hero: {
       vision: "VISION.",
       reality: "REALITY.",
       impact: "IMPACT.",
+      technology: "TECHNOLOGY.",
+      experience: "EXPERIENCE.",
       tagline: "Where Vision Comes to Life",
+      taglineLine1: "High-impact LED display solutions",
+      taglineLine2: "for retail, events, and public spaces",
       cta: "Start Your Project",
+      ctaTalk: "Let's Talk",
+      scroll: "SCROLL",
     },
     // What We Do Section
     whatWeDo: {
@@ -39,19 +45,23 @@ export const translations = {
     },
     // Why IMvision Section
     whyIMvision: {
-      subtitle: "OUR PROMISE",
-      title: "Why IMvision",
-      statement1: "We deliver cutting-edge LED solutions",
-      statement2: "Tailored to your vision",
-      statement3: "Backed by expert support",
-      statement4: "Every step of the way",
+      subtitle: "WHY IMVISION",
+      title: "Where Technology Meets Experience",
+      statement1:
+        "IM Vision combines long-standing expertise with both permanent installations and a refined rental operation, delivering premium large-scale LED experiences from Sweden for the Nordic region and Europe.",
+      statement2: "10+ Years of LED Expertise",
+      statement3: "3,000+ m² Premium LED Inventory",
+      statement3Sub: "Global Projects Across Retail, Events & DOOH",
+      statement4: "End-to-End Delivery — From Design to Support",
+      statement4Sub: "",
+      learnMoreCta: "Learn More About Us",
     },
     // Horizontal Gallery
     gallery: {
       subtitle: "OUR PORTFOLIO",
       title: "Where Vision Comes to Life",
     },
-    // Contact Section
+    // Contact Section / Contact page
     contact: {
       subtitle: "GET IN TOUCH",
       title: "Let's Create Something Extraordinary",
@@ -60,7 +70,31 @@ export const translations = {
       namePlaceholder: "Your Name",
       emailPlaceholder: "Your Email",
       messagePlaceholder: "Tell us about your project...",
+      messageLabel: "Message",
       sendButton: "Send Message",
+      companyPlaceholder: "Company name",
+      phonePlaceholder: "Phone",
+      hero: {
+        title: "Let's get in touch.",
+        description:
+          "Let's bring your vision to life. Reach out to our team and discover how IMvision can transform your space with cutting-edge LED display solutions.",
+      },
+      formTitleLine1: "Let's Talk About",
+      formTitleLine2: "Your Next Project",
+      formDescription:
+        "Whether you're looking to enhance your retail space, create an architectural masterpiece, or need a custom LED solution, our team is ready to help.",
+      labels: { email: "Email", support: "Support", phone: "Phone" },
+      supportTeam: {
+        title: "Meet Our",
+        titleHighlight: "Support Team",
+        description:
+          "Our dedicated specialists are here to ensure your LED solutions perform flawlessly",
+      },
+      locations: {
+        title: "Our",
+        titleHighlight: "Locations",
+        description: "Visit us at any of our offices across Sweden",
+      },
     },
     // Footer
     footer: {
@@ -84,12 +118,14 @@ export const translations = {
       hero: {
         subtitle: "WHO WE ARE",
         title: "Beyond the LED Display",
+        titleLine1: "Experts In LED Solutions",
+        titleLine2: "For All Types Of Purpose",
         description:
-          "We are IMvision — a team of innovators, creators, and problem-solvers dedicated to transforming spaces through cutting-edge LED technology.",
-        cta: "Discover Our Story",
+          "IM vision is a professional and reliable partner and we are with you all the way from order to execution.",
+        cta: "Talk to an Expert",
       },
       stats: {
-        title: "Our Impact in Numbers",
+        title: "The IMvision Difference",
         years: {
           value: "10+",
           title: "Years",
@@ -128,13 +164,14 @@ export const translations = {
     support: {
       hero: {
         subtitle: "WE'RE HERE TO HELP",
-        title: "Support Center",
-        description: "Get the assistance you need, when you need it.",
+        title: "Support",
+        description:
+          "How can we help you? Submit a support ticket and our technical team will assist you.",
       },
       ticket: {
         title: "Submit a Support Ticket",
         description:
-          "Fill out the form below and our team will get back to you within 24 hours.",
+          "Fill out the form below and our technical support team will be in touch shortly.",
         step1: "Contact Info",
         step2: "Issue Details",
         step3: "Additional Info",
@@ -179,6 +216,88 @@ export const translations = {
         callNow: "Call Now",
       },
     },
+    // Shared contact block (end of slider pages)
+    contactSection: {
+      titleLine1: "Let's Create Something",
+      titleLine2: "That Makes an Impact",
+      description:
+        "Ready to bring your vision to life? Let's start a conversation about your next project.",
+      cta: "Talk to an LED Specialist",
+      email: "sales@imvision.se",
+      phone: "+46 8 505 204 80",
+      address: "Spånga, Sweden",
+    },
+    // Sales page
+    sales: {
+      hero: {
+        subtitle: "Permanent LED Solutions",
+        title: "Sales",
+        description:
+          "Transform your space with cutting-edge LED display technology. From retail environments to architectural installations, we deliver permanent solutions that captivate and perform.",
+        cta: "Request a Quote",
+      },
+      intro: {
+        paragraph:
+          "Let IM Vision help you elevate your brand with immersive phygital spaces. IM Vision delivers complete LED solutions for businesses, retail, studios and more. Our 360° approach — from concept and design to installation, support, long-term maintenance and monitoring — ensures a seamless experience that transforms spaces, elevates brands, and creates lasting impressions.",
+      },
+      servicesHeader: { label: "Our Services", title: "Comprehensive LED Solutions" },
+      requestQuote: "Get a Quote",
+      useCasesHeader: { label: "Use Cases", title: "Where LED Meets Impact" },
+      displaySolutionsHeader: { label: "Solutions", title: "Display Solutions" },
+    },
+    // Rental page
+    rental: {
+      hero: {
+        title: "LED Rental",
+        description: "Flexible LED display solutions for every event",
+      },
+      intro: {
+        paragraph:
+          "At IM Vision, you can rent LED solutions the way it suits you — full service with design, on-site setup and dismantling and support. You're also welcome to pick up and return the equipment yourself if you've got your own crew. Need something unique? Just get in touch and we'll help create a concept that matches your needs.",
+      },
+      header: {
+        label: "Rental Solutions",
+        title:
+          "Choose from our comprehensive range of LED rental solutions designed for every type of event and application.",
+      },
+      requestQuote: "Request Quote",
+    },
+    // Service page
+    service: {
+      hero: {
+        subtitle: "Excellence in Every Detail",
+        title: "Service & Support",
+        description:
+          "From initial concept to long-term maintenance, our comprehensive service portfolio ensures your LED display performs at its peak throughout its entire lifecycle.",
+      },
+      intro: {
+        p1: "We deliver cutting-edge LED display solutions designed to meet the highest demands of today's market. Backed by a team of specialists we support our clients every step of the way, from design, project management, installation, and roll-out to ongoing maintenance, monitoring, and warranty, ensuring peace of mind throughout the entire lifecycle of the solution.",
+        p2: "Let our experts help you bring your vision to life.",
+      },
+      header: {
+        label: "Our Services",
+        title:
+          "From design to deployment, we deliver complete LED solutions with expert support at every stage.",
+      },
+      requestService: "Request Service",
+    },
+    // Projects page
+    projects: {
+      hero: {
+        subtitle: "Our Work",
+        title: "Projects",
+        description:
+          "Explore our portfolio of groundbreaking LED installations across retail, events, and digital out-of-home. Every project tells a story of innovation, precision, and visual impact.",
+      },
+      header: {
+        label: "Featured Work",
+        titlePart1: "Transforming Spaces with",
+        titlePart2: "LED Innovation",
+        description:
+          "Discover how we've partnered with leading brands across industries to create immersive, high-impact visual experiences that captivate audiences and drive results.",
+      },
+      viewProject: "View Project",
+    },
   },
   sv: {
     // Navigation
@@ -191,13 +310,19 @@ export const translations = {
       contact: "Kontakt",
       support: "Support",
     },
-    // Hero Section
+    // Hero Section (homepage)
     hero: {
       vision: "VISION.",
       reality: "VERKLIGHET.",
       impact: "PÅVERKAN.",
+      technology: "TEKNOLOGI.",
+      experience: "UPPLEVELSE.",
       tagline: "Där Vision Blir Verklighet",
+      taglineLine1: "Kraftfulla LED-displaylösningar",
+      taglineLine2: "för retail, evenemang och offentliga miljöer",
       cta: "Starta Ditt Projekt",
+      ctaTalk: "Låt oss prata",
+      scroll: "RULLA",
     },
     // What We Do Section
     whatWeDo: {
@@ -220,19 +345,23 @@ export const translations = {
     },
     // Why IMvision Section
     whyIMvision: {
-      subtitle: "VÅRT LÖFTE",
-      title: "Varför IMvision",
-      statement1: "Vi levererar banbrytande LED-lösningar",
-      statement2: "Anpassade efter din vision",
-      statement3: "Backat av expertstöd",
-      statement4: "Varje steg på vägen",
+      subtitle: "VARFÖR IMVISION",
+      title: "Där teknik möter upplevelse",
+      statement1:
+        "IM Vision kombinerar lång erfarenhet av både permanenta installationer och en förfinad uthyrningsverksamhet och levererar premium LED-upplevelser i stor skala från Sverige till Norden och Europa.",
+      statement2: "10+ års LED-expertis",
+      statement3: "3 000+ m² premium LED-lager",
+      statement3Sub: "Globala projekt inom retail, evenemang och DOOH",
+      statement4: "Helhetsleverans — från design till support",
+      statement4Sub: "",
+      learnMoreCta: "Läs mer om oss",
     },
     // Horizontal Gallery
     gallery: {
       subtitle: "VÅR PORTFÖLJ",
       title: "Där Vision Blir Verklighet",
     },
-    // Contact Section
+    // Contact Section / Contact page
     contact: {
       subtitle: "KONTAKTA OSS",
       title: "Låt Oss Skapa Något Extraordinärt",
@@ -241,7 +370,31 @@ export const translations = {
       namePlaceholder: "Ditt Namn",
       emailPlaceholder: "Din E-post",
       messagePlaceholder: "Berätta om ditt projekt...",
+      messageLabel: "Meddelande",
       sendButton: "Skicka Meddelande",
+      companyPlaceholder: "Företagsnamn",
+      phonePlaceholder: "Telefon",
+      hero: {
+        title: "Låt oss komma i kontakt.",
+        description:
+          "Låt oss förverkliga din vision. Kontakta vårt team och upptäck hur IMvision kan förvandla din miljö med banbrytande LED-displaylösningar.",
+      },
+      formTitleLine1: "Låt oss prata om",
+      formTitleLine2: "ditt nästa projekt",
+      formDescription:
+        "Oavsett om du vill förbättra din butiksmiljö, skapa ett arkitektoniskt mästerverk eller behöver en skräddarsydd LED-lösning – vårt team är redo att hjälpa.",
+      labels: { email: "E-post", support: "Support", phone: "Telefon" },
+      supportTeam: {
+        title: "Möt vårt",
+        titleHighlight: "supportteam",
+        description:
+          "Våra dedikerade specialister ser till att dina LED-lösningar presterar felfritt",
+      },
+      locations: {
+        title: "Våra",
+        titleHighlight: "kontor",
+        description: "Besök oss på något av våra kontor i Sverige",
+      },
     },
     // Footer
     footer: {
@@ -265,12 +418,14 @@ export const translations = {
       hero: {
         subtitle: "VILKA VI ÄR",
         title: "Beyond the LED Display",
+        titleLine1: "Experter på LED-lösningar",
+        titleLine2: "För alla typer av ändamål",
         description:
-          "Vi är IMvision — ett team av innovatörer, skapare och problemlösare dedikerade till att förvandla utrymmen genom banbrytande LED-teknologi.",
-        cta: "Upptäck Vår Historia",
+          "IM vision är en professionell och pålitlig partner och vi följer dig hela vägen från beställning till genomförande.",
+        cta: "Prata med en expert",
       },
       stats: {
-        title: "Vår Påverkan i Siffror",
+        title: "IMvision-skillnaden",
         years: {
           value: "10+",
           title: "År",
@@ -309,13 +464,14 @@ export const translations = {
     support: {
       hero: {
         subtitle: "VI ÄR HÄR FÖR ATT HJÄLPA",
-        title: "Supportcenter",
-        description: "Få den hjälp du behöver, när du behöver den.",
+        title: "Support",
+        description:
+          "Hur kan vi hjälpa dig? Skicka in en supportbegäran så hjälper vårt tekniska team dig.",
       },
       ticket: {
         title: "Skicka in en Supportbegäran",
         description:
-          "Fyll i formuläret nedan så återkommer vårt team inom 24 timmar.",
+          "Fyll i formuläret nedan så hör vårt tekniska supportteam av sig inom kort.",
         step1: "Kontaktinfo",
         step2: "Problemdetaljer",
         step3: "Ytterligare Info",
@@ -358,6 +514,88 @@ export const translations = {
         hours: "Mån-Fre: 8:00 - 18:00 CET",
         callNow: "Ring Nu",
       },
+    },
+    // Shared contact block
+    contactSection: {
+      titleLine1: "Låt oss skapa något",
+      titleLine2: "som gör verklig skillnad",
+      description:
+        "Redo att förverkliga din vision? Låt oss starta en dialog om ditt nästa projekt.",
+      cta: "Prata med en LED-specialist",
+      email: "sales@imvision.se",
+      phone: "+46 8 505 204 80",
+      address: "Spånga, Sverige",
+    },
+    // Sales page
+    sales: {
+      hero: {
+        subtitle: "Permanenta LED-lösningar",
+        title: "Försäljning",
+        description:
+          "Förvandla din miljö med banbrytande LED-displayteknik. Från detaljhandel till arkitektoniska installationer – vi levererar permanenta lösningar som fängslar och presterar.",
+        cta: "Begär offert",
+      },
+      intro: {
+        paragraph:
+          "Låt IM Vision hjälpa dig att lyfta ditt varumärke med immersiva fygitala miljöer. IM Vision levererar kompletta LED-lösningar för företag, detaljhandel, studior med mera. Vårt 360°-perspektiv – från koncept och design till installation, support, långsiktigt underhåll och övervakning – säkerställer en sömlös upplevelse som förvandlar utrymmen, lyfter varumärken och skapar bestående intryck.",
+      },
+      servicesHeader: { label: "Våra tjänster", title: "Omfattande LED-lösningar" },
+      requestQuote: "Begär offert",
+      useCasesHeader: { label: "Användningsfall", title: "Där LED möter påverkan" },
+      displaySolutionsHeader: { label: "Lösningar", title: "Displaylösningar" },
+    },
+    // Rental page
+    rental: {
+      hero: {
+        title: "LED-uthyrning",
+        description: "Flexibla LED-displaylösningar för varje evenemang",
+      },
+      intro: {
+        paragraph:
+          "Hos IM Vision kan du hyra LED-lösningar så som det passar dig – full service med design, montering och nedtagning på plats samt support. Du är även välkommen att hämta och lämna tillbaka utrustningen själv om du har egen personal. Behöver du något unikt? Kontakta oss så hjälper vi till att skapa ett koncept som matchar dina behov.",
+      },
+      header: {
+        label: "Uthyrningslösningar",
+        title:
+          "Välj bland vårt omfattande utbud av LED-uthyrningslösningar för alla typer av evenemang och tillämpningar.",
+      },
+      requestQuote: "Begär offert",
+    },
+    // Service page
+    service: {
+      hero: {
+        subtitle: "Excellens i varje detalj",
+        title: "Service & support",
+        description:
+          "Från första koncept till långsiktigt underhåll – vår serviceportfölj säkerställer att din LED-display presterar i topp under hela sin livscykel.",
+      },
+      intro: {
+        p1: "Vi levererar banbrytande LED-displaylösningar utformade för att möta dagens marknadshögsta krav. Med ett team av specialister stödjer vi våra kunder i varje steg – från design, projektledning, installation och utrullning till löpande underhåll, övervakning och garanti, så att du känner dig trygg under hela lösningens livscykel.",
+        p2: "Låt våra experter hjälpa dig att förverkliga din vision.",
+      },
+      header: {
+        label: "Våra tjänster",
+        title:
+          "Från design till drift – vi levererar kompletta LED-lösningar med expertstöd i varje skede.",
+      },
+      requestService: "Begär service",
+    },
+    // Projects page
+    projects: {
+      hero: {
+        subtitle: "Vårt arbete",
+        title: "Projekt",
+        description:
+          "Utforska vår portfölj av banbrytande LED-installationer inom detaljhandel, evenemang och digital out-of-home. Varje projekt berättar en historia om innovation, precision och visuell påverkan.",
+      },
+      header: {
+        label: "Utvalt arbete",
+        titlePart1: "Förvandla utrymmen med",
+        titlePart2: "LED-innovation",
+        description:
+          "Upptäck hur vi har samarbetat med ledande varumärken över branscher för att skapa immersiva, högimpact-visuella upplevelser som fängslar publiken och driver resultat.",
+      },
+      viewProject: "Visa projekt",
     },
   },
 };

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "@/hooks/useTranslation";
 const ABOUT_IMG = "/aboutImg.png";
 
 type Part = "background" | "content";
@@ -25,6 +26,7 @@ export function AboutStatsSection({
   const [activeTab, setActiveTab] = useState(0);
   const trans = transition as object;
   const router = useRouter();
+  const { t } = useTranslation();
   const tabs = [
     {
       stat: "10+",
@@ -92,7 +94,7 @@ export function AboutStatsSection({
                   lineHeight: 1.2,
                 }}
               >
-                The IMvision Difference
+                {t.about.stats.title}
               </h2>
               <div className="w-16 h-px bg-white/50 mb-12" />
               <motion.div
@@ -266,7 +268,7 @@ export function AboutStatsSection({
                   lineHeight: 1.2,
                 }}
               >
-                The IMvision Difference
+                {t.about.stats.title}
               </h2>
 
               <div className="w-16 h-px bg-white/50 mb-12" />

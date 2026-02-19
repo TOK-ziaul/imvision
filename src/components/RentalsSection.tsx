@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export interface Rental {
   id: number;
@@ -129,6 +130,7 @@ function RentalSectionItem({
   index: number;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
   const isEven = index % 2 === 0;
 
   return (
@@ -265,7 +267,7 @@ function RentalSectionItem({
                   textTransform: "uppercase",
                 }}
               >
-                Request Quote
+                {t.rental.requestQuote}
               </span>
               <div className="w-6 h-6 border border-[#2BCC07] flex items-center justify-center group-hover:bg-[#2BCC07] transition-all duration-300">
                 <ArrowUpRight className="w-3 h-3 text-[#2BCC07] group-hover:text-black transition-colors duration-300" />
@@ -279,6 +281,7 @@ function RentalSectionItem({
 }
 
 export function RentalServicesHeader() {
+  const { t } = useTranslation();
   return (
     <div className="container mx-auto px-6 lg:px-24 pt-20 lg:pt-28 pb-12 lg:pb-20">
       <motion.div
@@ -300,7 +303,7 @@ export function RentalServicesHeader() {
             className="tracking-[0.3em] uppercase text-[#2BCC07]"
             style={{ fontSize: "0.875rem", fontWeight: 400 }}
           >
-            Rental Solutions
+            {t.rental.header.label}
           </p>
         </div>
         <h2
@@ -312,8 +315,7 @@ export function RentalServicesHeader() {
             lineHeight: 1.1,
           }}
         >
-          Choose from our comprehensive range of LED rental solutions designed
-          for every type of event and application.
+          {t.rental.header.title}
         </h2>
       </motion.div>
     </div>

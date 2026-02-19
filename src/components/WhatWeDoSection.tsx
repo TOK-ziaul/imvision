@@ -2,6 +2,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface Service {
   title: string;
@@ -16,6 +17,7 @@ interface WhatWeDoSectionProps {
 export function WhatWeDoSection({ services }: WhatWeDoSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { t } = useTranslation();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -70,7 +72,7 @@ export function WhatWeDoSection({ services }: WhatWeDoSectionProps) {
         >
           <div className="w-1 h-16 bg-[#2BCC07]" />
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-white">
-            What We Do
+            {t.whatWeDo.title}
           </h2>
         </motion.div>
       </div>

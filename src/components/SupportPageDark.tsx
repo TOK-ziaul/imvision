@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CheckCircle, Phone, Mail } from 'lucide-react';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface FormData {
   contactName: string;
@@ -15,6 +16,7 @@ interface FormData {
 }
 
 export function SupportPageDark() {
+  const { t } = useTranslation();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     contactName: '',
@@ -79,7 +81,7 @@ export function SupportPageDark() {
               lineHeight: 1,
             }}
           >
-            Support
+            {t.support.hero.title}
           </motion.h1>
         </div>
       </section>
@@ -103,9 +105,7 @@ export function SupportPageDark() {
               letterSpacing: '-0.01em',
             }}
           >
-            How can we help you?
-            <br />
-            Submit a support ticket and our technical team will assist you.
+            {t.support.hero.description}
           </motion.h2>
         </div>
       </motion.section>
@@ -154,7 +154,7 @@ export function SupportPageDark() {
                   fontWeight: 300,
                 }}
               >
-                Submit a Support Ticket
+                {t.support.ticket.title}
               </h3>
 
               <p
@@ -165,7 +165,7 @@ export function SupportPageDark() {
                   lineHeight: 1.6,
                 }}
               >
-                Fill out the form below and our technical support team will be in touch shortly.
+                {t.support.ticket.description}
               </p>
 
               {/* Form Content */}

@@ -1,6 +1,7 @@
 "use client";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface ContactHeroSectionProps {
   backgroundImage: string;
@@ -10,6 +11,7 @@ export function ContactHeroSection({
   backgroundImage,
 }: ContactHeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -62,7 +64,7 @@ export function ContactHeroSection({
               lineHeight: 1.1,
             }}
           >
-            Let's get in touch.
+            {t.contact.hero.title}
           </motion.h1>
 
           {/* Description */}
@@ -77,9 +79,7 @@ export function ContactHeroSection({
               lineHeight: 1.6,
             }}
           >
-            Let's bring your vision to life. Reach out to our team and discover
-            how IMvision can transform your space with cutting-edge LED display
-            solutions.
+            {t.contact.hero.description}
           </motion.p>
         </div>
       </motion.div>

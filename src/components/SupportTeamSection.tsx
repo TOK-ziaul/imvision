@@ -1,6 +1,7 @@
 "use client";
 import { motion } from 'motion/react';
 import { Phone, Mail } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface TeamMember {
   name: string;
@@ -42,6 +43,7 @@ const teamMembers: TeamMember[] = [
 ];
 
 export function SupportTeamSection() {
+  const { t } = useTranslation();
   return (
     <section className="relative bg-black py-20 md:py-32">
       <div className="container mx-auto px-6 lg:px-12">
@@ -62,7 +64,7 @@ export function SupportTeamSection() {
               lineHeight: 1.1,
             }}
           >
-            Meet Our <span style={{ fontWeight: 600 }}>Support Team</span>
+            {t.contact.supportTeam.title} <span style={{ fontWeight: 600 }}>{t.contact.supportTeam.titleHighlight}</span>
           </h2>
           <p
             className="text-white/60 max-w-3xl mx-auto"
@@ -72,7 +74,7 @@ export function SupportTeamSection() {
               lineHeight: 1.7,
             }}
           >
-            Our dedicated specialists are here to ensure your LED solutions perform flawlessly
+            {t.contact.supportTeam.description}
           </p>
         </motion.div>
 

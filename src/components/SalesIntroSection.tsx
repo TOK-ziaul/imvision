@@ -1,7 +1,9 @@
 "use client";
 import { motion } from "motion/react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export function SalesIntroSection() {
+  const { t } = useTranslation();
   return (
     <div className="container mx-auto px-6 lg:px-24 mt-20 lg:mt-0">
       {/* Main Statement */}
@@ -38,11 +40,7 @@ export function SalesIntroSection() {
             lineHeight: 1.7,
           }}
         >
-          IM Vision delivers complete LED solutions for businesses, retail,
-          studios and more. Our 360° approach — from concept and design to
-          installation, support, long-term maintenance and monitoring — ensures
-          a seamless experience that transforms spaces, elevates brands, and
-          creates lasting impressions.
+          {t.sales.intro.paragraph}
         </motion.p>
       </motion.div>
 

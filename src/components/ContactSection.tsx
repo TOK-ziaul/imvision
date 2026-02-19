@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { ArrowRight, Mail, Phone, MapPin } from "lucide-react";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type Part = "background" | "content";
 
@@ -27,6 +28,7 @@ export function ContactSection({
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   const trans = transition as object;
   const router = useRouter();
+  const { t } = useTranslation();
   if (part === "background") {
     return (
       <motion.div
@@ -66,9 +68,9 @@ export function ContactSection({
               lineHeight: 1.2,
             }}
           >
-            Let&apos;s Create Something
+            {t.contactSection.titleLine1}
             <br />
-            <span style={{ fontWeight: 500 }}>That Makes an Impact</span>
+            <span style={{ fontWeight: 500 }}>{t.contactSection.titleLine2}</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -81,8 +83,7 @@ export function ContactSection({
               lineHeight: 1.7,
             }}
           >
-            Ready to bring your vision to life? Let&apos;s start a conversation
-            about your next project.
+            {t.contactSection.description}
           </motion.p>
           <motion.button
             initial={{ opacity: 0, scale: 0.9 }}
@@ -164,19 +165,19 @@ export function ContactSection({
             <div className="flex flex-col items-center gap-3">
               <Mail className="text-white/60" size={28} strokeWidth={1.5} />
               <div className="text-white/90" style={{ fontSize: "1rem", fontWeight: 300 }}>
-                hello@imvision.com
+                {t.contactSection.email}
               </div>
             </div>
             <div className="flex flex-col items-center gap-3">
               <Phone className="text-white/60" size={28} strokeWidth={1.5} />
               <div className="text-white/90" style={{ fontSize: "1rem", fontWeight: 300 }}>
-                +1 (555) 123-4567
+                {t.contactSection.phone}
               </div>
             </div>
             <div className="flex flex-col items-center gap-3">
               <MapPin className="text-white/60" size={28} strokeWidth={1.5} />
               <div className="text-white/90" style={{ fontSize: "1rem", fontWeight: 300 }}>
-                Los Angeles, CA
+                {t.contactSection.address}
               </div>
             </div>
           </motion.div>
@@ -224,9 +225,9 @@ export function ContactSection({
               lineHeight: 1.2,
             }}
           >
-            Let&apos;s Create Something
+            {t.contactSection.titleLine1}
             <br />
-            <span style={{ fontWeight: 500 }}>That Makes an Impact</span>
+            <span style={{ fontWeight: 500 }}>{t.contactSection.titleLine2}</span>
           </motion.h2>
 
           <motion.p
@@ -240,8 +241,7 @@ export function ContactSection({
               lineHeight: 1.7,
             }}
           >
-            Ready to bring your vision to life? Let&apos;s start a conversation
-            about your next project.
+            {t.contactSection.description}
           </motion.p>
 
           <motion.button
@@ -305,7 +305,7 @@ export function ContactSection({
                 router.push("/contact");
               }}
             >
-              Talk to an LED Specialist
+              {t.contactSection.cta}
             </span>
 
             <motion.div
@@ -331,7 +331,7 @@ export function ContactSection({
                 className="text-white/90"
                 style={{ fontSize: "1rem", fontWeight: 300 }}
               >
-                hello@imvision.com
+                {t.contactSection.email}
               </div>
             </div>
             <div className="flex flex-col items-center gap-3">
@@ -340,7 +340,7 @@ export function ContactSection({
                 className="text-white/90"
                 style={{ fontSize: "1rem", fontWeight: 300 }}
               >
-                +1 (555) 123-4567
+                {t.contactSection.phone}
               </div>
             </div>
             <div className="flex flex-col items-center gap-3">
@@ -349,7 +349,7 @@ export function ContactSection({
                 className="text-white/90"
                 style={{ fontSize: "1rem", fontWeight: 300 }}
               >
-                Los Angeles, CA
+                {t.contactSection.address}
               </div>
             </div>
           </motion.div>

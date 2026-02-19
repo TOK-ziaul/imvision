@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export interface Service {
   id: number;
@@ -99,6 +100,7 @@ function ServiceSectionItem({
   index: number;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
   const isEven = index % 2 === 0;
 
   return (
@@ -216,7 +218,7 @@ function ServiceSectionItem({
                   textTransform: "uppercase",
                 }}
               >
-                Request Service
+                {t.service.requestService}
               </span>
               <div className="w-6 h-6 border border-[#2BCC07] flex items-center justify-center group-hover:bg-[#2BCC07] transition-all duration-300">
                 <ArrowUpRight className="w-3 h-3 text-[#2BCC07] group-hover:text-black transition-colors duration-300" />
@@ -230,6 +232,7 @@ function ServiceSectionItem({
 }
 
 export function ServicesSectionHeader() {
+  const { t } = useTranslation();
   return (
     <div className="container mx-auto px-6 lg:px-24 pt-20 lg:pt-28 pb-12 lg:pb-20">
       <motion.div
@@ -251,7 +254,7 @@ export function ServicesSectionHeader() {
             className="tracking-[0.3em] uppercase text-[#2BCC07]"
             style={{ fontSize: "0.875rem", fontWeight: 400 }}
           >
-            Our Services
+            {t.service.header.label}
           </p>
         </div>
         <h2
@@ -263,8 +266,7 @@ export function ServicesSectionHeader() {
             lineHeight: 1.1,
           }}
         >
-          From design to deployment, we deliver complete LED solutions with
-          expert support at every stage.
+          {t.service.header.title}
         </h2>
       </motion.div>
     </div>

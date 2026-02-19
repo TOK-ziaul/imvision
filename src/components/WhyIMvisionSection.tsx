@@ -2,6 +2,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface WhyIMvisionSectionProps {
   backgroundImage: string;
@@ -9,7 +10,7 @@ interface WhyIMvisionSectionProps {
 
 export function WhyIMvisionSection({ backgroundImage }: WhyIMvisionSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+  const { t } = useTranslation();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
@@ -50,7 +51,7 @@ export function WhyIMvisionSection({ backgroundImage }: WhyIMvisionSectionProps)
               className="tracking-[0.3em]"
               style={{ fontSize: '0.875rem', color: '#2BCC07' }}
             >
-              WHY IMVISION
+              {t.whyIMvision.subtitle}
             </motion.p>
           </div>
           
@@ -65,7 +66,7 @@ export function WhyIMvisionSection({ backgroundImage }: WhyIMvisionSectionProps)
               letterSpacing: '-0.03em',
             }}
           >
-            Where Technology Meets Experience
+            {t.whyIMvision.title}
           </motion.h2>
         </div>
       </div>
@@ -104,7 +105,7 @@ export function WhyIMvisionSection({ backgroundImage }: WhyIMvisionSectionProps)
                 lineHeight: 1.6,
               }}
             >
-              IM Vision combines long-standing expertise with both permanent installations and a refined rental operation, delivering premium large-scale LED experiences from Sweden for the Nordic region and Europe.
+              {t.whyIMvision.statement1}
             </p>
           </motion.div>
 
@@ -125,7 +126,7 @@ export function WhyIMvisionSection({ backgroundImage }: WhyIMvisionSectionProps)
                 lineHeight: 1.1,
               }}
             >
-              10+ Years of LED Expertise
+              {t.whyIMvision.statement2}
             </h3>
           </motion.div>
 
@@ -146,7 +147,7 @@ export function WhyIMvisionSection({ backgroundImage }: WhyIMvisionSectionProps)
                 lineHeight: 1.1,
               }}
             >
-              3,000+ m² Premium LED Inventory
+              {t.whyIMvision.statement3}
             </h3>
             <p
               className="text-white/90"
@@ -156,7 +157,7 @@ export function WhyIMvisionSection({ backgroundImage }: WhyIMvisionSectionProps)
                 lineHeight: 1.6,
               }}
             >
-              Global Projects Across Retail, Events & DOOH
+              {t.whyIMvision.statement3Sub}
             </p>
           </motion.div>
 
@@ -169,7 +170,7 @@ export function WhyIMvisionSection({ backgroundImage }: WhyIMvisionSectionProps)
             }}
           >
             <h3 
-              className="text-white mb-12"
+              className="text-white mb-6"
               style={{
                 fontSize: 'clamp(2.5rem, 6vw, 5rem)',
                 fontWeight: 300,
@@ -177,9 +178,21 @@ export function WhyIMvisionSection({ backgroundImage }: WhyIMvisionSectionProps)
                 lineHeight: 1.1,
               }}
             >
-              End-to-End Delivery — From Design to Support
+              {t.whyIMvision.statement4}
             </h3>
-            
+            {t.whyIMvision.statement4Sub ? (
+              <p
+                className="text-white/90 mb-6"
+                style={{
+                  fontSize: 'clamp(1.25rem, 2vw, 1.75rem)',
+                  fontWeight: 300,
+                  lineHeight: 1.6,
+                }}
+              >
+                {t.whyIMvision.statement4Sub}
+              </p>
+            ) : null}
+
             {/* Direct Link to About Us Page */}
             <motion.a
               href="/about"
@@ -194,7 +207,7 @@ export function WhyIMvisionSection({ backgroundImage }: WhyIMvisionSectionProps)
                   fontWeight: 300,
                 }}
               >
-                Learn More About Us
+                {t.whyIMvision.learnMoreCta}
               </span>
               <motion.div 
                 className="flex items-center justify-center rounded-full border-2 w-12 h-12 sm:w-14 sm:h-14"

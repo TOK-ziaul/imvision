@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "motion/react";
 import Image from "next/image";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type Part = "full" | "content";
 
@@ -9,42 +10,42 @@ interface RentalHeroSectionProps {
   part?: Part;
 }
 
-const heroContent = (
-  <div className="relative z-10 container mx-auto px-6 lg:px-24 text-center">
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <h1
-        className="text-white mb-6"
-        style={{
-          fontSize: "clamp(3rem, 8vw, 8rem)",
-          fontWeight: 300,
-          letterSpacing: "-0.02em",
-          lineHeight: 1.05,
-        }}
-      >
-        LED Rental
-      </h1>
-      <p
-        className="text-white/80 max-w-3xl mx-auto"
-        style={{
-          fontSize: "clamp(1.125rem, 1.5vw, 1.75rem)",
-          fontWeight: 300,
-          lineHeight: 1.6,
-        }}
-      >
-        Flexible LED display solutions for every event
-      </p>
-    </motion.div>
-  </div>
-);
-
 export function RentalHeroSection({
   backgroundImage,
   part,
 }: RentalHeroSectionProps) {
+  const { t } = useTranslation();
+  const heroContent = (
+    <div className="relative z-10 container mx-auto px-6 lg:px-24 text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <h1
+          className="text-white mb-6"
+          style={{
+            fontSize: "clamp(3rem, 8vw, 8rem)",
+            fontWeight: 300,
+            letterSpacing: "-0.02em",
+            lineHeight: 1.05,
+          }}
+        >
+          {t.rental.hero.title}
+        </h1>
+        <p
+          className="text-white/80 max-w-3xl mx-auto"
+          style={{
+            fontSize: "clamp(1.125rem, 1.5vw, 1.75rem)",
+            fontWeight: 300,
+            lineHeight: 1.6,
+          }}
+        >
+          {t.rental.hero.description}
+        </p>
+      </motion.div>
+    </div>
+  );
   const scrollIndicator = (
     <motion.div
       initial={{ opacity: 0 }}

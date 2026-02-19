@@ -1,8 +1,10 @@
 "use client";
 import { motion } from 'motion/react';
 import { MapPin } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export function ContactLocationsSection() {
+  const { t } = useTranslation();
   const locations = [
     {
       title: 'Jönköping HQ',
@@ -53,7 +55,7 @@ export function ContactLocationsSection() {
               lineHeight: 1.2,
             }}
           >
-            Our <span style={{ color: '#2BCC07' }}>Locations</span>
+            {t.contact.locations.title} <span style={{ color: '#2BCC07' }}>{t.contact.locations.titleHighlight}</span>
           </h2>
           <p
             className="text-white/70 max-w-2xl mx-auto"
@@ -63,7 +65,7 @@ export function ContactLocationsSection() {
               lineHeight: 1.7,
             }}
           >
-            Visit us at any of our offices across Sweden
+            {t.contact.locations.description}
           </p>
         </motion.div>
 

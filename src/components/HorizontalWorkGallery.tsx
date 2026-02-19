@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import Link from 'next/link';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface Case {
   title: string;
@@ -17,6 +18,7 @@ interface HorizontalWorkGalleryProps {
 
 export function HorizontalWorkGallery({ cases }: HorizontalWorkGalleryProps) {
   const targetRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ['start start', 'end end']
@@ -46,7 +48,7 @@ export function HorizontalWorkGallery({ cases }: HorizontalWorkGalleryProps) {
               className="tracking-[0.3em]"
               style={{ fontSize: '0.875rem', color: '#2BCC07' }}
             >
-              OUR PORTFOLIO
+              {t.gallery.subtitle}
             </motion.p>
           </div>
           
@@ -61,7 +63,7 @@ export function HorizontalWorkGallery({ cases }: HorizontalWorkGalleryProps) {
               letterSpacing: '-0.02em',
             }}
           >
-            Where Vision Comes to Life
+            {t.gallery.title}
           </motion.h2>
         </div>
 

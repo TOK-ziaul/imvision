@@ -1,6 +1,7 @@
 "use client";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type Part = "full" | "content";
 
@@ -8,72 +9,6 @@ interface ServiceHeroSectionProps {
   backgroundImage: string;
   part?: Part;
 }
-
-const heroContent = (
-  <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 md:px-12 lg:px-20">
-    <div className="max-w-5xl mx-auto text-center">
-      {/* Subtitle with line */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="flex items-center justify-center gap-4 mb-6"
-      >
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="w-16 h-[2px] origin-left"
-          style={{ backgroundColor: "#2BCC07" }}
-        />
-        <p
-          className="tracking-[0.3em] uppercase"
-          style={{ fontSize: "0.875rem", color: "#2BCC07" }}
-        >
-          Excellence in Every Detail
-        </p>
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="w-16 h-[2px] origin-right"
-          style={{ backgroundColor: "#2BCC07" }}
-        />
-      </motion.div>
-
-      <motion.h1
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        className="text-white mb-8"
-        style={{
-          fontSize: "clamp(3rem, 8vw, 7rem)",
-          fontWeight: 300,
-          letterSpacing: "-0.02em",
-          lineHeight: 1.1,
-        }}
-      >
-        Service & Support
-      </motion.h1>
-
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-        className="text-white/80 mb-12 max-w-3xl mx-auto"
-        style={{
-          fontSize: "clamp(1rem, 2vw, 1.25rem)",
-          fontWeight: 300,
-          lineHeight: 1.6,
-        }}
-      >
-        From initial concept to long-term maintenance, our comprehensive service
-        portfolio ensures your LED display performs at its peak throughout its
-        entire lifecycle.
-      </motion.p>
-    </div>
-  </div>
-);
 
 const scrollIndicator = (
   <motion.div
@@ -101,6 +36,7 @@ export function ServiceHeroSection({
   part,
 }: ServiceHeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -108,6 +44,67 @@ export function ServiceHeroSection({
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0.3]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+
+  const heroContent = (
+    <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 md:px-12 lg:px-20">
+      <div className="max-w-5xl mx-auto text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex items-center justify-center gap-4 mb-6"
+        >
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="w-16 h-[2px] origin-left"
+            style={{ backgroundColor: "#2BCC07" }}
+          />
+          <p
+            className="tracking-[0.3em] uppercase"
+            style={{ fontSize: "0.875rem", color: "#2BCC07" }}
+          >
+            {t.service.hero.subtitle}
+          </p>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="w-16 h-[2px] origin-right"
+            style={{ backgroundColor: "#2BCC07" }}
+          />
+        </motion.div>
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-white mb-8"
+          style={{
+            fontSize: "clamp(3rem, 8vw, 7rem)",
+            fontWeight: 300,
+            letterSpacing: "-0.02em",
+            lineHeight: 1.1,
+          }}
+        >
+          {t.service.hero.title}
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="text-white/80 mb-12 max-w-3xl mx-auto"
+          style={{
+            fontSize: "clamp(1rem, 2vw, 1.25rem)",
+            fontWeight: 300,
+            lineHeight: 1.6,
+          }}
+        >
+          {t.service.hero.description}
+        </motion.p>
+      </div>
+    </div>
+  );
 
   if (part === "content") {
     return (

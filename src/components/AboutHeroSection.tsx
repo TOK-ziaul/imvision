@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "@/hooks/useTranslation";
 type Part = "background" | "content";
 
 interface AboutHeroSectionProps {
@@ -21,6 +22,7 @@ export function AboutHeroSection({
 }: AboutHeroSectionProps) {
   const trans = transition as object;
   const router = useRouter();
+  const { t } = useTranslation();
   if (part === "background") {
     return (
       <motion.div
@@ -54,10 +56,10 @@ export function AboutHeroSection({
                 fontWeight: 300,
               }}
             >
-              Experts In LED Solutions
+              {t.about.hero.titleLine1}
               <br />
               <span className="text-white font-light italic">
-                For All Types Of Purpose
+                {t.about.hero.titleLine2}
               </span>
             </motion.h1>
           </div>
@@ -71,8 +73,7 @@ export function AboutHeroSection({
               fontWeight: 300,
             }}
           >
-            IM vision is a professional and reliable partner and we are with you
-            all the way from order to execution.
+            {t.about.hero.description}
           </motion.p>
           <motion.div
             initial={{ y: 30, opacity: 0 }}
@@ -114,7 +115,7 @@ export function AboutHeroSection({
                   router.push("/contact");
                 }}
               >
-                Talk to an Expert
+                {t.about.hero.cta}
               </span>
               <motion.div
                 className="absolute inset-0 -z-10"
@@ -185,10 +186,10 @@ export function AboutHeroSection({
                 fontWeight: 300,
               }}
             >
-              Experts In LED Solutions
+              {t.about.hero.titleLine1}
               <br />
               <span className="text-white font-light italic">
-                For All Types Of Purpose
+                {t.about.hero.titleLine2}
               </span>
             </motion.h1>
           </div>
@@ -202,8 +203,7 @@ export function AboutHeroSection({
               fontWeight: 300,
             }}
           >
-            IM vision is a professional and reliable partner and we are with you
-            all the way from order to execution.
+            {t.about.hero.description}
           </motion.p>
           <motion.div
             initial={{ y: 30, opacity: 0 }}
@@ -245,7 +245,7 @@ export function AboutHeroSection({
                   router.push("/contact");
                 }}
               >
-                Talk to an Expert
+                {t.about.hero.cta}
               </span>
               <motion.div
                 className="absolute inset-0 -z-10"

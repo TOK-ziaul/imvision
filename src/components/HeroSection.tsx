@@ -9,7 +9,7 @@ import {
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { useRef, useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
-// import { useTranslation } from "@/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface HeroSectionProps {
   heroImage: string;
@@ -17,9 +17,8 @@ interface HeroSectionProps {
 
 export function HeroSection({ heroImage }: HeroSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
-  // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showAll, setShowAll] = useState(false);
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -116,7 +115,7 @@ export function HeroSection({ heroImage }: HeroSectionProps) {
                   opacity: showAll ? 0 : undefined,
                 }}
               >
-                VISION.
+                {t.hero.vision}
               </motion.h1>
             </div>
 
@@ -144,7 +143,7 @@ export function HeroSection({ heroImage }: HeroSectionProps) {
                   opacity: showAll ? 0 : undefined,
                 }}
               >
-                TECHNOLOGY.
+                {t.hero.technology}
               </motion.h1>
             </div>
 
@@ -172,7 +171,7 @@ export function HeroSection({ heroImage }: HeroSectionProps) {
                   opacity: showAll ? 0 : undefined,
                 }}
               >
-                EXPERIENCE.
+                {t.hero.experience}
               </motion.h1>
             </div>
 
@@ -195,7 +194,7 @@ export function HeroSection({ heroImage }: HeroSectionProps) {
                       lineHeight: 1,
                     }}
                   >
-                    VISION.
+                    {t.hero.vision}
                   </motion.h1>
                 </div>
 
@@ -216,7 +215,7 @@ export function HeroSection({ heroImage }: HeroSectionProps) {
                       lineHeight: 1,
                     }}
                   >
-                    TECHNOLOGY.
+                    {t.hero.technology}
                   </motion.h1>
                 </div>
 
@@ -237,7 +236,7 @@ export function HeroSection({ heroImage }: HeroSectionProps) {
                       lineHeight: 1,
                     }}
                   >
-                    EXPERIENCE.
+                    {t.hero.experience}
                   </motion.h1>
                 </div>
               </div>
@@ -262,8 +261,7 @@ export function HeroSection({ heroImage }: HeroSectionProps) {
               lineHeight: 1.4,
             }}
           >
-            <span style={{ fontWeight: 600 }}>High-impact</span> LED display
-            solutions
+            {t.hero.taglineLine1}
           </motion.p>
 
           {/* Sub-subline */}
@@ -284,7 +282,7 @@ export function HeroSection({ heroImage }: HeroSectionProps) {
               lineHeight: 1.5,
             }}
           >
-            for retail, events, and public spaces
+            {t.hero.taglineLine2}
           </motion.p>
 
           {/* CTA Button */}
@@ -358,7 +356,7 @@ export function HeroSection({ heroImage }: HeroSectionProps) {
                   textShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
                 }}
               >
-                Let's Talk
+                {t.hero.ctaTalk}
               </span>
 
               {/* Pulsing glow on hover */}
@@ -393,7 +391,7 @@ export function HeroSection({ heroImage }: HeroSectionProps) {
             className="text-white/60 tracking-widest"
             style={{ fontSize: "0.7rem", letterSpacing: "0.2em" }}
           >
-            SCROLL
+            {t.hero.scroll}
           </span>
           <div className="w-[1px] h-12 bg-gradient-to-b from-white/30 to-transparent" />
         </motion.div>

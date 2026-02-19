@@ -2,6 +2,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { MagneticButton } from "@/components/MagneticButton";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type Part = "full" | "content";
 
@@ -15,6 +16,7 @@ export function SalesHeroSection({
   part,
 }: SalesHeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -45,7 +47,7 @@ export function SalesHeroSection({
             className="tracking-[0.3em] uppercase"
             style={{ fontSize: "0.875rem", color: "#2BCC07" }}
           >
-            Permanent LED Solutions
+            {t.sales.hero.subtitle}
           </p>
           <motion.div
             initial={{ scaleX: 0 }}
@@ -69,7 +71,7 @@ export function SalesHeroSection({
             lineHeight: 1.1,
           }}
         >
-          Sales
+          {t.sales.hero.title}
         </motion.h1>
 
         {/* Description */}
@@ -84,9 +86,7 @@ export function SalesHeroSection({
             lineHeight: 1.6,
           }}
         >
-          Transform your space with cutting-edge LED display technology. From
-          retail environments to architectural installations, we deliver
-          permanent solutions that captivate and perform.
+          {t.sales.hero.description}
         </motion.p>
 
         {/* CTA Button */}
@@ -104,7 +104,7 @@ export function SalesHeroSection({
                 letterSpacing: "0.05em",
               }}
             >
-              <span className="relative z-10">Request a Quote</span>
+              <span className="relative z-10">{t.sales.hero.cta}</span>
               <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             </div>
           </MagneticButton>
