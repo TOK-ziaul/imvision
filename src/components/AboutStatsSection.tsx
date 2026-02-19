@@ -209,7 +209,7 @@ export function AboutStatsSection({
                     router.push("/contact");
                   }}
                 >
-                  Talk to an LED Specialist
+                  {t.contactSection.cta}
                 </span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </motion.a>
@@ -389,7 +389,7 @@ export function AboutStatsSection({
                     router.push("/contact");
                   }}
                 >
-                  Talk to an LED Specialist
+                  {t.contactSection.cta}
                 </span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </motion.a>

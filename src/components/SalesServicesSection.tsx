@@ -13,98 +13,26 @@ interface Service {
   image: string;
 }
 
-const services: Service[] = [
-  {
-    id: 1,
-    number: "01",
-    title: "Indoor LED Displays",
-    description:
-      "Premium indoor LED solutions designed for retail, corporate, and entertainment environments with stunning clarity and vibrant colors.",
-    features: [
-      "Fine pixel pitch for close viewing",
-      "High brightness & contrast ratio",
-      "Seamless modular design",
-      "Energy-efficient technology",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
-  },
-  {
-    id: 2,
-    number: "02",
-    title: "Outdoor LED Billboards",
-    description:
-      "Weather-resistant, high-brightness outdoor displays that command attention in any environment, day or night.",
-    features: [
-      "IP65+ weatherproof rating",
-      "Ultra-high brightness (>5000 nits)",
-      "Anti-glare surface treatment",
-      "Remote monitoring & control",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1763671727638-5bc55bb9c980?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
-  },
-  {
-    id: 3,
-    number: "03",
-    title: "Transparent LED Screens",
-    description:
-      "Innovative transparent displays that blend digital content with physical environments, perfect for storefronts and architectural installations.",
-    features: [
-      "Up to 85% transparency",
-      "Lightweight aluminum design",
-      "Maintains natural light flow",
-      "Interactive touch options",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
-  },
-  {
-    id: 4,
-    number: "04",
-    title: "LED Video Walls",
-    description:
-      "Seamless, large-format video walls for control rooms, broadcast studios, and immersive brand experiences.",
-    features: [
-      "Bezel-free seamless design",
-      "4K & 8K resolution options",
-      "Advanced color calibration",
-      "24/7 continuous operation",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
-  },
-  {
-    id: 5,
-    number: "05",
-    title: "Curved & Creative LED",
-    description:
-      "Custom-shaped LED displays that push creative boundaries, from curved screens to 3D installations.",
-    features: [
-      "Flexible module configuration",
-      "Custom angles & curves",
-      "Architectural integration",
-      "Artistic installations",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
-  },
-  {
-    id: 6,
-    number: "06",
-    title: "Interactive LED Solutions",
-    description:
-      "Touch-enabled LED displays that engage audiences through interactive experiences, perfect for retail and exhibitions.",
-    features: [
-      "Multi-touch capability",
-      "Gesture recognition",
-      "Real-time content updates",
-      "Analytics & insights",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
-  },
+const SERVICE_IMAGES = [
+  "https://images.unsplash.com/photo-1441986300917-64674bd600d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
+  "https://images.unsplash.com/photo-1763671727638-5bc55bb9c980?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
+  "https://images.unsplash.com/photo-1497366216548-37526070297c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
+  "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
+  "https://images.unsplash.com/photo-1451187580459-43490279c0fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
+  "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
 ];
+
+function useSalesServices(): Service[] {
+  const { t } = useTranslation();
+  return t.sales.servicesList.map((item, i) => ({
+    id: i + 1,
+    number: String(i + 1).padStart(2, "0"),
+    title: item.title,
+    description: item.description,
+    features: item.features,
+    image: SERVICE_IMAGES[i],
+  }));
+}
 
 function ServiceSection({
   service,
@@ -279,6 +207,7 @@ function ServiceSection({
 }
 
 export const SalesServicesSection1 = () => {
+  const services = useSalesServices();
   return (
     <div className=" h-full flex flex-col items-center justify-center gap-10">
       {services.slice(0, 2).map((service, index) => (
@@ -289,6 +218,7 @@ export const SalesServicesSection1 = () => {
 };
 
 export const SalesServicesSection2 = () => {
+  const services = useSalesServices();
   return (
     <div className=" lg:max-h-[90vh] h-full flex flex-col items-center justify-center gap-10">
       {services.slice(2, 4).map((service, index) => (
@@ -298,6 +228,7 @@ export const SalesServicesSection2 = () => {
   );
 };
 export const SalesServicesSection3 = () => {
+  const services = useSalesServices();
   return (
     <div className=" lg:max-h-[90vh] h-full flex flex-col items-center justify-center gap-10 mb-20 lg:mb-0">
       {services.slice(4, 6).map((service, index) => (

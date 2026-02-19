@@ -14,12 +14,9 @@ interface WhatWeDoSectionProps {
   services: Service[];
 }
 
-/** CTA label and route for each What We Do card (1-based index) */
-const WHAT_WE_DO_CTA: { label: string; path: string }[] = [
-  { label: "Talk to an LED Specialist", path: "/contact" },
-  { label: "Plan Your LED Event", path: "/rental" },
-  { label: "Talk to a Service & Design Specialist", path: "/service" },
-];
+/** CTA path for each What We Do card (1-based index). Labels come from t.whatWeDo.cta. */
+const WHAT_WE_DO_PATHS = ["/contact", "/rental", "/service"] as const;
+const CTA_KEYS = ["sales", "rental", "service"] as const;
 
 /** Header only – for use as intro slide in FullPageSlider */
 export function WhatWeDoSectionHeader() {
@@ -50,8 +47,11 @@ export function WhatWeDoSectionSlide({
   index: number;
 }) {
   const router = useRouter();
+  const { t } = useTranslation();
   const displayNumber = String(index).padStart(2, "0");
-  const cta = WHAT_WE_DO_CTA[index - 1] ?? WHAT_WE_DO_CTA[0];
+  const ctaKey = CTA_KEYS[index - 1] ?? CTA_KEYS[0];
+  const ctaLabel = t.whatWeDo.cta[ctaKey];
+  const ctaPath = WHAT_WE_DO_PATHS[index - 1] ?? WHAT_WE_DO_PATHS[0];
 
   return (
     <div className="relative w-full h-full min-h-0 overflow-hidden">
@@ -74,10 +74,10 @@ export function WhatWeDoSectionSlide({
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="relative group px-12 py-4 bg-transparent border-2 border-white/30 text-white text-sm tracking-[0.3em] overflow-hidden transition-all duration-300 w-fit"
-          onClick={() => router.push(cta.path)}
+          onClick={() => router.push(ctaPath)}
         >
           <span className="relative z-10 group-hover:text-black transition-colors duration-300 italic">
-            {cta.label}
+            {ctaLabel}
           </span>
           <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -203,7 +203,7 @@ export function WhatWeDoSection({ services }: WhatWeDoSectionProps) {
                 }}
               >
                 <span className="relative z-10 group-hover:text-black transition-colors duration-300 italic">
-                  Talk to an LED Specialist
+                  {t.whatWeDo.cta.sales}
                 </span>
                 <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -258,9 +258,10 @@ export function WhatWeDoSection({ services }: WhatWeDoSectionProps) {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="relative group px-12 py-4 bg-transparent border-2 border-white/30 text-white text-sm tracking-[0.3em] overflow-hidden transition-all duration-300 w-fit"
+                onClick={() => router.push("/rental")}
               >
                 <span className="relative z-10 group-hover:text-black transition-colors duration-300 italic">
-                  Plan Your LED Event
+                  {t.whatWeDo.cta.rental}
                 </span>
                 <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -315,9 +316,10 @@ export function WhatWeDoSection({ services }: WhatWeDoSectionProps) {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="relative group px-12 py-4 bg-transparent border-2 border-white/30 text-white text-sm tracking-[0.3em] overflow-hidden transition-all duration-300 w-fit"
+                onClick={() => router.push("/service")}
               >
                 <span className="relative z-10 group-hover:text-black transition-colors duration-300 italic">
-                  Talk to a Service & Design Specialist
+                  {t.whatWeDo.cta.service}
                 </span>
                 <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

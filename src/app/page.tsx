@@ -21,38 +21,29 @@ const HERO_IMAGE =
 const CONTACT_IMAGE =
   "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&q=80";
 
-const PORTFOLIO_ITEMS: HomePortfolioItem[] = [
-  {
-    title: "Fashion Industry",
-    category: "RETAIL & EVENTS",
-    image:
-      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=80",
-    slug: "fashion-industry",
-  },
-  {
-    title: "Grocery Store",
-    category: "RETAIL",
-    image:
-      "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=1920&q=80",
-    slug: "grocery-store",
-  },
-  {
-    title: "Automotive Industry",
-    category: "SHOWROOM",
-    image:
-      "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&q=80",
-    slug: "automotive-industry",
-  },
-  {
-    title: "Outdoor Advertising (DOOH)",
-    category: "DIGITAL OUT-OF-HOME",
-    image: DUMMY_IMAGE, // black slide per reference
-    slug: "outdoor-advertising-dooh",
-  },
+const PORTFOLIO_SLUGS = [
+  "fashion-industry",
+  "grocery-store",
+  "automotive-industry",
+  "outdoor-advertising-dooh",
+];
+const PORTFOLIO_IMAGES = [
+  "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=80",
+  "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=1920&q=80",
+  "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&q=80",
+  DUMMY_IMAGE,
 ];
 
 export default function HomePage() {
   const { t } = useTranslation();
+  const portfolioItems: HomePortfolioItem[] = t.homePortfolio.items.map(
+    (item, i) => ({
+      title: item.title,
+      category: item.category,
+      image: PORTFOLIO_IMAGES[i],
+      slug: PORTFOLIO_SLUGS[i],
+    }),
+  );
   const whatWeDoServices: Service[] = [
     {
       title: t.whatWeDo.sales.title,
@@ -84,7 +75,7 @@ export default function HomePage() {
           background: "black",
           content: <HomePortfolioIntro />,
         },
-        ...PORTFOLIO_ITEMS.map((item, i) => ({
+        ...portfolioItems.map((item, i) => ({
           background: "black" as const,
           content: <HomePortfolioSlide item={item} index={i + 1} />,
         })),

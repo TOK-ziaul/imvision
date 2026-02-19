@@ -2,6 +2,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface UseCase {
   id: number;
@@ -14,56 +15,23 @@ interface UseCase {
   };
 }
 
-const useCases: UseCase[] = [
-  {
-    id: 1,
-    title: "Retail Experience Centers",
-    description:
-      "Transform traditional retail spaces into immersive brand experiences where customers can interact with products through dynamic LED displays, creating memorable shopping journeys that blend physical and digital touchpoints.",
-    image:
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
-    stats: {
-      label: "Engagement Increase",
-      value: "85%",
-    },
-  },
-  {
-    id: 2,
-    title: "Corporate Communication Hubs",
-    description:
-      "Elevate workplace environments with large-format LED installations that facilitate collaboration, display real-time data, and create inspiring spaces where teams connect and innovate together.",
-    image:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
-    stats: {
-      label: "Productivity Boost",
-      value: "40%",
-    },
-  },
-  {
-    id: 3,
-    title: "Hospitality & Entertainment Venues",
-    description:
-      "Create captivating atmospheres in hotels, restaurants, and entertainment spaces with immersive LED environments that adapt to events, enhance guest experiences, and tell compelling brand stories.",
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
-    stats: {
-      label: "Guest Satisfaction",
-      value: "92%",
-    },
-  },
-  {
-    id: 4,
-    title: "Architectural Landmarks",
-    description:
-      "Turn buildings into dynamic canvases with exterior LED installations that transform urban landscapes, create iconic landmarks, and engage communities through large-scale digital art and messaging.",
-    image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
-    stats: {
-      label: "Visibility Range",
-      value: "2km+",
-    },
-  },
+const USE_CASE_IMAGES = [
+  "https://images.unsplash.com/photo-1441986300917-64674bd600d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
+  "https://images.unsplash.com/photo-1497366216548-37526070297c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
+  "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
+  "https://images.unsplash.com/photo-1451187580459-43490279c0fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
 ];
+
+function useSalesUseCases(): UseCase[] {
+  const { t } = useTranslation();
+  return t.sales.useCasesList.map((item, i) => ({
+    id: i + 1,
+    title: item.title,
+    description: item.description,
+    image: USE_CASE_IMAGES[i],
+    stats: item.stats,
+  }));
+}
 
 function UseCaseCard({ useCase, index }: { useCase: UseCase; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -158,6 +126,7 @@ function UseCaseCard({ useCase, index }: { useCase: UseCase; index: number }) {
 
 export function SalesUseCasesSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const useCases = useSalesUseCases();
 
   return (
     <div
@@ -188,6 +157,7 @@ export function SalesUseCasesSection() {
 }
 
 export const SalesUseCasesHeader = () => {
+  const { t } = useTranslation();
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -209,7 +179,7 @@ export const SalesUseCasesHeader = () => {
           className="tracking-[0.3em] uppercase text-[#2BCC07]"
           style={{ fontSize: "0.875rem", fontWeight: 400 }}
         >
-          Use Cases
+          {t.sales.useCasesHeader.label}
         </p>
         <div className="w-16 h-[2px] bg-[#2BCC07]" />
       </motion.div>
@@ -223,8 +193,11 @@ export const SalesUseCasesHeader = () => {
           lineHeight: 1.1,
         }}
       >
-        New <span className="text-[#2BCC07]">phygital use cases</span> for LED
-        display solutions
+        {t.sales.useCasesHeader.heroTitlePrefix}
+        <span className="text-[#2BCC07]">
+          {t.sales.useCasesHeader.heroTitleHighlight}
+        </span>
+        {t.sales.useCasesHeader.heroTitleSuffix}
       </h2>
 
       <motion.p
@@ -239,8 +212,7 @@ export const SalesUseCasesHeader = () => {
           lineHeight: 1.7,
         }}
       >
-        Discover how leading brands are transforming spaces and creating
-        unforgettable experiences through innovative LED display applications
+        {t.sales.useCasesHeader.description}
       </motion.p>
     </motion.div>
   );

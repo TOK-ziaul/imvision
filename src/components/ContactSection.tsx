@@ -144,7 +144,7 @@ export function ContactSection({
                 router.push("/contact");
               }}
             >
-              Talk to an LED Specialist
+              {t.contactSection.cta}
             </span>
             <motion.div
               className="absolute inset-0 -z-10"

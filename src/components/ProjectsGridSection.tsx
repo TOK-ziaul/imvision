@@ -14,43 +14,17 @@ export interface Project {
   description: string;
 }
 
-export const projects: Project[] = [
-  {
-    id: "fashion-industry",
-    title: "Fashion Industry",
-    category: "RETAIL & EVENTS",
-    image:
-      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=80",
-    description:
-      "High-impact LED displays transforming retail experiences with dynamic visual storytelling and brand engagement.",
-  },
-  {
-    id: "grocery-store",
-    title: "Grocery Store",
-    category: "RETAIL",
-    image:
-      "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=1920&q=80",
-    description:
-      "Digital signage solutions enhancing customer experience with product promotions and wayfinding.",
-  },
-  {
-    id: "automotive-industry",
-    title: "Automotive Industry",
-    category: "SHOWROOM",
-    image:
-      "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&q=80",
-    description:
-      "Immersive LED installations creating premium showroom experiences that showcase vehicles in stunning detail.",
-  },
-  {
-    id: "outdoor-advertising-dooh",
-    title: "Outdoor Advertising (DOOH)",
-    category: "DIGITAL OUT-OF-HOME",
-    image:
-      "https://images.unsplash.com/photo-1763671727638-5bc55bb9c980?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
-    description:
-      "Large-scale outdoor LED displays delivering high-visibility advertising in urban environments.",
-  },
+const PROJECT_IDS = [
+  "fashion-industry",
+  "grocery-store",
+  "automotive-industry",
+  "outdoor-advertising-dooh",
+];
+const PROJECT_IMAGES = [
+  "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=80",
+  "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=1920&q=80",
+  "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&q=80",
+  "https://images.unsplash.com/photo-1763671727638-5bc55bb9c980?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
 ];
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
@@ -197,7 +171,19 @@ export function ProjectsSectionHeader() {
   );
 }
 
+function useProjects(): Project[] {
+  const { t } = useTranslation();
+  return t.projects.items.map((item, i) => ({
+    id: PROJECT_IDS[i],
+    title: item.title,
+    category: item.category,
+    image: PROJECT_IMAGES[i],
+    description: item.description,
+  }));
+}
+
 export function ProjectsSection1() {
+  const projects = useProjects();
   return (
     <div className="container mx-auto px-6 lg:px-12 h-full flex items-center justify-center ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
@@ -210,6 +196,7 @@ export function ProjectsSection1() {
 }
 
 export function ProjectsSection2() {
+  const projects = useProjects();
   return (
     <div className="container mx-auto px-6 lg:px-12 h-full flex items-center justify-center ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-20 lg:mb-0">

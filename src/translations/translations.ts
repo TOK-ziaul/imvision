@@ -42,6 +42,11 @@ export const translations = {
         description:
           "From concept and design to installation, monitoring, and long-term support — ensuring your LED solution performs flawlessly over time.",
       },
+      cta: {
+        sales: "Talk to an LED Specialist",
+        rental: "Plan Your LED Event",
+        service: "Talk to a Service & Design Specialist",
+      },
     },
     // Why IMvision Section
     whyIMvision: {
@@ -60,6 +65,27 @@ export const translations = {
     gallery: {
       subtitle: "OUR PORTFOLIO",
       title: "Where Vision Comes to Life",
+    },
+    // Home page portfolio slides
+    homePortfolio: {
+      items: [
+        {
+          title: "Fashion Industry",
+          category: "RETAIL & EVENTS",
+        },
+        {
+          title: "Grocery Store",
+          category: "RETAIL",
+        },
+        {
+          title: "Automotive Industry",
+          category: "SHOWROOM",
+        },
+        {
+          title: "Outdoor Advertising (DOOH)",
+          category: "DIGITAL OUT-OF-HOME",
+        },
+      ],
     },
     // Contact Section / Contact page
     contact: {
@@ -239,11 +265,134 @@ export const translations = {
       intro: {
         paragraph:
           "Let IM Vision help you elevate your brand with immersive phygital spaces. IM Vision delivers complete LED solutions for businesses, retail, studios and more. Our 360° approach — from concept and design to installation, support, long-term maintenance and monitoring — ensures a seamless experience that transforms spaces, elevates brands, and creates lasting impressions.",
+        headlinePrefix: "Let ",
+        headlineBrand: "IM Vision",
+        headlineMiddle: " help you elevate your brand with immersive ",
+        headlinePhygital: "phygital spaces",
+        cards: [
+          {
+            title: "Physical meets Digital",
+            description:
+              "Create unforgettable connections where physical presence meets digital interaction.",
+          },
+          {
+            title: "Deeper Engagement",
+            description:
+              "Today's consumers expect more — they want to explore and experience through immersive environments.",
+          },
+          {
+            title: "Dynamic Storytelling",
+            description:
+              "Large-format LED displays bring visuals to life and deepen the connection between your audience and your brand.",
+          },
+        ],
       },
       servicesHeader: { label: "Our Services", title: "Comprehensive LED Solutions" },
       requestQuote: "Get a Quote",
-      useCasesHeader: { label: "Use Cases", title: "Where LED Meets Impact" },
+      useCasesHeader: {
+        label: "Use Cases",
+        title: "Where LED Meets Impact",
+        heroTitlePrefix: "New ",
+        heroTitleHighlight: "phygital use cases",
+        heroTitleSuffix: " for LED display solutions",
+        description:
+          "Discover how leading brands are transforming spaces and creating unforgettable experiences through innovative LED display applications",
+      },
+      useCasesList: [
+        {
+          title: "Retail Experience Centers",
+          description:
+            "Transform traditional retail spaces into immersive brand experiences where customers can interact with products through dynamic LED displays, creating memorable shopping journeys that blend physical and digital touchpoints.",
+          stats: { label: "Engagement Increase", value: "85%" },
+        },
+        {
+          title: "Corporate Communication Hubs",
+          description:
+            "Elevate workplace environments with large-format LED installations that facilitate collaboration, display real-time data, and create inspiring spaces where teams connect and innovate together.",
+          stats: { label: "Productivity Boost", value: "40%" },
+        },
+        {
+          title: "Hospitality & Entertainment Venues",
+          description:
+            "Create captivating atmospheres in hotels, restaurants, and entertainment spaces with immersive LED environments that adapt to events, enhance guest experiences, and tell compelling brand stories.",
+          stats: { label: "Guest Satisfaction", value: "92%" },
+        },
+        {
+          title: "Architectural Landmarks",
+          description:
+            "Turn buildings into dynamic canvases with exterior LED installations that transform urban landscapes, create iconic landmarks, and engage communities through large-scale digital art and messaging.",
+          stats: { label: "Visibility Range", value: "2km+" },
+        },
+      ],
       displaySolutionsHeader: { label: "Solutions", title: "Display Solutions" },
+      servicesList: [
+        {
+          title: "Indoor LED Displays",
+          description:
+            "Premium indoor LED solutions designed for retail, corporate, and entertainment environments with stunning clarity and vibrant colors.",
+          features: [
+            "Fine pixel pitch for close viewing",
+            "High brightness & contrast ratio",
+            "Seamless modular design",
+            "Energy-efficient technology",
+          ],
+        },
+        {
+          title: "Outdoor LED Billboards",
+          description:
+            "Weather-resistant, high-brightness outdoor displays that command attention in any environment, day or night.",
+          features: [
+            "IP65+ weatherproof rating",
+            "Ultra-high brightness (>5000 nits)",
+            "Anti-glare surface treatment",
+            "Remote monitoring & control",
+          ],
+        },
+        {
+          title: "Transparent LED Screens",
+          description:
+            "Innovative transparent displays that blend digital content with physical environments, perfect for storefronts and architectural installations.",
+          features: [
+            "Up to 85% transparency",
+            "Lightweight aluminum design",
+            "Maintains natural light flow",
+            "Interactive touch options",
+          ],
+        },
+        {
+          title: "LED Video Walls",
+          description:
+            "Seamless, large-format video walls for control rooms, broadcast studios, and immersive brand experiences.",
+          features: [
+            "Bezel-free seamless design",
+            "4K & 8K resolution options",
+            "Advanced color calibration",
+            "24/7 continuous operation",
+          ],
+        },
+        {
+          title: "Curved & Creative LED",
+          description:
+            "Custom-shaped LED displays that push creative boundaries, from curved screens to 3D installations.",
+          features: [
+            "Flexible module configuration",
+            "Custom angles & curves",
+            "Architectural integration",
+            "Artistic installations",
+          ],
+        },
+        {
+          title: "Interactive LED Solutions",
+          description:
+            "Touch-enabled LED displays that engage audiences through interactive experiences, perfect for retail and exhibitions.",
+          features: [
+            "Multi-touch capability",
+            "Gesture recognition",
+            "Real-time content updates",
+            "Analytics & insights",
+          ],
+        },
+      ],
     },
     // Rental page
     rental: {
@@ -297,6 +446,32 @@ export const translations = {
           "Discover how we've partnered with leading brands across industries to create immersive, high-impact visual experiences that captivate audiences and drive results.",
       },
       viewProject: "View Project",
+      items: [
+        {
+          title: "Fashion Industry",
+          category: "RETAIL & EVENTS",
+          description:
+            "High-impact LED displays transforming retail experiences with dynamic visual storytelling and brand engagement.",
+        },
+        {
+          title: "Grocery Store",
+          category: "RETAIL",
+          description:
+            "Digital signage solutions enhancing customer experience with product promotions and wayfinding.",
+        },
+        {
+          title: "Automotive Industry",
+          category: "SHOWROOM",
+          description:
+            "Immersive LED installations creating premium showroom experiences that showcase vehicles in stunning detail.",
+        },
+        {
+          title: "Outdoor Advertising (DOOH)",
+          category: "DIGITAL OUT-OF-HOME",
+          description:
+            "Large-scale outdoor LED displays delivering high-visibility advertising in urban environments.",
+        },
+      ],
     },
   },
   sv: {
@@ -342,6 +517,11 @@ export const translations = {
         description:
           "Från koncept och design till installation, övervakning och långsiktig support — vi säkerställer att din LED-lösning fungerar felfritt över tid.",
       },
+      cta: {
+        sales: "Prata med en LED-specialist",
+        rental: "Planera ditt LED-evenemang",
+        service: "Prata med en service- och designspecialist",
+      },
     },
     // Why IMvision Section
     whyIMvision: {
@@ -360,6 +540,27 @@ export const translations = {
     gallery: {
       subtitle: "VÅR PORTFÖLJ",
       title: "Där Vision Blir Verklighet",
+    },
+    // Home page portfolio slides
+    homePortfolio: {
+      items: [
+        {
+          title: "Modebranschen",
+          category: "DETAILHANDEL & EVENEMANG",
+        },
+        {
+          title: "Livsmedelsbutik",
+          category: "DETAILHANDEL",
+        },
+        {
+          title: "Fordonindustrin",
+          category: "SHOWROOM",
+        },
+        {
+          title: "Utomhusreklam (DOOH)",
+          category: "DIGITAL OUT-OF-HOME",
+        },
+      ],
     },
     // Contact Section / Contact page
     contact: {
@@ -538,11 +739,134 @@ export const translations = {
       intro: {
         paragraph:
           "Låt IM Vision hjälpa dig att lyfta ditt varumärke med immersiva fygitala miljöer. IM Vision levererar kompletta LED-lösningar för företag, detaljhandel, studior med mera. Vårt 360°-perspektiv – från koncept och design till installation, support, långsiktigt underhåll och övervakning – säkerställer en sömlös upplevelse som förvandlar utrymmen, lyfter varumärken och skapar bestående intryck.",
+        headlinePrefix: "Låt ",
+        headlineBrand: "IM Vision",
+        headlineMiddle: " hjälpa dig att lyfta ditt varumärke med immersiva ",
+        headlinePhygital: "fygitala miljöer",
+        cards: [
+          {
+            title: "Fysiskt möter digitalt",
+            description:
+              "Skapa oförglömliga kopplingar där fysisk närvaro möter digital interaktion.",
+          },
+          {
+            title: "Djupere engagemang",
+            description:
+              "Dagens konsumenter förväntar sig mer – de vill utforska och uppleva genom immersiva miljöer.",
+          },
+          {
+            title: "Dynamisk storytelling",
+            description:
+              "Storskaliga LED-displayer ger visuella uttryck liv och förstärker kopplingen mellan din publik och ditt varumärke.",
+          },
+        ],
       },
       servicesHeader: { label: "Våra tjänster", title: "Omfattande LED-lösningar" },
       requestQuote: "Begär offert",
-      useCasesHeader: { label: "Användningsfall", title: "Där LED möter påverkan" },
+      useCasesHeader: {
+        label: "Användningsfall",
+        title: "Där LED möter påverkan",
+        heroTitlePrefix: "Nya ",
+        heroTitleHighlight: "fygitala användningsfall",
+        heroTitleSuffix: " för LED-displaylösningar",
+        description:
+          "Upptäck hur ledande varumärken förvandlar utrymmen och skapar oförglömliga upplevelser genom innovativa LED-displaylösningar",
+      },
+      useCasesList: [
+        {
+          title: "Retail Experience Centers",
+          description:
+            "Förvandla traditionella retail-miljöer till immersiva varumärkesupplevelser där kunder kan interagera med produkter via dynamiska LED-displayer, med minnesvärda shoppingresor som förenar fysiska och digitala touchpoints.",
+          stats: { label: "Ökat engagemang", value: "85%" },
+        },
+        {
+          title: "Företagets kommunikationsnav",
+          description:
+            "Lyft arbetsmiljöer med storskaliga LED-installationer som underlättar samarbete, visar realtidsdata och skapar inspirerande utrymmen där team kopplar samman och innoverar tillsammans.",
+          stats: { label: "Produktivitetsökning", value: "40%" },
+        },
+        {
+          title: "Hotell & underhållningslokaler",
+          description:
+            "Skapa fängslande atmosfärer på hotell, restauranger och underhållningsplatser med immersiva LED-miljöer som anpassar sig till evenemang, förbättrar gästupplevelsen och berättar övertygande varumärkesberättelser.",
+          stats: { label: "Gästnöjdhet", value: "92%" },
+        },
+        {
+          title: "Arkitektoniska landmärken",
+          description:
+            "Förvandla byggnader till dynamiska dukar med utomhus-LED-installationer som transformerar urbana landskap, skapar ikoniska landmärken och engagerar samhällen genom storskalig digital konst och budskap.",
+          stats: { label: "Synlighetsområde", value: "2km+" },
+        },
+      ],
       displaySolutionsHeader: { label: "Lösningar", title: "Displaylösningar" },
+      servicesList: [
+        {
+          title: "Inomhus-LED-displayer",
+          description:
+            "Premium inomhus-LED-lösningar för retail, företag och underhållningsmiljöer med tydlig bild och livfulla färger.",
+          features: [
+            "Fint pixelsteg för närvisning",
+            "Hög ljusstyrka och kontrast",
+            "Sömlös moduldesign",
+            "Energieffektiv teknik",
+          ],
+        },
+        {
+          title: "Utomhus-LED-skyltar",
+          description:
+            "Väderbeständiga, högljus utomhusdisplayer som fångar uppmärksamhet i alla miljöer, dag som natt.",
+          features: [
+            "IP65+ väderbeständighet",
+            "Mycket hög ljusstyrka (>5000 nits)",
+            "Bländskyddad yta",
+            "Fjärrövervakning och styrning",
+          ],
+        },
+        {
+          title: "Transparenta LED-skärmar",
+          description:
+            "Innovativa transparenta displayer som blandar digitalt innehåll med den fysiska miljön – perfekt för butiksfasader och arkitektoniska installationer.",
+          features: [
+            "Upp till 85% transparens",
+            "Lätt aluminiumdesign",
+            "Bibehåller naturligt ljusflöde",
+            "Interaktiva touch-alternativ",
+          ],
+        },
+        {
+          title: "LED-videoväggar",
+          description:
+            "Sömlösa, storskaliga videoväggar för kontrollrum, sändningsstudios och immersiva varumärkesupplevelser.",
+          features: [
+            "Kantfri sömlös design",
+            "4K- och 8K-upplösning",
+            "Avancerad färgkalibrering",
+            "24/7 kontinuerlig drift",
+          ],
+        },
+        {
+          title: "Kurvade och kreativa LED",
+          description:
+            "Skräddarsydda LED-displayer som tänjer på gränserna – från kurvade skärmar till 3D-installationer.",
+          features: [
+            "Flexibel modulkonfiguration",
+            "Anpassade vinklar och kurvor",
+            "Arkitektonisk integration",
+            "Konstnärliga installationer",
+          ],
+        },
+        {
+          title: "Interaktiva LED-lösningar",
+          description:
+            "Touch-aktiverade LED-displayer som engagerar publiken genom interaktiva upplevelser – perfekt för retail och utställningar.",
+          features: [
+            "Flerberöring",
+            "Gesterkänning",
+            "Innehållsuppdateringar i realtid",
+            "Analys och insikter",
+          ],
+        },
+      ],
     },
     // Rental page
     rental: {
@@ -596,6 +920,32 @@ export const translations = {
           "Upptäck hur vi har samarbetat med ledande varumärken över branscher för att skapa immersiva, högimpact-visuella upplevelser som fängslar publiken och driver resultat.",
       },
       viewProject: "Visa projekt",
+      items: [
+        {
+          title: "Modebranschen",
+          category: "DETAILHANDEL & EVENEMANG",
+          description:
+            "Kraftfulla LED-displayer som förvandlar retail-upplevelser med dynamisk visuell storytelling och varumärkesengagemang.",
+        },
+        {
+          title: "Livsmedelsbutik",
+          category: "DETAILHANDEL",
+          description:
+            "Digitala skyltlösningar som förbättrar kundupplevelsen med produktkampanjer och vägvisning.",
+        },
+        {
+          title: "Fordonindustrin",
+          category: "SHOWROOM",
+          description:
+            "Immersiva LED-installationer som skapar premium showroom-upplevelser och visar upp fordon i fantastiska detaljer.",
+        },
+        {
+          title: "Utomhusreklam (DOOH)",
+          category: "DIGITAL OUT-OF-HOME",
+          description:
+            "Storskaliga utomhus-LED-displayer som levererar synlig reklam i urbana miljöer.",
+        },
+      ],
     },
   },
 };
