@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
 
-interface Service {
+export interface Service {
   title: string;
   description: string;
   image: string;
@@ -12,6 +12,81 @@ interface Service {
 
 interface WhatWeDoSectionProps {
   services: Service[];
+}
+
+/** CTA label and route for each What We Do card (1-based index) */
+const WHAT_WE_DO_CTA: { label: string; path: string }[] = [
+  { label: "Talk to an LED Specialist", path: "/contact" },
+  { label: "Plan Your LED Event", path: "/rental" },
+  { label: "Talk to a Service & Design Specialist", path: "/service" },
+];
+
+/** Header only – for use as intro slide in FullPageSlider */
+export function WhatWeDoSectionHeader() {
+  const { t } = useTranslation();
+  return (
+    <div className="relative w-full h-full flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-20 lg:pt-0">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="flex items-start gap-6"
+      >
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-white">
+          {t.whatWeDo.title}
+        </h2>
+      </motion.div>
+    </div>
+  );
+}
+
+/** Single service card – for use as one slide in FullPageSlider. index is 1-based (01, 02, 03). */
+export function WhatWeDoSectionSlide({
+  service,
+  index,
+}: {
+  service: Service;
+  index: number;
+}) {
+  const router = useRouter();
+  const displayNumber = String(index).padStart(2, "0");
+  const cta = WHAT_WE_DO_CTA[index - 1] ?? WHAT_WE_DO_CTA[0];
+
+  return (
+    <div className="relative w-full h-full min-h-0 overflow-hidden">
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${service.image})` }}
+      />
+      <div className="absolute inset-0 bg-black/60" />
+      <div className="relative z-10 h-full flex flex-col justify-end p-8 md:p-12 lg:p-16 xl:p-24 pb-24 md:pb-32 lg:pb-40">
+        <div className="text-[#2BCC07] text-sm font-light tracking-[0.3em] mb-4">
+          {displayNumber}
+        </div>
+        <h3 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-light text-white mb-4">
+          {service.title}
+        </h3>
+        <p className="text-xl md:text-2xl lg:text-3xl font-light text-white/90 mb-8 max-w-2xl">
+          {service.description}
+        </p>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="relative group px-12 py-4 bg-transparent border-2 border-white/30 text-white text-sm tracking-[0.3em] overflow-hidden transition-all duration-300 w-fit"
+          onClick={() => router.push(cta.path)}
+        >
+          <span className="relative z-10 group-hover:text-black transition-colors duration-300 italic">
+            {cta.label}
+          </span>
+          <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute inset-0 animate-pulse bg-white/20" />
+          </div>
+        </motion.button>
+      </div>
+    </div>
+  );
 }
 
 export function WhatWeDoSection({ services }: WhatWeDoSectionProps) {

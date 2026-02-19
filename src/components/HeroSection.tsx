@@ -11,11 +11,14 @@ import { useRef, useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 
+type Part = "full" | "content";
+
 interface HeroSectionProps {
-  heroImage: string;
+  heroImage?: string;
+  part?: Part;
 }
 
-export function HeroSection({ heroImage }: HeroSectionProps) {
+export function HeroSection({ heroImage, part }: HeroSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [showAll, setShowAll] = useState(false);
   const { t } = useTranslation();
@@ -25,9 +28,7 @@ export function HeroSection({ heroImage }: HeroSectionProps) {
     offset: ["start start", "end start"],
   });
 
-  // const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0]);
-  // const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
 
   useEffect(() => {
     const handleMouseMove = () => {
@@ -58,33 +59,12 @@ export function HeroSection({ heroImage }: HeroSectionProps) {
   // Animation easing
   const customEase: EasingFunction = cubicBezier(0.22, 1, 0.36, 1);
 
-  return (
-    <section
-      ref={ref}
-      className="relative h-screen w-full overflow-hidden"
-      style={{ position: "relative" }}
-    >
-      {/* Background Image - Static, no parallax during text reveal */}
-      <motion.div
-        className="absolute inset-0"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, ease: customEase }}
-      >
-        <ImageWithFallback
-          src={heroImage}
-          alt="IMvision Creative Studio"
-          className="w-full h-full object-cover"
-        />
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/60" />
-      </motion.div>
-
-      {/* Hero Content */}
+  const contentBlock = (
+    <>
       <div className="relative h-full flex flex-col items-center justify-center px-6 lg:px-12 pt-32 md:pt-40 lg:pt-48 pb-48 md:pb-56 lg:pb-64">
         <motion.div
           className="w-full flex flex-col items-center justify-center"
-          style={{ opacity }}
+          // style={{ opacity }}
         >
           {/* Main Headline - Sequential text reveal */}
           <div
@@ -396,6 +376,39 @@ export function HeroSection({ heroImage }: HeroSectionProps) {
           <div className="w-[1px] h-12 bg-gradient-to-b from-white/30 to-transparent" />
         </motion.div>
       </motion.div>
+    </>
+  );
+
+  if (part === "content") {
+    return (
+      <div ref={ref} className="relative w-full h-full min-h-svh  z-10">
+        {contentBlock}
+      </div>
+    );
+  }
+
+  return (
+    <section
+      ref={ref}
+      className="relative h-screen w-full overflow-hidden"
+      style={{ position: "relative" }}
+    >
+      {/* Background Image - Static, no parallax during text reveal */}
+      <motion.div
+        className="absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, ease: customEase }}
+      >
+        <ImageWithFallback
+          src={heroImage}
+          alt="IMvision Creative Studio"
+          className="w-full h-full object-cover"
+        />
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/60" />
+      </motion.div>
+      {contentBlock}
     </section>
   );
 }
