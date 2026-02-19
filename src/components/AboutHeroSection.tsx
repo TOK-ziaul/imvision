@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-
+import { useRouter } from "next/navigation";
 type Part = "background" | "content";
 
 interface AboutHeroSectionProps {
@@ -20,7 +20,7 @@ export function AboutHeroSection({
   part,
 }: AboutHeroSectionProps) {
   const trans = transition as object;
-
+  const router = useRouter();
   if (part === "background") {
     return (
       <motion.div
@@ -109,6 +109,9 @@ export function AboutHeroSection({
                 style={{
                   fontSize: "clamp(0.875rem, 1.1vw, 1rem)",
                   textShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
+                }}
+                onClick={() => {
+                  router.push("/contact");
                 }}
               >
                 Talk to an Expert
@@ -237,6 +240,9 @@ export function AboutHeroSection({
                 style={{
                   fontSize: "clamp(0.875rem, 1.1vw, 1rem)",
                   textShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
+                }}
+                onClick={() => {
+                  router.push("/contact");
                 }}
               >
                 Talk to an Expert

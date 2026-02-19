@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-
+import { useRouter } from "next/navigation";
 const ABOUT_IMG = "/aboutImg.png";
 
 type Part = "background" | "content";
@@ -24,7 +24,7 @@ export function AboutStatsSection({
 }: AboutStatsSectionProps) {
   const [activeTab, setActiveTab] = useState(0);
   const trans = transition as object;
-
+  const router = useRouter();
   const tabs = [
     {
       stat: "10+",
@@ -74,9 +74,7 @@ export function AboutStatsSection({
 
   if (part === "content") {
     return (
-      <div
-        className="relative w-full  py-20 lg:py-32"
-      >
+      <div className="relative w-full  py-20 lg:py-32">
         <div className="container mx-auto px-6 lg:px-12 h-full ">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center h-full ">
             <motion.div
@@ -204,6 +202,9 @@ export function AboutStatsSection({
                     fontSize: "clamp(0.875rem, 1vw, 1rem)",
                     fontWeight: 300,
                     letterSpacing: "0.02em",
+                  }}
+                  onClick={() => {
+                    router.push("/contact");
                   }}
                 >
                   Talk to an LED Specialist
@@ -381,6 +382,9 @@ export function AboutStatsSection({
                     fontSize: "clamp(0.875rem, 1vw, 1rem)",
                     fontWeight: 300,
                     letterSpacing: "0.02em",
+                  }}
+                  onClick={() => {
+                    router.push("/contact");
                   }}
                 >
                   Talk to an LED Specialist

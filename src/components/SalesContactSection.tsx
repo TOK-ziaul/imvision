@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import { useRef } from "react";
 import { ArrowRight, Mail, Phone, MapPin } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type Part = "full" | "content";
 
@@ -13,7 +14,7 @@ interface SalesContactSectionProps {
 export function SalesContactSection({ part }: SalesContactSectionProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
-
+  const router = useRouter();
   const backgroundImage =
     "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&q=80";
 
@@ -118,6 +119,9 @@ export function SalesContactSection({ part }: SalesContactSectionProps) {
           style={{
             fontSize: "clamp(0.875rem, 1.1vw, 1rem)",
             textShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
+          }}
+          onClick={() => {
+            router.push("/contact");
           }}
         >
           Talk to an LED Specialist

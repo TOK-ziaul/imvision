@@ -4,6 +4,7 @@ import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import { ArrowRight, Mail, Phone, MapPin } from "lucide-react";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import { useRouter } from "next/navigation";
 
 type Part = "background" | "content";
 
@@ -25,7 +26,7 @@ export function ContactSection({
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   const trans = transition as object;
-
+  const router = useRouter();
   if (part === "background") {
     return (
       <motion.div
@@ -137,6 +138,9 @@ export function ContactSection({
               style={{
                 fontSize: "clamp(0.875rem, 1.1vw, 1rem)",
                 textShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
+              }}
+              onClick={() => {
+                router.push("/contact");
               }}
             >
               Talk to an LED Specialist
@@ -296,6 +300,9 @@ export function ContactSection({
               style={{
                 fontSize: "clamp(0.875rem, 1.1vw, 1rem)",
                 textShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
+              }}
+              onClick={() => {
+                router.push("/contact");
               }}
             >
               Talk to an LED Specialist

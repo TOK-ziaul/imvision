@@ -1,6 +1,7 @@
 "use client";
-import { motion, useScroll, useTransform } from 'motion/react';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform } from "motion/react";
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
 
 interface Service {
   title: string;
@@ -14,34 +15,51 @@ interface WhatWeDoSectionProps {
 
 export function WhatWeDoSection({ services }: WhatWeDoSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+  const router = useRouter();
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end start'],
+    offset: ["start start", "end start"],
   });
 
   // Calculate scroll progress for each card
   // Card 1 (Sales): Always visible from start, give it more time before overlap
-  const card1Y = useTransform(scrollYProgress, [0, 0.4], ['0%', '0%']);
-  const card1Scale = useTransform(scrollYProgress, [0, 0.4, 0.6], [1, 0.95, 0.9]);
-  
+  const card1Y = useTransform(scrollYProgress, [0, 0.4], ["0%", "0%"]);
+  const card1Scale = useTransform(
+    scrollYProgress,
+    [0, 0.4, 0.6],
+    [1, 0.95, 0.9],
+  );
+
   // Card 2 (Rental): Slides in later to give Sales card more visibility
-  const card2Y = useTransform(scrollYProgress, [0, 0.4, 0.55], ['100%', '0%', '0%']);
-  const card2Scale = useTransform(scrollYProgress, [0.4, 0.7, 0.85], [1, 0.95, 0.9]);
-  
+  const card2Y = useTransform(
+    scrollYProgress,
+    [0, 0.4, 0.55],
+    ["100%", "0%", "0%"],
+  );
+  const card2Scale = useTransform(
+    scrollYProgress,
+    [0.4, 0.7, 0.85],
+    [1, 0.95, 0.9],
+  );
+
   // Card 3 (Service): Slides in last and stacks on top
-  const card3Y = useTransform(scrollYProgress, [0.55, 0.7, 1], ['100%', '0%', '0%']);
+  const card3Y = useTransform(
+    scrollYProgress,
+    [0.55, 0.7, 1],
+    ["100%", "0%", "0%"],
+  );
   const card3Scale = useTransform(scrollYProgress, [0.7, 1], [1, 1]);
 
   return (
-    <section 
-      ref={containerRef} 
+    <section
+      ref={containerRef}
       className="relative h-[400vh] bg-black"
-      style={{ position: 'relative' }}
+      style={{ position: "relative" }}
     >
       {/* Section Title - Fixed at top */}
-      <div className="sticky top-0 w-full bg-black pt-16 md:pt-24 pb-8 px-6 md:px-12 lg:px-24 z-50"
-        style={{ position: 'sticky' }}
+      <div
+        className="sticky top-0 w-full bg-black pt-16 md:pt-24 pb-8 px-6 md:px-12 lg:px-24 z-50"
+        style={{ position: "sticky" }}
       >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -74,7 +92,7 @@ export function WhatWeDoSection({ services }: WhatWeDoSectionProps) {
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url(${services[0].image})` }}
             />
-            
+
             {/* Dark overlay */}
             <div className="absolute inset-0 bg-black/60" />
 
@@ -103,6 +121,9 @@ export function WhatWeDoSection({ services }: WhatWeDoSectionProps) {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="relative group px-12 py-4 bg-transparent border-2 border-white/30 text-white text-sm tracking-[0.3em] overflow-hidden transition-all duration-300 w-fit"
+                onClick={() => {
+                  router.push("/contact");
+                }}
               >
                 <span className="relative z-10 group-hover:text-black transition-colors duration-300 italic">
                   Talk to an LED Specialist
@@ -131,7 +152,7 @@ export function WhatWeDoSection({ services }: WhatWeDoSectionProps) {
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url(${services[1].image})` }}
             />
-            
+
             {/* Dark overlay */}
             <div className="absolute inset-0 bg-black/60" />
 
@@ -188,7 +209,7 @@ export function WhatWeDoSection({ services }: WhatWeDoSectionProps) {
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url(${services[2].image})` }}
             />
-            
+
             {/* Dark overlay */}
             <div className="absolute inset-0 bg-black/60" />
 
@@ -240,7 +261,7 @@ export function WhatWeDoSection({ services }: WhatWeDoSectionProps) {
               linear-gradient(0deg, transparent 24%, rgba(43, 204, 7, .05) 25%, rgba(43, 204, 7, .05) 26%, transparent 27%, transparent 74%, rgba(43, 204, 7, .05) 75%, rgba(43, 204, 7, .05) 76%, transparent 77%, transparent),
               linear-gradient(90deg, transparent 24%, rgba(43, 204, 7, .05) 25%, rgba(43, 204, 7, .05) 26%, transparent 27%, transparent 74%, rgba(43, 204, 7, .05) 75%, rgba(43, 204, 7, .05) 76%, transparent 77%, transparent)
             `,
-            backgroundSize: '50px 50px',
+            backgroundSize: "50px 50px",
           }}
         />
       </div>
