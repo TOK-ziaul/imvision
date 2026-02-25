@@ -54,6 +54,8 @@ export interface FullPageSliderProps {
   /** Optional fixed overlay (e.g. dot indicator). Rendered in a fixed position so it does not move with slides. */
   fixedIndicator?: (ctx: {
     activeIndex: number;
+    /** Matches activeIndex but updates after the slide transition (use for dot highlight). */
+    indicatorIndex: number;
     totalSlides: number;
   }) => ReactNode;
 }
@@ -143,7 +145,20 @@ export function FullPageSlider({
 
   const totalSlides = slides.length;
   const [activeIndex, setActiveIndex] = useState(0);
+  const [indicatorIndex, setIndicatorIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+
+  // Delay indicator update to match slide transition (content has delay + duration)
+  const indicatorDelayMs =
+    ((CONTENT_TRANSITION.delay ?? 0) + CONTENT_TRANSITION.duration) * 600;
+  useEffect(() => {
+    if (activeIndex === indicatorIndex) return;
+    const t = setTimeout(
+      () => setIndicatorIndex(activeIndex),
+      indicatorDelayMs,
+    );
+    return () => clearTimeout(t);
+  }, [activeIndex, indicatorIndex, indicatorDelayMs]);
 
   // Wheel: scroll down = next, scroll up = prev (desktop only)
   useEffect(() => {
@@ -236,75 +251,74 @@ export function FullPageSlider({
 
   // Desktop: full-page slider with wheel + touch
   return (
-    <FullPageSliderContext.Provider
-      value={{ activeIndex, totalSlides }}
-    >
-    <section
-      ref={containerRef}
-      className="relative h-screen w-full overflow-hidden bg-black touch-none"
-    >
-      <Navigation isRelative />
+    <FullPageSliderContext.Provider value={{ activeIndex, totalSlides }}>
+      <section
+        ref={containerRef}
+        className="relative h-screen w-full overflow-hidden bg-black touch-none"
+      >
+        <Navigation isRelative />
 
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="w-full"
-          style={{
-            height: `${totalSlides * 100}vh`,
-            willChange: "transform",
-            backfaceVisibility: "hidden",
-          }}
-          animate={{ y: `-${Math.round(activeIndex * 100)}vh` }}
-          transition={BG_TRANSITION as object}
-        >
-          {slides.map((slide, i) => (
-            <div key={i} className="h-screen w-full relative">
-              <SlideBackgroundLayer
-                background={slide.background}
-                heroImage={heroImage}
-                contactImage={contactImage}
-              />
-            </div>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Fixed indicator overlay - does not move with slides */}
-      {fixedIndicator?.({
-        activeIndex,
-        totalSlides,
-      })}
-
-      {/* Content carousel */}
-      <div className=" flex items-center justify-center overflow-hidden h-[calc(100vh-62px)]">
-        <div
-          className="w-full overflow-hidden "
-          style={{ height: `${contentSlideHeightVh}vh` }}
-        >
+        <div className="absolute inset-0 overflow-hidden">
           <motion.div
-            className="w-full h-full"
-            // style={{
-            //   height: `${TOTAL_SLIDES * CONTENT_SLIDE_HEIGHT_VH}vh`,
-            // }}
-            animate={{
-              y: `-${Math.round(activeIndex * contentSlideHeightVh)}vh`,
+            className="w-full"
+            style={{
+              height: `${totalSlides * 100}vh`,
+              willChange: "transform",
+              backfaceVisibility: "hidden",
             }}
-            transition={CONTENT_TRANSITION as object}
+            animate={{ y: `-${Math.round(activeIndex * 100)}vh` }}
+            transition={BG_TRANSITION as object}
           >
             {slides.map((slide, i) => (
-              <div
-                key={i}
-                className={`w-full flex items-center justify-center ${
-                  slide.scrollable ? "overflow-y-auto" : "overflow-hidden"
-                }`}
-                style={{ height: `${contentSlideHeightVh}vh` }}
-              >
-                {slide.content}
+              <div key={i} className="h-screen w-full relative">
+                <SlideBackgroundLayer
+                  background={slide.background}
+                  heroImage={heroImage}
+                  contactImage={contactImage}
+                />
               </div>
             ))}
           </motion.div>
         </div>
-      </div>
-    </section>
+
+        {/* Fixed indicator overlay - does not move with slides */}
+        {fixedIndicator?.({
+          activeIndex,
+          indicatorIndex,
+          totalSlides,
+        })}
+
+        {/* Content carousel */}
+        <div className=" flex items-center justify-center overflow-hidden h-[calc(100vh-62px)]">
+          <div
+            className="w-full overflow-hidden "
+            style={{ height: `${contentSlideHeightVh}vh` }}
+          >
+            <motion.div
+              className="w-full h-full"
+              // style={{
+              //   height: `${TOTAL_SLIDES * CONTENT_SLIDE_HEIGHT_VH}vh`,
+              // }}
+              animate={{
+                y: `-${Math.round(activeIndex * contentSlideHeightVh)}vh`,
+              }}
+              transition={CONTENT_TRANSITION as object}
+            >
+              {slides.map((slide, i) => (
+                <div
+                  key={i}
+                  className={`w-full flex items-center justify-center ${
+                    slide.scrollable ? "overflow-y-auto" : "overflow-hidden"
+                  }`}
+                  style={{ height: `${contentSlideHeightVh}vh` }}
+                >
+                  {slide.content}
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
     </FullPageSliderContext.Provider>
   );
 }

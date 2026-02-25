@@ -73,17 +73,18 @@ export default function HomePage() {
     <FullPageSlider
       heroImage={HERO_IMAGE}
       contactImage={CONTACT_IMAGE}
-      fixedIndicator={({ activeIndex }) => {
+      fixedIndicator={({ indicatorIndex }) => {
         for (const range of INDICATOR_RANGES) {
           if (
-            activeIndex >= range.startIndex &&
-            activeIndex < range.startIndex + range.count
+            indicatorIndex >= range.startIndex &&
+            indicatorIndex < range.startIndex + range.count
           ) {
+            const activeDotIndex = indicatorIndex - range.startIndex;
             return (
               <SlideIndicatorDots
                 count={range.count}
-                activeIndex={activeIndex - range.startIndex}
-                ariaLabel={`${range.label} slide ${activeIndex - range.startIndex + 1} of ${range.count}`}
+                activeIndex={activeDotIndex}
+                ariaLabel={`${range.label} slide ${activeDotIndex + 1} of ${range.count}`}
               />
             );
           }
