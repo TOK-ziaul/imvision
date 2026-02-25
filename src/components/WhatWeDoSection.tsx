@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
+import { SlideIndicatorNumber } from "@/components/SlideIndicator";
 
 export interface Service {
   title: string;
@@ -48,7 +49,6 @@ export function WhatWeDoSectionSlide({
 }) {
   const router = useRouter();
   const { t } = useTranslation();
-  const displayNumber = String(index).padStart(2, "0");
   const ctaKey = CTA_KEYS[index - 1] ?? CTA_KEYS[0];
   const ctaLabel = t.whatWeDo.cta[ctaKey];
   const ctaPath = WHAT_WE_DO_PATHS[index - 1] ?? WHAT_WE_DO_PATHS[0];
@@ -61,8 +61,12 @@ export function WhatWeDoSectionSlide({
       />
       <div className="absolute inset-0 bg-black/60" />
       <div className="relative z-10 h-full flex flex-col justify-end p-8 md:p-12 lg:p-16 xl:p-24 pb-24 md:pb-32 lg:pb-40">
-        <div className="text-[#2BCC07] text-sm font-light tracking-[0.3em] mb-4">
-          {displayNumber}
+        <div className="mb-4">
+          <SlideIndicatorNumber
+            index={index}
+            showOnlyOnMobile
+            variant="accent"
+          />
         </div>
         <h3 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-light text-white mb-4">
           {service.title}

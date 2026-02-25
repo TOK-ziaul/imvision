@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "motion/react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import { SlideIndicatorNumber } from "@/components/SlideIndicator";
 
 export interface HomePortfolioItem {
   title: string;
@@ -14,12 +14,10 @@ export interface HomePortfolioItem {
 
 interface HomePortfolioSlideProps {
   item: HomePortfolioItem;
-  index: number; // 1-based for display (01, 02, ...)
+  index: number; // 1-based among portfolio slides (01, 02, ... on mobile)
 }
 
 export function HomePortfolioSlide({ item, index }: HomePortfolioSlideProps) {
-  const displayIndex = String(index).padStart(2, "0");
-
   return (
     <div className="relative w-full h-full min-h-[500px]">
       {/* Background: image or solid black (DOOH) */}
@@ -37,15 +35,10 @@ export function HomePortfolioSlide({ item, index }: HomePortfolioSlideProps) {
       ) : (
         <div className="absolute inset-0 bg-black" />
       )}
-
-      {/* Slide number - top right */}
-      <div
-        className="absolute top-6 right-6 text-white/30 select-none"
-        style={{ fontSize: "clamp(3rem, 8vw, 6rem)", fontWeight: 200 }}
-      >
-        {displayIndex}
+      {/* Slide number (mobile only; desktop uses fixed dot indicator) */}
+      <div className="absolute top-6 right-6">
+        <SlideIndicatorNumber index={index} showOnlyOnMobile variant="default" />
       </div>
-
       {/* Content - bottom left: category + title */}
       <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 lg:p-12 flex flex-col justify-end">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">

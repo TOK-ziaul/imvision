@@ -5,7 +5,14 @@
  * On small screens: normal scrollable stack of sections (no animation).
  */
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { Navigation } from "@/components/Navigation";
@@ -44,6 +51,24 @@ export interface FullPageSliderProps {
   contentSlideHeightVh?: number;
   /** Optional slot above content (e.g. AnimatedBackground for sales) */
   topSlot?: ReactNode;
+  /** Optional fixed overlay (e.g. dot indicator). Rendered in a fixed position so it does not move with slides. */
+  fixedIndicator?: (ctx: {
+    activeIndex: number;
+    totalSlides: number;
+  }) => ReactNode;
+}
+
+interface FullPageSliderContextValue {
+  activeIndex: number;
+  totalSlides: number;
+}
+
+const FullPageSliderContext = createContext<FullPageSliderContextValue | null>(
+  null,
+);
+
+export function useFullPageSlider(): FullPageSliderContextValue | null {
+  return useContext(FullPageSliderContext);
 }
 
 function useIsMobile(breakpoint: number = MOBILE_BREAKPOINT) {
@@ -109,6 +134,7 @@ export function FullPageSlider({
   heroImage,
   contactImage,
   contentSlideHeightVh = DEFAULT_CONTENT_SLIDE_HEIGHT_VH,
+  fixedIndicator,
 }: FullPageSliderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const lastScrollTime = useRef(0);
@@ -210,6 +236,9 @@ export function FullPageSlider({
 
   // Desktop: full-page slider with wheel + touch
   return (
+    <FullPageSliderContext.Provider
+      value={{ activeIndex, totalSlides }}
+    >
     <section
       ref={containerRef}
       className="relative h-screen w-full overflow-hidden bg-black touch-none"
@@ -238,6 +267,12 @@ export function FullPageSlider({
           ))}
         </motion.div>
       </div>
+
+      {/* Fixed indicator overlay - does not move with slides */}
+      {fixedIndicator?.({
+        activeIndex,
+        totalSlides,
+      })}
 
       {/* Content carousel */}
       <div className=" flex items-center justify-center overflow-hidden h-[calc(100vh-62px)]">
@@ -270,5 +305,6 @@ export function FullPageSlider({
         </div>
       </div>
     </section>
+    </FullPageSliderContext.Provider>
   );
 }
