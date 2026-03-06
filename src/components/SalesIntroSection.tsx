@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { useTranslation } from "@/hooks/useTranslation";
 
 export function SalesIntroSection() {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   return (
     <div className="container mx-auto px-6 lg:px-24 mt-20 lg:mt-0">
       {/* Main Statement */}

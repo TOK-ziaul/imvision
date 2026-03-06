@@ -13,8 +13,9 @@ interface RentalHeroSectionProps {
 export function RentalHeroSection({
   backgroundImage,
   part,
+  rentalData
 }: RentalHeroSectionProps) {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   const heroContent = (
     <div className="relative z-10 container mx-auto px-6 lg:px-24 text-center">
       <motion.div
@@ -31,7 +32,9 @@ export function RentalHeroSection({
             lineHeight: 1.05,
           }}
         >
-          {t.rental.hero.title}
+          {/* {t.rental.hero.title} */}
+          {rentalData?.hero?.title?.[language]}
+
         </h1>
         <p
           className="text-white/80 max-w-3xl mx-auto"
@@ -41,7 +44,7 @@ export function RentalHeroSection({
             lineHeight: 1.6,
           }}
         >
-          {t.rental.hero.description}
+          {rentalData?.hero?.description?.[language]}
         </p>
       </motion.div>
     </div>

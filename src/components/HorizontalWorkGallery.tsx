@@ -18,7 +18,7 @@ interface HorizontalWorkGalleryProps {
 
 export function HorizontalWorkGallery({ cases }: HorizontalWorkGalleryProps) {
   const targetRef = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ['start start', 'end end']

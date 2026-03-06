@@ -12,14 +12,16 @@ import {
   RentalSection4,
 } from "@/components/RentalsSection";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useQuery } from "@tanstack/react-query";
+import { withoutAuthAxios } from "@/lib/config";
 
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxMRUQlMjBzY3JlZW4lMjBjb25jZXJ0JTIwZmVzdGl2YWwlMjBvdXRkb29yJTIwZXZlbnR8ZW58MXx8fHwxNzA5MTI4ODc2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
 const CONTACT_IMAGE =
   "https://images.unsplash.com/photo-1497366216548-37526070297c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxvZmZpY2UlMjB3b3Jrc3BhY2UlMjBtb2Rlcm58ZW58MXx8fHwxNzA5MTI4ODc2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
 
-function RentalIntroContent() {
-  const { t } = useTranslation();
+function RentalIntroContent({rentalData}) {
+    const { t,language } = useTranslation();
   return (
     <div className="relative w-full">
       <div className="container mx-auto px-6 lg:px-24 pt-24 lg:py-32">
@@ -39,14 +41,26 @@ function RentalIntroContent() {
             }}
           >
             {t.rental.intro.paragraph}
+            {rentalData?.intro?.[language]}
           </p>
         </motion.div>
       </div>
     </div>
   );
 }
-
+const fetchRental = async () => {
+  const res = await withoutAuthAxios().get("/rental");
+  return res.data.data[0];
+};
 export default function RentalPage() {
+   const { t, language } = useTranslation();
+    const { data: rentalData = [], isLoading: casesLoading } = useQuery({
+      queryKey: ["rental"],
+      queryFn: fetchRental,
+    });
+
+    console.log("rentalDatarentalData",rentalData)
+
   return (
     <FullPageSlider
       heroImage={HERO_IMAGE}
@@ -55,16 +69,16 @@ export default function RentalPage() {
         {
           background: "hero",
           content: (
-            <RentalHeroSection backgroundImage={HERO_IMAGE} part="content" />
+            <RentalHeroSection rentalData={rentalData} backgroundImage={HERO_IMAGE} part="content" />
           ),
         },
         {
           background: "black",
-          content: <RentalIntroContent />,
+          content: <RentalIntroContent rentalData={rentalData} />,
         },
         {
           background: "black",
-          content: <RentalServicesHeader />,
+          content: <RentalServicesHeader rentalData={rentalData} />,
         },
         {
           background: "black",

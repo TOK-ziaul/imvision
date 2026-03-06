@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import { handleImage } from "@/lib/config";
 
 export interface Service {
   id: number;
@@ -95,6 +96,7 @@ export const services: Service[] = [
 function ServiceSectionItem({
   service,
   index,
+  language
 }: {
   service: Service;
   index: number;
@@ -103,11 +105,13 @@ function ServiceSectionItem({
   const { t } = useTranslation();
   const isEven = index % 2 === 0;
 
+  console.log("serviceservice",service)
+
   return (
     <div ref={containerRef} className="relative w-full">
       <div className="container mx-auto px-6 lg:px-24 h-full overflow-hidden">
         <div className="flex flex-col md:flex-row gap-6 lg:gap-12 items-center">
-          {/* Image Side */}
+          
           <motion.div
             initial={{ opacity: 0, x: isEven ? -60 : 60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -117,7 +121,7 @@ function ServiceSectionItem({
           >
             <div className="relative overflow-hidden max-h-[140px] md:max-h-[200px] lg:max-h-[320px]">
               <motion.img
-                src={service.image}
+                src={handleImage(service.image)}
                 alt={service.title}
                 className="w-full h-auto object-cover"
                 whileInView={{ scale: 1 }}
@@ -141,13 +145,13 @@ function ServiceSectionItem({
                     opacity: 0.4,
                   }}
                 >
-                  {service.number}
+                  {index+1}
                 </motion.p>
               </div>
             </div>
           </motion.div>
 
-          {/* Content Side */}
+          
           <motion.div
             initial={{ opacity: 0, x: isEven ? 60 : -60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -168,7 +172,7 @@ function ServiceSectionItem({
                 lineHeight: 1.2,
               }}
             >
-              {service.title}
+              {service.title?.[language]}
             </motion.h3>
 
             <motion.p
@@ -183,7 +187,8 @@ function ServiceSectionItem({
                 lineHeight: 1.6,
               }}
             >
-              {service.description.slice(0, 350)}...
+              {/* {service.description.slice(0, 350)}... */}
+             {service?.description?.[language]}
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 15 }}
@@ -197,7 +202,8 @@ function ServiceSectionItem({
                 lineHeight: 1.6,
               }}
             >
-              {service.description.slice(0, 700)}
+              {/* {service.description.slice(0, 700)} */}
+              {service?.description?.[language]}
             </motion.p>
 
             <motion.a
@@ -231,8 +237,8 @@ function ServiceSectionItem({
   );
 }
 
-export function ServicesSectionHeader() {
-  const { t } = useTranslation();
+export function ServicesSectionHeader({ serviceData }) {
+  const { t, language } = useTranslation();
   return (
     <div className="container mx-auto px-6 lg:px-24 pt-20 lg:pt-28 pb-12 lg:pb-20">
       <motion.div
@@ -254,7 +260,7 @@ export function ServicesSectionHeader() {
             className="tracking-[0.3em] uppercase text-[#2BCC07]"
             style={{ fontSize: "0.875rem", fontWeight: 400 }}
           >
-            {t.service.header.label}
+            {serviceData?.highlightTitle?.[language]}
           </p>
         </div>
         <h2
@@ -266,18 +272,18 @@ export function ServicesSectionHeader() {
             lineHeight: 1.1,
           }}
         >
-          {t.service.header.title}
+          {serviceData?.introParagraphTwo?.[language]}
         </h2>
       </motion.div>
     </div>
   );
 }
 
-export function ServicesSection1() {
+export function ServicesSection1({serviceData,language}) {
   return (
     <div className="h-full flex flex-col items-center justify-center md:gap-10 gap-6">
-      {services.slice(0, 2).map((service, index) => (
-        <ServiceSectionItem key={service.id} service={service} index={index} />
+      {serviceData?.services&&serviceData?.services.length>0&&serviceData?.services.map((service, index) => (
+        <ServiceSectionItem key={service.id} service={service} index={index} language={language} />
       ))}
     </div>
   );

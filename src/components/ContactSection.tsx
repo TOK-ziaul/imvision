@@ -28,7 +28,7 @@ export function ContactSection({
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   const trans = transition as object;
   const router = useRouter();
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   if (part === "background") {
     return (
       <motion.div

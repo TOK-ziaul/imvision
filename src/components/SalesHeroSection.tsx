@@ -16,7 +16,7 @@ export function SalesHeroSection({
   part,
 }: SalesHeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],

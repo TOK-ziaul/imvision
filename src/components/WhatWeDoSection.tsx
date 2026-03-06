@@ -20,7 +20,7 @@ const CTA_KEYS = ["sales", "rental", "service"] as const;
 
 /** Header only – for use as intro slide in FullPageSlider */
 export function WhatWeDoSectionHeader() {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   return (
     <div className="relative w-full h-full flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-20 lg:pt-0">
       <motion.div
@@ -47,7 +47,7 @@ export function WhatWeDoSectionSlide({
   index: number;
 }) {
   const router = useRouter();
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   const ctaKey = CTA_KEYS[index - 1] ?? CTA_KEYS[0];
   const ctaLabel = t.whatWeDo.cta[ctaKey];
   const ctaPath = WHAT_WE_DO_PATHS[index - 1] ?? WHAT_WE_DO_PATHS[0];
@@ -88,7 +88,7 @@ export function WhatWeDoSectionSlide({
 export function WhatWeDoSection({ services }: WhatWeDoSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],

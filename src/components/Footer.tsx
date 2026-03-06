@@ -4,7 +4,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 const logoImg = "/logo.png";
 
 export function Footer() {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
 
   return (
     <footer className="bg-black text-white py-16 px-6 lg:px-12">

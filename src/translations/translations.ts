@@ -142,40 +142,17 @@ export const translations = {
     // About Page
     about: {
       hero: {
-        subtitle: "WHO WE ARE",
-        title: "Beyond the LED Display",
+       
         titleLine1: "Experts In LED Solutions",
         titleLine2: "For All Types Of Purpose",
         description:
           "IM vision is a professional and reliable partner and we are with you all the way from order to execution.",
         cta: "Talk to an Expert",
+         title: "The IMvision Difference",
       },
       stats: {
-        title: "The IMvision Difference",
-        years: {
-          value: "10+",
-          title: "Years",
-          description: "of industry expertise",
-          category: "EXPERIENCE",
-        },
-        projects: {
-          value: "500+",
-          title: "Projects",
-          description: "delivered worldwide",
-          category: "PORTFOLIO",
-        },
-        clients: {
-          value: "100+",
-          title: "Clients",
-          description: "trust our solutions",
-          category: "PARTNERSHIPS",
-        },
-        support: {
-          value: "24/7",
-          title: "Support",
-          description: "whenever you need us",
-          category: "SERVICE",
-        },
+       
+      
       },
       whoWeAre: {
         subtitle: "OUR STORY",

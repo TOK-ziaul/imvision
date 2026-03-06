@@ -34,9 +34,10 @@ const scrollIndicator = (
 export function ServiceHeroSection({
   backgroundImage,
   part,
+  serviceData
 }: ServiceHeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -65,7 +66,10 @@ export function ServiceHeroSection({
             className="tracking-[0.3em] uppercase"
             style={{ fontSize: "0.875rem", color: "#2BCC07" }}
           >
-            {t.service.hero.subtitle}
+            
+            {
+              serviceData?.sectionSubtitle?.[language]
+            }
           </p>
           <motion.div
             initial={{ scaleX: 0 }}
@@ -87,7 +91,9 @@ export function ServiceHeroSection({
             lineHeight: 1.1,
           }}
         >
-          {t.service.hero.title}
+           {
+              serviceData?.sectionTitle?.[language]
+            }
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -100,7 +106,9 @@ export function ServiceHeroSection({
             lineHeight: 1.6,
           }}
         >
-          {t.service.hero.description}
+          {
+              serviceData?.sectionDescription?.[language]
+            }
         </motion.p>
       </div>
     </div>

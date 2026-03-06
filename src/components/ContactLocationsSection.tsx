@@ -4,7 +4,7 @@ import { MapPin } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 
 export function ContactLocationsSection() {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   const locations = [
     {
       title: 'Jönköping HQ',

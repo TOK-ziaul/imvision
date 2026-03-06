@@ -21,7 +21,7 @@ interface HeroSectionProps {
 export function HeroSection({ heroImage, part }: HeroSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [showAll, setShowAll] = useState(false);
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
 
   const { scrollYProgress } = useScroll({
     target: ref,

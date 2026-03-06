@@ -16,7 +16,7 @@ export function SalesContactSection({ part }: SalesContactSectionProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   const router = useRouter();
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   const backgroundImage =
     "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&q=80";
 

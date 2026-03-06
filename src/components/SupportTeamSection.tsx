@@ -43,7 +43,7 @@ const teamMembers: TeamMember[] = [
 ];
 
 export function SupportTeamSection() {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   return (
     <section className="relative bg-black py-20 md:py-32">
       <div className="container mx-auto px-6 lg:px-12">

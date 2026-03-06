@@ -130,7 +130,7 @@ function RentalSectionItem({
   index: number;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   const isEven = index % 2 === 0;
 
   return (
@@ -280,8 +280,9 @@ function RentalSectionItem({
   );
 }
 
-export function RentalServicesHeader() {
-  const { t } = useTranslation();
+export function RentalServicesHeader({rentalData}) {
+    const { t,language } = useTranslation();
+
   return (
     <div className="container mx-auto px-6 lg:px-24 pt-20 lg:pt-28 pb-12 lg:pb-20">
       <motion.div
@@ -303,7 +304,8 @@ export function RentalServicesHeader() {
             className="tracking-[0.3em] uppercase text-[#2BCC07]"
             style={{ fontSize: "0.875rem", fontWeight: 400 }}
           >
-            {t.rental.header.label}
+            {/* {t.rental.header.label} */}
+            {rentalData?.header?.label?.[language]}
           </p>
         </div>
         <h2
@@ -315,7 +317,7 @@ export function RentalServicesHeader() {
             lineHeight: 1.1,
           }}
         >
-          {t.rental.header.title}
+          {rentalData?.header?.title?.[language]}
         </h2>
       </motion.div>
     </div>

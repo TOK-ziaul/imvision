@@ -28,7 +28,7 @@ const PROJECT_IMAGES = [
 ];
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -119,7 +119,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 export function ProjectsSectionHeader() {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   return (
     <div className="container mx-auto px-6 lg:px-12 ">
       <motion.div
@@ -172,7 +172,7 @@ export function ProjectsSectionHeader() {
 }
 
 function useProjects(): Project[] {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   return t.projects.items.map((item, i) => ({
     id: PROJECT_IDS[i],
     title: item.title,

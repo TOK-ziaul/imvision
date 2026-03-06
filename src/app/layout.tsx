@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { AppClientWrapper } from "@/components/AppClientWrapper";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "IMvision - LED Display Solutions",
@@ -19,6 +20,7 @@ export default function RootLayout({
         <LanguageProvider>
           <AppClientWrapper>{children}</AppClientWrapper>
         </LanguageProvider>
+        <Toaster position="top-right" reverseOrder={false} />
       </body>
     </html>
   );

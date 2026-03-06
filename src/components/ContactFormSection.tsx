@@ -3,7 +3,8 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { Mail, Phone } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
-import { api } from "@/lib/api";
+import { withoutAuthAxios } from "@/lib/config";
+import toast from "react-hot-toast";
 
 export function ContactFormSection() {
   const { t } = useTranslation();
@@ -16,7 +17,9 @@ export function ContactFormSection() {
     message: "",
     agreeToPrivacy: false,
   });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (
@@ -39,18 +42,24 @@ export function ContactFormSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const payload = {
+      companyName: formData.company,
+      name: formData.name,
+      email: formData.email,
+      countryCode: formData.countryCode,
+      phoneNo: formData.phone,
+      message: formData.message,
+    };
+
     setStatus("loading");
     setErrorMessage("");
+
     try {
-      await api.submitContact({
-        company: formData.company,
-        name: formData.name,
-        email: formData.email,
-        countryCode: formData.countryCode,
-        phone: formData.phone,
-        message: formData.message,
-      });
-      setStatus("success");
+      const response = await withoutAuthAxios().post(
+        "/contact-ticket",
+        payload,
+      );
       setFormData({
         company: "",
         name: "",
@@ -60,9 +69,14 @@ export function ContactFormSection() {
         message: "",
         agreeToPrivacy: false,
       });
-    } catch (err) {
+      setStatus("success");
+      toast.success(response.data.message);
+    } catch (error) {
       setStatus("error");
-      setErrorMessage(err instanceof Error ? err.message : "Something went wrong");
+      const message =
+        error instanceof Error ? error.message : "Something went wrong";
+      setErrorMessage(message);
+      toast.error(message);
     }
   };
 
@@ -135,7 +149,9 @@ export function ContactFormSection() {
             >
               {t.contact.formTitleLine1}
               <br />
-              <span style={{ color: "#2BCC07" }}>{t.contact.formTitleLine2}</span>
+              <span style={{ color: "#2BCC07" }}>
+                {t.contact.formTitleLine2}
+              </span>
             </h2>
 
             <p
@@ -846,13 +862,20 @@ export function ContactFormSection() {
                   </select>
                   <input
                     type="tel"
+                    minLength={10}
+                    maxLength={10}
                     id="phone"
                     name="phone"
                     value={formData.phone}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/\D/g, ""); // allow only digits
+                      if (value.length <= 10) {
+                        setFormData({ ...formData, phone: value });
+                      }
+                    }}
                     required
                     placeholder="10 330 46 36"
-                    className="flex-1 bg-transparent border-b-2 border-white/20 focus:border-[#2BCC07] outline-none transition-colors duration-300 pb-3 text-white"
+                    className="flex-1 bg-transparent border-b-2 border-white/20 focus:border-[#2BCC07] outline-none transition-colors duration-300 pb-3 text-white no-spinner"
                     style={{
                       fontSize: "1rem",
                       fontWeight: 300,
@@ -920,7 +943,9 @@ export function ContactFormSection() {
                 <motion.button
                   type="submit"
                   disabled={status === "loading"}
-                  whileHover={status === "loading" ? undefined : { scale: 1.02 }}
+                  whileHover={
+                    status === "loading" ? undefined : { scale: 1.02 }
+                  }
                   whileTap={status === "loading" ? undefined : { scale: 0.98 }}
                   className="group relative inline-flex items-center gap-4 px-8 py-4 bg-black/40 backdrop-blur-sm overflow-hidden"
                   style={{

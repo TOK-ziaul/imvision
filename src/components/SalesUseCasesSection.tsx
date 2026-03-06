@@ -23,7 +23,7 @@ const USE_CASE_IMAGES = [
 ];
 
 function useSalesUseCases(): UseCase[] {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   return t.sales.useCasesList.map((item, i) => ({
     id: i + 1,
     title: item.title,
@@ -157,7 +157,7 @@ export function SalesUseCasesSection() {
 }
 
 export const SalesUseCasesHeader = () => {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}

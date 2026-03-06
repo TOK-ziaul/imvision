@@ -35,7 +35,7 @@ const PORTFOLIO_IMAGES = [
 ];
 
 export default function HomePage() {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   const portfolioItems: HomePortfolioItem[] = t.homePortfolio.items.map(
     (item, i) => ({
       title: item.title,

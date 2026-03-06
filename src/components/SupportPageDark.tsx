@@ -1,10 +1,12 @@
 "use client";
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { CheckCircle, Phone, Mail } from 'lucide-react';
-import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
-import { useTranslation } from '@/hooks/useTranslation';
-import { api } from '@/lib/api';
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { CheckCircle, Phone, Mail } from "lucide-react";
+import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import { useTranslation } from "@/hooks/useTranslation";
+import { api } from "@/lib/api";
+import { withoutAuthAxios } from "@/lib/config";
+import toast from "react-hot-toast";
 
 interface FormData {
   contactName: string;
@@ -17,20 +19,22 @@ interface FormData {
 }
 
 export function SupportPageDark() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>({
-    contactName: '',
-    companyName: '',
-    email: '',
-    subject: '',
-    phone: '',
-    description: '',
+    contactName: "",
+    companyName: "",
+    email: "",
+    subject: "",
+    phone: "",
+    description: "",
     file: null,
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -44,30 +48,35 @@ export function SupportPageDark() {
     e.preventDefault();
     setSubmitError(null);
     const form = new FormData();
-    form.append("contactName", formData.contactName);
+    form.append("name", formData.contactName);
     form.append("companyName", formData.companyName);
     form.append("email", formData.email);
+    form.append("phoneNo", formData.phone);
+
     form.append("subject", formData.subject);
-    form.append("phone", formData.phone);
     form.append("description", formData.description);
     if (formData.file) form.append("files", formData.file);
+
+    console.log("formd", formData);
+
     try {
-      await api.submitSupport(form);
-      setIsSubmitted(true);
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setFormData({
-          contactName: '',
-          companyName: '',
-          email: '',
-          subject: '',
-          phone: '',
-          description: '',
-          file: null,
-        });
-      }, 3000);
-    } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : "Failed to submit ticket");
+      const response = await withoutAuthAxios().post("/support-ticket", form);
+      setFormData({
+        contactName: "",
+        companyName: "",
+        email: "",
+        subject: "",
+        phone: "",
+        description: "",
+        file: null,
+      });
+
+      toast.success(response.data.message);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Something went wrong";
+
+      toast.error(message);
     }
   };
 
@@ -91,9 +100,9 @@ export function SupportPageDark() {
             transition={{ duration: 1, ease: [0.33, 1, 0.68, 1] }}
             className="text-white text-center"
             style={{
-              fontSize: 'clamp(4rem, 10vw, 8rem)',
+              fontSize: "clamp(4rem, 10vw, 8rem)",
               fontWeight: 300,
-              letterSpacing: '-0.02em',
+              letterSpacing: "-0.02em",
               lineHeight: 1,
             }}
           >
@@ -115,10 +124,10 @@ export function SupportPageDark() {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.33, 1, 0.68, 1] }}
             className="text-white mb-12 max-w-3xl mx-auto"
             style={{
-              fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+              fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
               fontWeight: 500,
               lineHeight: 1.4,
-              letterSpacing: '-0.01em',
+              letterSpacing: "-0.01em",
             }}
           >
             {t.support.hero.description}
@@ -134,11 +143,15 @@ export function SupportPageDark() {
             animate={{ scale: 1, opacity: 1 }}
             className="flex flex-col items-center justify-center py-20 text-center"
           >
-            <CheckCircle size={80} className="text-[#2BCC07] mb-6" strokeWidth={1.5} />
+            <CheckCircle
+              size={80}
+              className="text-[#2BCC07] mb-6"
+              strokeWidth={1.5}
+            />
             <h3
               className="text-white mb-3"
               style={{
-                fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
+                fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
                 fontWeight: 300,
               }}
             >
@@ -147,7 +160,7 @@ export function SupportPageDark() {
             <p
               className="text-white/70"
               style={{
-                fontSize: '1.1rem',
+                fontSize: "1.1rem",
                 fontWeight: 300,
               }}
             >
@@ -166,7 +179,7 @@ export function SupportPageDark() {
               <h3
                 className="text-white mb-3"
                 style={{
-                  fontSize: 'clamp(1.75rem, 3vw, 2.25rem)',
+                  fontSize: "clamp(1.75rem, 3vw, 2.25rem)",
                   fontWeight: 300,
                 }}
               >
@@ -176,7 +189,7 @@ export function SupportPageDark() {
               <p
                 className="text-white/60 mb-10"
                 style={{
-                  fontSize: '1rem',
+                  fontSize: "1rem",
                   fontWeight: 300,
                   lineHeight: 1.6,
                 }}
@@ -185,7 +198,10 @@ export function SupportPageDark() {
               </p>
 
               {submitError && (
-                <p className="text-red-400 mb-4" style={{ fontSize: '0.95rem' }}>
+                <p
+                  className="text-red-400 mb-4"
+                  style={{ fontSize: "0.95rem" }}
+                >
                   {submitError}
                 </p>
               )}
@@ -198,7 +214,7 @@ export function SupportPageDark() {
                     <label
                       htmlFor="contactName"
                       className="block text-white/80 mb-2"
-                      style={{ fontSize: '0.9rem', fontWeight: 300 }}
+                      style={{ fontSize: "0.9rem", fontWeight: 300 }}
                     >
                       Contact Name <span className="text-[#2BCC07]">*</span>
                     </label>
@@ -211,7 +227,7 @@ export function SupportPageDark() {
                       required
                       placeholder="Contact Name"
                       className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-[#2BCC07] transition-colors"
-                      style={{ fontSize: '0.95rem' }}
+                      style={{ fontSize: "0.95rem" }}
                     />
                   </div>
 
@@ -220,7 +236,7 @@ export function SupportPageDark() {
                     <label
                       htmlFor="email"
                       className="block text-white/80 mb-2"
-                      style={{ fontSize: '0.9rem', fontWeight: 300 }}
+                      style={{ fontSize: "0.9rem", fontWeight: 300 }}
                     >
                       Email <span className="text-[#2BCC07]">*</span>
                     </label>
@@ -233,7 +249,7 @@ export function SupportPageDark() {
                       required
                       placeholder="Email"
                       className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-[#2BCC07] transition-colors"
-                      style={{ fontSize: '0.95rem' }}
+                      style={{ fontSize: "0.95rem" }}
                     />
                   </div>
 
@@ -242,7 +258,7 @@ export function SupportPageDark() {
                     <label
                       htmlFor="companyName"
                       className="block text-white/80 mb-2"
-                      style={{ fontSize: '0.9rem', fontWeight: 300 }}
+                      style={{ fontSize: "0.9rem", fontWeight: 300 }}
                     >
                       Company Name
                     </label>
@@ -254,7 +270,7 @@ export function SupportPageDark() {
                       onChange={handleInputChange}
                       placeholder="Company Name"
                       className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-[#2BCC07] transition-colors"
-                      style={{ fontSize: '0.95rem' }}
+                      style={{ fontSize: "0.95rem" }}
                     />
                   </div>
 
@@ -263,7 +279,7 @@ export function SupportPageDark() {
                     <label
                       htmlFor="phone"
                       className="block text-white/80 mb-2"
-                      style={{ fontSize: '0.9rem', fontWeight: 300 }}
+                      style={{ fontSize: "0.9rem", fontWeight: 300 }}
                     >
                       Phone
                     </label>
@@ -275,7 +291,7 @@ export function SupportPageDark() {
                       onChange={handleInputChange}
                       placeholder="Phone (Optional)"
                       className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-[#2BCC07] transition-colors"
-                      style={{ fontSize: '0.95rem' }}
+                      style={{ fontSize: "0.95rem" }}
                     />
                   </div>
                 </div>
@@ -286,7 +302,7 @@ export function SupportPageDark() {
                     <label
                       htmlFor="subject"
                       className="block text-white/80 mb-2"
-                      style={{ fontSize: '0.9rem', fontWeight: 300 }}
+                      style={{ fontSize: "0.9rem", fontWeight: 300 }}
                     >
                       Subject <span className="text-[#2BCC07]">*</span>
                     </label>
@@ -299,7 +315,7 @@ export function SupportPageDark() {
                       required
                       placeholder="Subject"
                       className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-[#2BCC07] transition-colors"
-                      style={{ fontSize: '0.95rem' }}
+                      style={{ fontSize: "0.95rem" }}
                     />
                   </div>
 
@@ -308,7 +324,7 @@ export function SupportPageDark() {
                     <label
                       htmlFor="description"
                       className="block text-white/80 mb-2"
-                      style={{ fontSize: '0.9rem', fontWeight: 300 }}
+                      style={{ fontSize: "0.9rem", fontWeight: 300 }}
                     >
                       Description <span className="text-[#2BCC07]">*</span>
                     </label>
@@ -321,7 +337,7 @@ export function SupportPageDark() {
                       rows={6}
                       placeholder="Please describe your issue in detail..."
                       className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-[#2BCC07] transition-colors resize-none"
-                      style={{ fontSize: '0.95rem', lineHeight: 1.6 }}
+                      style={{ fontSize: "0.95rem", lineHeight: 1.6 }}
                     />
                   </div>
                 </div>
@@ -332,7 +348,7 @@ export function SupportPageDark() {
                     <label
                       htmlFor="file"
                       className="block text-white/80 mb-2"
-                      style={{ fontSize: '0.9rem', fontWeight: 300 }}
+                      style={{ fontSize: "0.9rem", fontWeight: 300 }}
                     >
                       Select File (Optional)
                     </label>
@@ -342,11 +358,16 @@ export function SupportPageDark() {
                         id="file"
                         name="file"
                         onChange={handleFileChange}
+                        accept=".png,.jpg,.jpeg"
+                        multiple
                         className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-white file:text-black file:cursor-pointer hover:file:bg-white/90 file:transition-colors focus:outline-none focus:border-white transition-colors"
-                        style={{ fontSize: '0.95rem' }}
+                        style={{ fontSize: "0.95rem" }}
                       />
                       {formData.file && (
-                        <p className="text-white/60 mt-2" style={{ fontSize: '0.85rem' }}>
+                        <p
+                          className="text-white/60 mt-2"
+                          style={{ fontSize: "0.85rem" }}
+                        >
                           Selected: {formData.file.name}
                         </p>
                       )}
@@ -362,7 +383,7 @@ export function SupportPageDark() {
                     whileTap={{ scale: 0.98 }}
                     className="px-8 py-3 bg-white text-black border-2 border-white hover:bg-white/90 transition-colors min-w-[140px]"
                     style={{
-                      fontSize: '1rem',
+                      fontSize: "1rem",
                       fontWeight: 400,
                     }}
                   >
@@ -389,9 +410,9 @@ export function SupportPageDark() {
             <h2
               className="text-white mb-4"
               style={{
-                fontSize: 'clamp(3rem, 6vw, 5rem)',
+                fontSize: "clamp(3rem, 6vw, 5rem)",
                 fontWeight: 300,
-                letterSpacing: '-0.02em',
+                letterSpacing: "-0.02em",
                 lineHeight: 1.1,
               }}
             >
@@ -400,12 +421,13 @@ export function SupportPageDark() {
             <p
               className="text-white/60 max-w-2xl mx-auto"
               style={{
-                fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
+                fontSize: "clamp(1rem, 1.5vw, 1.25rem)",
                 fontWeight: 300,
                 lineHeight: 1.6,
               }}
             >
-              Our dedicated specialists are here to ensure your LED solutions perform flawlessly
+              Our dedicated specialists are here to ensure your LED solutions
+              perform flawlessly
             </p>
           </motion.div>
 
@@ -413,32 +435,36 @@ export function SupportPageDark() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                name: 'Erik Johansson',
-                title: 'Technical Support Lead',
-                phone: '+46 70 123 45 67',
-                email: 'erik.johansson@imvision.se',
-                image: 'https://images.unsplash.com/photo-1629507208649-70919ca33793?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHBhbiUyMHBvcnRyYWl0fGVufDF8fHx8MTc3MDU4MTU1NHww&ixlib=rb-4.1.0&q=80&w=1080',
+                name: "Erik Johansson",
+                title: "Technical Support Lead",
+                phone: "+46 70 123 45 67",
+                email: "erik.johansson@imvision.se",
+                image:
+                  "https://images.unsplash.com/photo-1629507208649-70919ca33793?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHBhbiUyMHBvcnRyYWl0fGVufDF8fHx8MTc3MDU4MTU1NHww&ixlib=rb-4.1.0&q=80&w=1080",
               },
               {
-                name: 'Anna Lindberg',
-                title: 'Customer Success Manager',
-                phone: '+46 70 234 56 78',
-                email: 'anna.lindberg@imvision.se',
-                image: 'https://images.unsplash.com/photo-1581065178047-8ee15951ede6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHdvbWFuJTIwcG9ydHJhaXR8ZW58MXx8fHwxNzcwNTY1ODg4fDA&ixlib=rb-4.1.0&q=80&w=1080',
+                name: "Anna Lindberg",
+                title: "Customer Success Manager",
+                phone: "+46 70 234 56 78",
+                email: "anna.lindberg@imvision.se",
+                image:
+                  "https://images.unsplash.com/photo-1581065178047-8ee15951ede6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHdvbWFuJTIwcG9ydHJhaXR8ZW58MXx8fHwxNzcwNTY1ODg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
               },
               {
-                name: 'Marcus Berg',
-                title: 'LED Systems Specialist',
-                phone: '+46 70 345 67 89',
-                email: 'marcus.berg@imvision.se',
-                image: 'https://images.unsplash.com/photo-1768633647910-7e6fb53e5b0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB0ZWNoJTIwc3VwcG9ydCUyMHNwZWNpYWxpc3R8ZW58MXx8fHwxNzcwNjI4NzY3fDA&ixlib=rb-4.1.0&q=80&w=1080',
+                name: "Marcus Berg",
+                title: "LED Systems Specialist",
+                phone: "+46 70 345 67 89",
+                email: "marcus.berg@imvision.se",
+                image:
+                  "https://images.unsplash.com/photo-1768633647910-7e6fb53e5b0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB0ZWNoJTIwc3VwcG9ydCUyMHNwZWNpYWxpc3R8ZW58MXx8fHwxNzcwNjI4NzY3fDA&ixlib=rb-4.1.0&q=80&w=1080",
               },
               {
-                name: 'Sofia Andersson',
-                title: 'Field Service Engineer',
-                phone: '+46 70 456 78 90',
-                email: 'sofia.andersson@imvision.se',
-                image: 'https://images.unsplash.com/photo-1747811854184-95f49a6d024d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBlbmdpbmVlciUyMHBvcnRyYWl0fGVufDF8fHx8MTc3MDYyODc2N3ww&ixlib=rb-4.1.0&q=80&w=1080',
+                name: "Sofia Andersson",
+                title: "Field Service Engineer",
+                phone: "+46 70 456 78 90",
+                email: "sofia.andersson@imvision.se",
+                image:
+                  "https://images.unsplash.com/photo-1747811854184-95f49a6d024d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBlbmdpbmVlciUyMHBvcnRyYWl0fGVufDF8fHx8MTc3MDYyODc2N3ww&ixlib=rb-4.1.0&q=80&w=1080",
               },
             ].map((member, index) => (
               <motion.div
@@ -461,7 +487,7 @@ export function SupportPageDark() {
                     />
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
+
                     {/* Contact Icons - Appear on Hover */}
                     <motion.div
                       className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -488,9 +514,9 @@ export function SupportPageDark() {
                     <h3
                       className="text-white mb-1"
                       style={{
-                        fontSize: '1.25rem',
+                        fontSize: "1.25rem",
                         fontWeight: 400,
-                        letterSpacing: '-0.01em',
+                        letterSpacing: "-0.01em",
                       }}
                     >
                       {member.name}
@@ -498,10 +524,10 @@ export function SupportPageDark() {
                     <p
                       className="text-[#2BCC07] mb-4"
                       style={{
-                        fontSize: '0.875rem',
+                        fontSize: "0.875rem",
                         fontWeight: 300,
-                        letterSpacing: '0.05em',
-                        textTransform: 'uppercase',
+                        letterSpacing: "0.05em",
+                        textTransform: "uppercase",
                       }}
                     >
                       {member.title}
@@ -514,7 +540,7 @@ export function SupportPageDark() {
                         className="flex items-center gap-2 text-white/60 hover:text-white transition-colors group/link"
                       >
                         <Phone size={14} strokeWidth={2} />
-                        <span style={{ fontSize: '0.85rem', fontWeight: 300 }}>
+                        <span style={{ fontSize: "0.85rem", fontWeight: 300 }}>
                           {member.phone}
                         </span>
                       </a>
@@ -523,7 +549,7 @@ export function SupportPageDark() {
                         className="flex items-center gap-2 text-white/60 hover:text-white transition-colors group/link"
                       >
                         <Mail size={14} strokeWidth={2} />
-                        <span style={{ fontSize: '0.85rem', fontWeight: 300 }}>
+                        <span style={{ fontSize: "0.85rem", fontWeight: 300 }}>
                           {member.email}
                         </span>
                       </a>

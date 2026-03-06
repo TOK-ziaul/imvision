@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { useTranslation } from "@/hooks/useTranslation";
 
 export function HomePortfolioIntro() {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   return (
     <div className="relative w-full h-full flex flex-col justify-center px-6 sm:px-12 lg:px-24 pt-20 lg:pt-0">
       <div className="flex items-center gap-4 sm:gap-8 mb-4">

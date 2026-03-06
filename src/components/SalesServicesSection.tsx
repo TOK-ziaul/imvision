@@ -23,7 +23,7 @@ const SERVICE_IMAGES = [
 ];
 
 function useSalesServices(): Service[] {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   return t.sales.servicesList.map((item, i) => ({
     id: i + 1,
     number: String(i + 1).padStart(2, "0"),
@@ -42,7 +42,7 @@ function ServiceSection({
   index: number;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   // const { scrollYProgress } = useScroll({
   //   target: containerRef,
   //   offset: ["start end", "end start"],
@@ -239,7 +239,7 @@ export const SalesServicesSection3 = () => {
 };
 
 export const SalesServicesHeader = () => {
-  const { t } = useTranslation();
+    const { t,language } = useTranslation();
   return (
     <div className="container mx-auto px-6 lg:px-24 pt-20 lg:pt-28 pb-12 lg:pb-20">
       {/* Section Header */}

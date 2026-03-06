@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "@/hooks/useTranslation";
+import { handleImage } from "@/lib/config";
 const ABOUT_IMG = "/aboutImg.png";
 
 type Part = "background" | "content";
@@ -22,11 +23,13 @@ export function AboutStatsSection({
   backgroundY = "0%",
   transition = { duration: 1.2, ease: "linear" },
   part,
+  aboutData,
 }: AboutStatsSectionProps) {
   const [activeTab, setActiveTab] = useState(0);
   const trans = transition as object;
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+
   const tabs = [
     {
       stat: "10+",
@@ -63,6 +66,9 @@ export function AboutStatsSection({
     },
   ];
 
+  const currentTabsData = aboutData?.tabs || [];
+
+  console.log("currentTabsDatacurrentTabsData", currentTabsData[activeTab]);
   if (part === "background") {
     return (
       <motion.div
@@ -94,7 +100,7 @@ export function AboutStatsSection({
                   lineHeight: 1.2,
                 }}
               >
-                {t.about.stats.title}
+                {aboutData?.title?.[language] || ""}
               </h2>
               <div className="w-16 h-px bg-white/50 mb-12" />
               <motion.div
@@ -114,7 +120,7 @@ export function AboutStatsSection({
                       lineHeight: 0.9,
                     }}
                   >
-                    {tabs[activeTab].stat}
+                    {currentTabsData?.[activeTab]?.highlightStat || ""}
                   </h3>
                   <span
                     className="text-white/80"
@@ -123,7 +129,7 @@ export function AboutStatsSection({
                       fontWeight: 300,
                     }}
                   >
-                    {tabs[activeTab].label}
+                    {currentTabsData?.[activeTab]?.label?.[language] || ""}
                   </span>
                 </div>
                 <p
@@ -134,7 +140,7 @@ export function AboutStatsSection({
                     lineHeight: 1.7,
                   }}
                 >
-                  {tabs[activeTab].description}
+                  {currentTabsData?.[activeTab]?.description?.[language] || ""}
                 </p>
               </motion.div>
               <motion.div
@@ -144,7 +150,7 @@ export function AboutStatsSection({
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="grid grid-cols-3 gap-8 mb-12"
               >
-                {tabs[activeTab].stats.map((stat, index) => (
+                {/* {tabs[activeTab].stats.map((stat, index) => (
                   <div key={index}>
                     <div className="flex items-baseline gap-1 mb-2">
                       <span
@@ -180,14 +186,54 @@ export function AboutStatsSection({
                       {stat.label}
                     </p>
                   </div>
-                ))}
+                ))} */}
+
+                {currentTabsData &&
+                  currentTabsData.length > 0 &&
+                  currentTabsData[activeTab].stats.map((stat, index) => (
+                    <div key={index}>
+                      <div className="flex items-baseline gap-1 mb-2">
+                        <span
+                          className="text-white"
+                          style={{
+                            fontSize: "clamp(1.75rem, 2.5vw, 2.5rem)",
+                            fontWeight: 300,
+                            letterSpacing: "-0.01em",
+                          }}
+                        >
+                          {stat.value}
+                        </span>
+                        {stat.unit && (
+                          <span
+                            className="text-white/60"
+                            style={{
+                              fontSize: "clamp(0.875rem, 1vw, 1rem)",
+                              fontWeight: 300,
+                            }}
+                          >
+                            {stat.unit}
+                          </span>
+                        )}
+                      </div>
+                      <p
+                        className="text-white/50"
+                        style={{
+                          fontSize: "clamp(0.75rem, 0.85vw, 0.875rem)",
+                          fontWeight: 300,
+                          lineHeight: 1.4,
+                        }}
+                      >
+                        {stat.label?.[language]}
+                      </p>
+                    </div>
+                  ))}
               </motion.div>
               <div className="flex items-center gap-3 mb-12">
-                {tabs.map((_, index) => (
+                {currentTabsData.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setActiveTab(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    className={`w-2 h-2 cursor-pointer rounded-full transition-all duration-300 ${
                       activeTab === index ? "bg-white w-8" : "bg-white/30"
                     }`}
                     aria-label={`Switch to tab ${index + 1}`}
@@ -222,7 +268,7 @@ export function AboutStatsSection({
               className="relative aspect-[4/3] overflow-hidden rounded-2xl"
             >
               <ImageWithFallback
-                src={ABOUT_IMG}
+                src={`${process.env.NEXT_PUBLIC_IMAGE_VIDEO_URL}/${currentTabsData[activeTab||0]?.image}`}
                 alt="LED Billboard on Busy City Street"
                 className="w-full h-full object-cover"
               />

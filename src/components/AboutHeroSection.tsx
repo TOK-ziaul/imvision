@@ -19,10 +19,11 @@ export function AboutHeroSection({
   backgroundY = "0%",
   transition = { duration: 1.2, ease: "linear" },
   part,
+  aboutData,
 }: AboutHeroSectionProps) {
   const trans = transition as object;
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   if (part === "background") {
     return (
       <motion.div
@@ -56,10 +57,12 @@ export function AboutHeroSection({
                 fontWeight: 300,
               }}
             >
-              {t.about.hero.titleLine1}
+              {/* {t.about.hero.titleLine1} */}
+              {aboutData?.titleLine1?.[language]}
+
               <br />
               <span className="text-white font-light italic">
-                {t.about.hero.titleLine2}
+                {aboutData?.titleLine2?.[language]}
               </span>
             </motion.h1>
           </div>
@@ -73,7 +76,7 @@ export function AboutHeroSection({
               fontWeight: 300,
             }}
           >
-            {t.about.hero.description}
+            {aboutData?.description?.[language]}
           </motion.p>
           <motion.div
             initial={{ y: 30, opacity: 0 }}
