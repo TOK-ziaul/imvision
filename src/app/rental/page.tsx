@@ -14,6 +14,7 @@ import {
 import { useTranslation } from "@/hooks/useTranslation";
 import { useQuery } from "@tanstack/react-query";
 import { withoutAuthAxios } from "@/lib/config";
+import { ServiceSectionItem } from "@/components/ServiceSectionItem";
 
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxMRUQlMjBzY3JlZW4lMjBjb25jZXJ0JTIwZmVzdGl2YWwlMjBvdXRkb29yJTIwZXZlbnR8ZW58MXx8fHwxNzA5MTI4ODc2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
@@ -52,6 +53,15 @@ const fetchRental = async () => {
   const res = await withoutAuthAxios().get("/rental");
   return res.data.data[0];
 };
+// Utility: chunk array into groups of n
+function chunkArray<T>(arr: T[], size: number): T[][] {
+  const chunks: T[][] = [];
+  for (let i = 0; i < arr.length; i += size) {
+    chunks.push(arr.slice(i, i + size));
+  }
+  return chunks;
+}
+
 export default function RentalPage() {
    const { t, language } = useTranslation();
     const { data: rentalData = [], isLoading: casesLoading } = useQuery({
@@ -60,6 +70,32 @@ export default function RentalPage() {
     });
 
     console.log("rentalDatarentalData",rentalData)
+
+      const rentals= rentalData?.rentals ?? [];
+    
+      // Split rentals into chunks of 2
+      const serviceChunks = chunkArray(rentals, 2);
+    
+      // Build one slide per chunk
+      const serviceSlides = serviceChunks.map((chunk, chunkIndex) => ({
+        background: "black" as const,
+        scrollable: true,
+        content: (
+          <div className="h-full flex flex-col items-center justify-center md:gap-10 gap-6">
+            {chunk.map((service, indexInChunk) => {
+              const globalIndex = chunkIndex * 2 + indexInChunk;
+              return (
+                <ServiceSectionItem
+                  key={`${chunkIndex}-${indexInChunk}`}
+                  service={service}
+                  index={globalIndex}
+                  language={language}
+                />
+              );
+            })}
+          </div>
+        ),
+      }));
 
   return (
     <FullPageSlider
@@ -80,26 +116,27 @@ export default function RentalPage() {
           background: "black",
           content: <RentalServicesHeader rentalData={rentalData} />,
         },
-        {
-          background: "black",
-          content: <RentalSection1 />,
-          scrollable: true,
-        },
-        {
-          background: "black",
-          content: <RentalSection2 />,
-          scrollable: true,
-        },
-        {
-          background: "black",
-          content: <RentalSection3 />,
-          scrollable: true,
-        },
-        {
-          background: "black",
-          content: <RentalSection4 />,
-          scrollable: true,
-        },
+         ...serviceSlides,
+        // {
+        //   background: "black",
+        //   content: <RentalSection1 />,
+        //   scrollable: true,
+        // },
+        // {
+        //   background: "black",
+        //   content: <RentalSection2 />,
+        //   scrollable: true,
+        // },
+        // {
+        //   background: "black",
+        //   content: <RentalSection3 />,
+        //   scrollable: true,
+        // },
+        // {
+        //   background: "black",
+        //   content: <RentalSection4 />,
+        //   scrollable: true,
+        // },
         {
           background: "contact",
           content: <ContactSection part="content" />,
