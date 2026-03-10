@@ -20,7 +20,7 @@ const HERO_IMAGE =
 const CONTACT_IMAGE =
   "https://images.unsplash.com/photo-1497366216548-37526070297c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxvZmZpY2UlMjB3b3Jrc3BhY2UlMjBtb2Rlcm58ZW58MXx8fHwxNzA5MTI4ODc2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
 
-function RentalIntroContent({rentalData}) {
+function RentalIntroContent({rentalData}: {rentalData: any}) {
     const { t,language } = useTranslation();
   return (
     <div className="relative w-full">

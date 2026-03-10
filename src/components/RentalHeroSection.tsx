@@ -8,6 +8,7 @@ type Part = "full" | "content";
 interface RentalHeroSectionProps {
   backgroundImage: string;
   part?: Part;
+  rentalData:any
 }
 
 export function RentalHeroSection({

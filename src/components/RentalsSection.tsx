@@ -280,7 +280,7 @@ function RentalSectionItem({
   );
 }
 
-export function RentalServicesHeader({rentalData}) {
+export function RentalServicesHeader({rentalData}: {rentalData: any}) {
     const { t,language } = useTranslation();
 
   return (

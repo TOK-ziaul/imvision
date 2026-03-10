@@ -100,6 +100,7 @@ function ServiceSectionItem({
 }: {
   service: Service;
   index: number;
+  language:string
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();

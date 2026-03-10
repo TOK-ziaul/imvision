@@ -8,6 +8,7 @@ type Part = "full" | "content";
 interface ServiceHeroSectionProps {
   backgroundImage: string;
   part?: Part;
+  serviceData:any
 }
 
 const scrollIndicator = (

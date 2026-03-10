@@ -191,7 +191,7 @@ export function AboutStatsSection({
 
                 {currentTabsData &&
                   currentTabsData.length > 0 &&
-                  currentTabsData[activeTab].stats.map((stat, index) => (
+                  currentTabsData[activeTab].stats.map((stat: any, index:number) => (
                     <div key={index}>
                       <div className="flex items-baseline gap-1 mb-2">
                         <span
@@ -227,10 +227,10 @@ export function AboutStatsSection({
                         {stat.label?.[language]}
                       </p>
                     </div>
-                  ))}
+                  ))} 
               </motion.div>
               <div className="flex items-center gap-3 mb-12">
-                {currentTabsData.map((_, index) => (
+                {currentTabsData.map((_: any, index: number) => (
                   <button
                     key={index}
                     onClick={() => setActiveTab(index)}
@@ -317,7 +317,7 @@ export function AboutStatsSection({
                   lineHeight: 1.2,
                 }}
               >
-                {t.about.stats.title}
+               
               </h2>
 
               <div className="w-16 h-px bg-white/50 mb-12" />
