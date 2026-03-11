@@ -2,7 +2,7 @@
 import { motion } from "motion/react";
 import { useTranslation } from "@/hooks/useTranslation";
 
-export function SalesIntroSection() {
+export function SalesIntroSection({saleData}) {
     const { t,language } = useTranslation();
   return (
     <div className="container mx-auto px-6 lg:px-24 mt-20 lg:mt-0">
@@ -22,11 +22,12 @@ export function SalesIntroSection() {
             lineHeight: 1.2,
             letterSpacing: "-0.02em",
           }}
-        >
-          {t.sales.intro.headlinePrefix}
+        > 
+         {saleData?.intro?.title?.[language]}
+          {/* {t.sales.intro.headlinePrefix}
           <span className="text-[#2BCC07]">{t.sales.intro.headlineBrand}</span>
           {t.sales.intro.headlineMiddle}
-          <span className="text-[#2BCC07]">{t.sales.intro.headlinePhygital}</span>
+          <span className="text-[#2BCC07]">{t.sales.intro.headlinePhygital}</span> */}
         </h2>
 
         <motion.p
@@ -41,13 +42,16 @@ export function SalesIntroSection() {
             lineHeight: 1.7,
           }}
         >
-          {t.sales.intro.paragraph}
+          {/* {t.sales.intro.paragraph} */}
+          {saleData?.intro?.paragraph?.[language]}
+
         </motion.p>
       </motion.div>
 
       {/* Three Column Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl">
-        {t.sales.intro.cards.map((card, index) => (
+      {
+        saleData.intro &&  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl">
+        {saleData&& saleData.intro.cards.length>0&&saleData.intro.cards.map((card, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 40 }}
@@ -66,7 +70,7 @@ export function SalesIntroSection() {
                   letterSpacing: "-0.01em",
                 }}
               >
-                {card.title}
+                {card?.title?.[language]}
               </h3>
             </div>
             <p
@@ -77,11 +81,14 @@ export function SalesIntroSection() {
                 lineHeight: 1.7,
               }}
             >
-              {card.description}
+              {card.description?.[language]}
             </p>
           </motion.div>
         ))}
       </div>
+      }
+     
+
     </div>
   );
 }

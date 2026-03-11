@@ -238,7 +238,7 @@ export const SalesServicesSection3 = () => {
   );
 };
 
-export const SalesServicesHeader = () => {
+export const SalesServicesHeader = ({saleData}) => {
     const { t,language } = useTranslation();
   return (
     <div className="container mx-auto px-6 lg:px-24 pt-20 lg:pt-28 pb-12 lg:pb-20">
@@ -262,7 +262,9 @@ export const SalesServicesHeader = () => {
             className="tracking-[0.3em] uppercase text-[#2BCC07]"
             style={{ fontSize: "0.875rem", fontWeight: 400 }}
           >
-            {t.sales.servicesHeader.label}
+            {/* {t.sales.servicesHeader.label} */}
+
+            {saleData?.servicesHeader?.label[language]}
           </p>
         </div>
         <h2
@@ -274,7 +276,7 @@ export const SalesServicesHeader = () => {
             lineHeight: 1.1,
           }}
         >
-          {t.sales.servicesHeader.title}
+                     {saleData?.servicesHeader?.title[language]}
         </h2>
       </motion.div>
     </div>

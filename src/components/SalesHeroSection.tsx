@@ -9,11 +9,13 @@ type Part = "full" | "content";
 interface SalesHeroSectionProps {
   backgroundImage: string;
   part?: Part;
+  saleData:any
 }
 
 export function SalesHeroSection({
   backgroundImage,
   part,
+  saleData,
 }: SalesHeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
     const { t,language } = useTranslation();
@@ -47,7 +49,8 @@ export function SalesHeroSection({
             className="tracking-[0.3em] uppercase"
             style={{ fontSize: "0.875rem", color: "#2BCC07" }}
           >
-            {t.sales.hero.subtitle}
+            {/* {t.sales.hero.subtitle} */}
+            {saleData?.hero?.subtitle?.[language]}
           </p>
           <motion.div
             initial={{ scaleX: 0 }}
@@ -71,7 +74,8 @@ export function SalesHeroSection({
             lineHeight: 1.1,
           }}
         >
-          {t.sales.hero.title}
+          {/* {t.sales.hero.title} */}
+          {saleData?.hero?.title?.[language]}
         </motion.h1>
 
         {/* Description */}
@@ -86,7 +90,8 @@ export function SalesHeroSection({
             lineHeight: 1.6,
           }}
         >
-          {t.sales.hero.description}
+          {/* {t.sales.hero.description} */}
+          {saleData?.hero?.description?.[language]}
         </motion.p>
 
         {/* CTA Button */}

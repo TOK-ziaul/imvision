@@ -2,8 +2,11 @@
 import { motion } from "motion/react";
 import { useRef } from "react";
 import { MoveRight } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
-export function SalesDisplaySolutionsSection() {
+export function SalesDisplaySolutionsSection({saleData}) {
+      const { t,language } = useTranslation();
+  
   const sectionRef = useRef<HTMLDivElement>(null);
   // const scrollSectionRef = useRef<HTMLDivElement>(null);
 
@@ -70,7 +73,7 @@ export function SalesDisplaySolutionsSection() {
                   viewport={{ once: true }}
                   className="block"
                 >
-                  Display
+                  {saleData?.displaySolutionsHeader?.title[language]}
                 </motion.span>
                 <motion.span
                   initial={{ opacity: 0, x: 50 }}
@@ -79,11 +82,11 @@ export function SalesDisplaySolutionsSection() {
                   viewport={{ once: true }}
                   className="block text-[#2BCC07] ml-12 lg:ml-24"
                 >
-                  Solutions
+                  {saleData?.displaySolutionsHeader?.subtitle[language]}
                 </motion.span>
 
                 {/* Animated number */}
-                <motion.span
+                {/* <motion.span
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 0.1 }}
                   transition={{ duration: 1, delay: 0.6 }}
@@ -96,7 +99,7 @@ export function SalesDisplaySolutionsSection() {
                   }}
                 >
                   03
-                </motion.span>
+                </motion.span> */}
               </h2>
             </motion.div>
 
@@ -114,11 +117,8 @@ export function SalesDisplaySolutionsSection() {
                   lineHeight: 1.8,
                 }}
               >
-                Our display solutions strengthen your brand, improve customer
-                experience and contribute to effective communication. Whether
-                it&apos;s about attracting customers in stores, streamlining
-                information in public environments or improving workflows in
-                corporate environments, we offer the right solution.
+                                  {saleData?.displaySolutionsHeader?.paragraph[language]}
+
               </motion.p>
 
               <motion.div

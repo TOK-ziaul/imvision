@@ -156,7 +156,7 @@ export function SalesUseCasesSection() {
   );
 }
 
-export const SalesUseCasesHeader = () => {
+export const SalesUseCasesHeader = ({saleData}) => {
     const { t,language } = useTranslation();
   return (
     <motion.div
@@ -179,7 +179,8 @@ export const SalesUseCasesHeader = () => {
           className="tracking-[0.3em] uppercase text-[#2BCC07]"
           style={{ fontSize: "0.875rem", fontWeight: 400 }}
         >
-          {t.sales.useCasesHeader.label}
+          {/* {t.sales.useCasesHeader.label} */}
+          {saleData?.useCasesHeader?.subtitle[language]}
         </p>
         <div className="w-16 h-[2px] bg-[#2BCC07]" />
       </motion.div>
@@ -193,11 +194,13 @@ export const SalesUseCasesHeader = () => {
           lineHeight: 1.1,
         }}
       >
-        {t.sales.useCasesHeader.heroTitlePrefix}
+        {/* {t.sales.useCasesHeader.heroTitlePrefix}
         <span className="text-[#2BCC07]">
           {t.sales.useCasesHeader.heroTitleHighlight}
         </span>
-        {t.sales.useCasesHeader.heroTitleSuffix}
+        {t.sales.useCasesHeader.heroTitleSuffix} */}
+       {saleData?.useCasesHeader?.title[language]}
+
       </h2>
 
       <motion.p
@@ -212,7 +215,7 @@ export const SalesUseCasesHeader = () => {
           lineHeight: 1.7,
         }}
       >
-        {t.sales.useCasesHeader.description}
+       {saleData?.useCasesHeader?.description[language]}
       </motion.p>
     </motion.div>
   );
