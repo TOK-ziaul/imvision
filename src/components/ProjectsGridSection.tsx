@@ -5,30 +5,33 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { useTranslation } from "@/hooks/useTranslation";
+import { handleImage } from "@/lib/config";
 
-export interface Project {
-  id: string;
-  title: string;
-  category: string;
-  image: string;
-  description: string;
+export interface ProjectData {
+  _id: string;
+  hero: {
+    category: { en: string; sv: string };
+    industry: { en: string; sv: string };
+    description: { en: string; sv: string };
+    image: string;
+    _id: string;
+  };
 }
 
-const PROJECT_IDS = [
-  "fashion-industry",
-  "grocery-store",
-  "automotive-industry",
-  "outdoor-advertising-dooh",
-];
-const PROJECT_IMAGES = [
-  "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=80",
-  "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=1920&q=80",
-  "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&q=80",
-  "https://images.unsplash.com/photo-1763671727638-5bc55bb9c980?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80",
-];
+function ProjectCard({
+  project,
+  index,
+}: {
+  project: ProjectData;
+  index: number;
+}) {
+  const { language } = useTranslation();
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
-    const { t,language } = useTranslation();
+  const category = project.hero.category[language as "en" | "sv"] ?? project.hero.category.en;
+  const title = project.hero.industry[language as "en" | "sv"] ?? project.hero.industry.en;
+  const description = project.hero.description[language as "en" | "sv"] ?? project.hero.description.en;
+  const image = project.hero.image;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -37,7 +40,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       viewport={{ once: true }}
     >
       <Link
-        href={`/projects/${project.id}`}
+        href={`/projects/${project._id}`}
         className="group block relative overflow-hidden bg-[#0A0A0A]"
       >
         {/* Image Container */}
@@ -48,8 +51,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             className="w-full h-full"
           >
             <ImageWithFallback
-              src={project.image}
-              alt={project.title}
+              src={ handleImage(image)}
+              alt={title}
               className="w-full h-full object-cover"
             />
           </motion.div>
@@ -72,7 +75,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               className="text-[#2BCC07] mb-2 md:mb-3 tracking-widest uppercase"
               style={{ fontSize: "0.75rem", letterSpacing: "0.2em" }}
             >
-              {project.category}
+              {category}
             </p>
             <h3
               className="text-white mb-2 md:mb-3 group-hover:text-[#2BCC07] transition-colors duration-300"
@@ -83,7 +86,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 lineHeight: 1.2,
               }}
             >
-              {project.title}
+              {title}
             </h3>
             <p
               className="text-white/70 mb-2 md:mb-5"
@@ -93,35 +96,27 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 lineHeight: 1.6,
               }}
             >
-              {project.description}
+              {description}
             </p>
           </div>
           <div className="flex items-center gap-2 text-white/60 group-hover:text-[#2BCC07] transition-colors duration-300">
             <span style={{ fontSize: "0.875rem", fontWeight: 400 }}>
-              {t.projects.viewProject}
+              View Project
             </span>
             <motion.div initial={{ x: 0 }} whileHover={{ x: 5 }}>
               <ArrowUpRight className="w-4 h-4" />
             </motion.div>
           </div>
         </div>
-
-        {/* <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: index * 0.1 + 0.3 }}
-          viewport={{ once: true }}
-          className="absolute bottom-0 left-0 h-[2px] w-full bg-[#2BCC07] origin-left"
-        /> */}
       </Link>
     </motion.div>
   );
 }
 
-export function ProjectsSectionHeader() {
-    const { t,language } = useTranslation();
+export function ProjectsSectionHeader({ projectData }: { projectData: any }) {
+  const { language } = useTranslation();
   return (
-    <div className="container mx-auto px-6 lg:px-12 ">
+    <div className="container mx-auto px-6 lg:px-12">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -141,7 +136,7 @@ export function ProjectsSectionHeader() {
             className="tracking-[0.3em] uppercase"
             style={{ fontSize: "0.875rem", color: "#2BCC07" }}
           >
-            {t.projects.header.label}
+            {projectData?.hero?.subtitle?.[language]}
           </p>
         </div>
         <h2
@@ -153,8 +148,7 @@ export function ProjectsSectionHeader() {
             lineHeight: 1.2,
           }}
         >
-          {t.projects.header.titlePart1}{" "}
-          <span style={{ color: "#2BCC07" }}>{t.projects.header.titlePart2}</span>
+          {projectData?.hero?.title?.[language]}
         </h2>
         <p
           className="text-white/70 max-w-3xl"
@@ -164,46 +158,46 @@ export function ProjectsSectionHeader() {
             lineHeight: 1.7,
           }}
         >
-          {t.projects.header.description}
+          {projectData?.hero?.description?.[language]}
         </p>
       </motion.div>
     </div>
   );
 }
 
-function useProjects(): Project[] {
-    const { t,language } = useTranslation();
-  return t.projects.items.map((item, i) => ({
-    id: PROJECT_IDS[i],
-    title: item.title,
-    category: item.category,
-    image: PROJECT_IMAGES[i],
-    description: item.description,
-  }));
-}
+/**
+ * Renders a chunk of 2 projects side-by-side.
+ * `chunkIndex` is used to pick the correct pair from the full projectData array.
+ */
+export function ProjectsChunkSection({
+  projectData,
+  chunkIndex,
+}: {
+  projectData: ProjectData[];
+  chunkIndex: number;
+}) {
+  const start = chunkIndex * 2;
+  const chunk = projectData.slice(start, start + 2);
 
-export function ProjectsSection1() {
-  const projects = useProjects();
   return (
-    <div className="container mx-auto px-6 lg:px-12 h-full flex items-center justify-center ">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-        {projects.slice(0, 2).map((project, index) => (
-          <ProjectCard key={project.id} project={project} index={index} />
+    <div className="container mx-auto px-6 lg:px-12 h-full flex items-center justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 w-full">
+        {chunk.map((project, i) => (
+          <ProjectCard
+            key={project._id}
+            project={project}
+            index={start + i}
+          />
         ))}
       </div>
     </div>
   );
 }
 
-export function ProjectsSection2() {
-  const projects = useProjects();
-  return (
-    <div className="container mx-auto px-6 lg:px-12 h-full flex items-center justify-center ">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-20 lg:mb-0">
-        {projects.slice(2, 4).map((project, index) => (
-          <ProjectCard key={project.id} project={project} index={index + 2} />
-        ))}
-      </div>
-    </div>
-  );
+/**
+ * Utility: given a flat array, returns how many 2-item chunks are needed.
+ * Use this in the page to generate the correct number of slides.
+ */
+export function getProjectChunkCount(projectData: ProjectData[]): number {
+  return Math.ceil((projectData?.length ?? 0) / 2);
 }

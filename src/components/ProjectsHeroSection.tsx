@@ -34,7 +34,9 @@ const scrollIndicator = (
 export function ProjectsHeroSection({
   backgroundImage,
   part,
+  projectData
 }: ProjectsHeroSectionProps) {
+  
   const containerRef = useRef<HTMLDivElement>(null);
     const { t,language } = useTranslation();
   const { scrollYProgress } = useScroll({
@@ -64,7 +66,8 @@ export function ProjectsHeroSection({
           className="tracking-[0.3em] uppercase"
           style={{ fontSize: "0.875rem", color: "#2BCC07" }}
         >
-          {t.projects.hero.subtitle}
+          {/* {t.projects.hero.subtitle} */}
+          {projectData?.hero?.subtitle[language]}
         </p>
         <motion.div
           initial={{ scaleX: 0 }}
@@ -86,7 +89,9 @@ export function ProjectsHeroSection({
           lineHeight: 1.1,
         }}
       >
-        {t.projects.hero.title}
+        {/* {t.projects.hero.title} */}
+                  {projectData?.hero?.title[language]}
+
       </motion.h1>
       <motion.p
         initial={{ opacity: 0, y: 20 }}
@@ -99,7 +104,7 @@ export function ProjectsHeroSection({
           lineHeight: 1.6,
         }}
       >
-        {t.projects.hero.description}
+                  {projectData?.hero?.description[language]}
       </motion.p>
     </div>
   );
