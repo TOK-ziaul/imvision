@@ -15,6 +15,8 @@ import {
 } from "@/components/WhatWeDoSection";
 import { useTranslation } from "@/hooks/useTranslation";
 import { DUMMY_IMAGE } from "@/assets/dummyImage";
+import { useQuery } from "@tanstack/react-query";
+import { withoutAuthAxios } from "@/lib/config";
 
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&q=80";
@@ -33,9 +35,18 @@ const PORTFOLIO_IMAGES = [
   "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&q=80",
   DUMMY_IMAGE,
 ];
-
+const fetchHome = async () => {
+  const res = await withoutAuthAxios().get("/home");
+  return res.data.data[0];
+};
 export default function HomePage() {
-    const { t,language } = useTranslation();
+  const { data: homeData = {}, isLoading } = useQuery({
+    queryKey: ["home"],
+    queryFn: fetchHome,
+  });
+
+  console.log("homeData", homeData);
+  const { t, language } = useTranslation();
   const portfolioItems: HomePortfolioItem[] = t.homePortfolio.items.map(
     (item, i) => ({
       title: item.title,
@@ -44,6 +55,16 @@ export default function HomePage() {
       slug: PORTFOLIO_SLUGS[i],
     }),
   );
+
+  const realportfolioItems: HomePortfolioItem[] =
+    homeData?.thirdSection?.map((item, i) => ({
+      _id: item?._id,
+      title: item?.hero?.industry?.[language] || "",
+      category: item?.hero?.category?.[language] || "",
+      image: item?.hero?.image,
+      slug: item?._id,
+    })) || [];
+
   const whatWeDoServices: Service[] = [
     {
       title: t.whatWeDo.sales.title,
@@ -62,6 +83,17 @@ export default function HomePage() {
     },
   ];
 
+  const realwhatWeDoServices: Service[] =
+    homeData?.fourthSection?.serviceDetails?.map((item, i) => ({
+      _id: item?._id,
+      description: item?.description?.[language] || "",
+      title: item?.title?.[language] || "",
+      image: DUMMY_IMAGE,
+    })) || [];
+
+
+    console.log("fwvb",homeData)
+
   return (
     <FullPageSlider
       heroImage={HERO_IMAGE}
@@ -69,21 +101,23 @@ export default function HomePage() {
       slides={[
         {
           background: "hero",
-          content: <HeroSection part="content" />,
+          content: <HeroSection part="content" homeData={homeData} />,
         },
         {
           background: "black",
-          content: <HomePortfolioIntro />,
+          content: <HomePortfolioIntro homeData={homeData} />,
         },
-        ...portfolioItems.map((item, i) => ({
+        ...realportfolioItems.map((item, i) => ({
           background: "black" as const,
           content: <HomePortfolioSlide item={item} index={i + 1} />,
         })),
         {
           background: "black",
-          content: <WhatWeDoSectionHeader />,
+          content: (
+            <WhatWeDoSectionHeader title={homeData?.fourthSection?.title[language]} />
+          ),
         },
-        ...whatWeDoServices.map((service, i) => ({
+        ...realwhatWeDoServices.map((service, i) => ({
           background: "black" as const,
           content: <WhatWeDoSectionSlide service={service} index={i + 1} />,
         })),

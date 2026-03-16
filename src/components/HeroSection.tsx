@@ -16,9 +16,10 @@ type Part = "full" | "content";
 interface HeroSectionProps {
   heroImage?: string;
   part?: Part;
+  homeData?:any
 }
 
-export function HeroSection({ heroImage, part }: HeroSectionProps) {
+export function HeroSection({ heroImage, part ,homeData }: HeroSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [showAll, setShowAll] = useState(false);
     const { t,language } = useTranslation();
@@ -174,7 +175,8 @@ export function HeroSection({ heroImage, part }: HeroSectionProps) {
                       lineHeight: 1,
                     }}
                   >
-                    {t.hero.vision}
+                   
+                    {homeData?.firstSection?.titleOne[language]}
                   </motion.h1>
                 </div>
 
@@ -195,7 +197,7 @@ export function HeroSection({ heroImage, part }: HeroSectionProps) {
                       lineHeight: 1,
                     }}
                   >
-                    {t.hero.technology}
+                     {homeData?.firstSection?.titleTwo[language]}
                   </motion.h1>
                 </div>
 
@@ -216,7 +218,7 @@ export function HeroSection({ heroImage, part }: HeroSectionProps) {
                       lineHeight: 1,
                     }}
                   >
-                    {t.hero.experience}
+                     {homeData?.firstSection?.titleThree[language]}
                   </motion.h1>
                 </div>
               </div>
@@ -241,7 +243,7 @@ export function HeroSection({ heroImage, part }: HeroSectionProps) {
               lineHeight: 1.4,
             }}
           >
-            {t.hero.taglineLine1}
+                     {homeData?.firstSection?.taglineLine1[language]}
           </motion.p>
 
           {/* Sub-subline */}
@@ -262,7 +264,7 @@ export function HeroSection({ heroImage, part }: HeroSectionProps) {
               lineHeight: 1.5,
             }}
           >
-            {t.hero.taglineLine2}
+                     {homeData?.firstSection?.taglineLine2[language]}
           </motion.p>
 
           {/* CTA Button */}

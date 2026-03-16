@@ -19,7 +19,11 @@ const WHAT_WE_DO_PATHS = ["/contact", "/rental", "/service"] as const;
 const CTA_KEYS = ["sales", "rental", "service"] as const;
 
 /** Header only – for use as intro slide in FullPageSlider */
-export function WhatWeDoSectionHeader() {
+export function WhatWeDoSectionHeader({title}) {
+
+
+
+  
     const { t,language } = useTranslation();
   return (
     <div className="relative w-full h-full flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-20 lg:pt-0">
@@ -31,7 +35,9 @@ export function WhatWeDoSectionHeader() {
         className="flex items-start gap-6"
       >
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-white">
-          {t.whatWeDo.title}
+          {title}
+ 
+  
         </h2>
       </motion.div>
     </div>

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import { handleImage } from "@/lib/config";
 
 export interface HomePortfolioItem {
   title: string;
@@ -24,7 +25,7 @@ export function HomePortfolioSlide({ item, index }: HomePortfolioSlideProps) {
         <>
           <div className="absolute inset-0">
             <ImageWithFallback
-              src={item.image}
+              src={handleImage(item.image)}
               alt={item.title}
               className="w-full h-full object-cover"
             />

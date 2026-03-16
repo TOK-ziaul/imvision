@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { useTranslation } from "@/hooks/useTranslation";
 
-export function HomePortfolioIntro() {
+export function HomePortfolioIntro({homeData}) {
     const { t,language } = useTranslation();
   return (
     <div className="relative w-full h-full flex flex-col justify-center px-6 sm:px-12 lg:px-24 pt-20 lg:pt-0">
@@ -24,7 +24,7 @@ export function HomePortfolioIntro() {
           className="tracking-[0.3em] uppercase"
           style={{ fontSize: "0.875rem", color: "#2BCC07" }}
         >
-          {t.gallery.subtitle}
+         {homeData?.secondSection?.subtitle[language]}
         </motion.p>
       </div>
       <motion.h2
@@ -40,7 +40,7 @@ export function HomePortfolioIntro() {
           lineHeight: 1.1,
         }}
       >
-        {t.gallery.title}
+         {homeData?.secondSection?.title[language]}
       </motion.h2>
     </div>
   );
